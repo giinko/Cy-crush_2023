@@ -140,29 +140,53 @@ char** moov_grille(random_char_color** grille, position pos, char dep){
     return grille;
 
 }
-
+/*
 // Fonction qui calcule les points et qui supp les lignes =================== en dev ==========================
 
-/*
+
 score_set score(char** grille,int n,int m){
     score_set score;
-
+    char car_x_1 = grille[0][0];
+    int count_x;
+    char car_y_1 = grille[0][0];
+    int count_y;
+    // Bien regarder n et m, inverser i et j dans le code !
+    // parcourir les x, y par y
     for(int i;i<n;i++){
-        char car_y_1 = grille[i][0];
+        for(int j;j<m;j++){
+            char car_x_2 = grille[i][j];
+            if(car_x_1==car_x_2){count_x+=1;}
+            if(count_x>=3){ printf("");} // supp les cases si c'est finis. check si encore + ou si fin du tableau.
+            // cree d'autre variable pour check si
 
+            // cree une fonction qui supp les case comme ca plus facile de check si la grille a ete modifier suffit
+            // d'ajouter un compteur dans la fonction qui supp les cases si elle ne bouge pas on modifie
 
+        }
+    }
+    // parcourir les y, x par x
+    for(int i;i<m;i++){
+        for(int j;j<n;j++){
 
+        }
     }
 
 
-
     return score;
-}
-===================================================================================================================*/
-
-//
-// fares
-//
+}*/
+            /*
+             * ont cree une fonction qui supp, des qu'il y a des case je lui enoie un tab avec les case a supp,
+             * elle supp et elle ajoute 1 a un compteur personnel a la fin de la fonction on vérifie si ce compteur
+             * a été modifier pour savoir si la fonction a été utiliser, si la grille n'a pas été modifier elle peut
+             * etre afficher car on a finis de la "traiter"
+             * cree aussi une fonction qui a chaque tour fait déscendre les cases quand on a finis de tt tt check
+             * on check tte la grille une fois on fait tt déscendre, si y'a eu des modife on refait sinon
+             * on refait pareil on check tte la grile et on fait déscendre ainsie de suite jusqua plus de modif.
+             * on reenvoie le score a chaque fois mais on commence a le compter a partir du premier coup.
+             * on a du taff lol c pas des hehe
+             *
+             */
+//======================================================================================================================
 
 
 int main()
