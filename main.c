@@ -141,7 +141,7 @@ char** moov_grille(random_char_color** grille, position pos, char dep){
 
 }
 
-// Fonction qui calcule les points et qui supp les lignes
+// Fonction qui calcule les points et qui supp les lignes =================== en dev ==========================
 
 /*
 score_set score(char** grille,int n,int m){
@@ -158,7 +158,7 @@ score_set score(char** grille,int n,int m){
 
     return score;
 }
-*/
+===================================================================================================================*/
 
 //
 // fares
