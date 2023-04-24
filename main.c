@@ -160,6 +160,9 @@ score_set score(char** grille,int n,int m){
 }
 */
 
+//
+// fares
+//
 
 
 int main()
