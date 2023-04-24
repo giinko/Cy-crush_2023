@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <windows.h>
-
+// testtettete
 /*
 0: noir
 1: bleu foncé
