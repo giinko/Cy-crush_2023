@@ -141,6 +141,17 @@ char** moov_grille(random_char_color** grille, position pos, char dep){
 
 }
 /*
+def supp_case(position* all_position, random_char_color** grille){
+    int taille = sizeof(all_position)/sizeof(position);
+
+    for(int i=0;i<=taille;i++){
+        printf(""); //recupe la pos dans all pos et supp dans grille
+    }
+
+
+}
+*/
+/*
 // Fonction qui calcule les points et qui supp les lignes =================== en dev ==========================
 
 
@@ -156,7 +167,10 @@ score_set score(char** grille,int n,int m){
         for(int j;j<m;j++){
             char car_x_2 = grille[i][j];
             if(car_x_1==car_x_2){count_x+=1;}
-            if(count_x>=3){ printf("");} // supp les cases si c'est finis. check si encore + ou si fin du tableau.
+            if(count_x>=3){ printf("");}
+
+
+            // supp les cases si c'est finis. check si encore + ou si fin du tableau.
             // cree d'autre variable pour check si
 
             // cree une fonction qui supp les case comme ca plus facile de check si la grille a ete modifier suffit
