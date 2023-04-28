@@ -140,18 +140,19 @@ char** moov_grille(random_char_color** grille, position pos, char dep){
     return grille;
 
 }
-/*
-def supp_case(position* all_position, random_char_color** grille){
+
+char** supp_case(position* all_position, random_char_color** grille)
+{
     int taille = sizeof(all_position)/sizeof(position);
 
     for(int i=0;i<=taille;i++){
         printf(""); //recupe la pos dans all pos et supp dans grille
     }
 
-
+    return grille;
 }
-*/
-/*
+
+
 // Fonction qui calcule les points et qui supp les lignes =================== en dev ==========================
 
 
