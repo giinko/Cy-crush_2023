@@ -17,7 +17,7 @@ typedef struct{
 
 typedef struct{
     int points;
-    char** grille;
+    random_char_color** grille;
 }score_set;
 
 
@@ -121,12 +121,30 @@ char** moov_grille(random_char_color** grille, position pos, char dep){
 
 }
 
-score_set score(random_char_color** grille,int n,int m){
+random_char_color** supp_case(position* all_position, random_char_color** grille,int taille)
+{
+
+    for(int i=0;i<taille;i++){
+        int pos_x = all_position[i].x;
+        int pos_y = all_position[i].y;
+
+        grille[pos_y][pos_x].car = '.';
+        grille[pos_y][pos_x].num = 15;
+    }
+
+    return grille;
+}
+
+
+score_set supp_score(random_char_color** grille,int n,int m){
     score_set score;
+    position all_pos[n*m];
+    int count_pos=0;
+
+    // boucle qui check en ligne ! ===================
     int count_x = 1;
     int supp_x = 0;
 
-    // boucle qui check en ligne !
     for(int i=0;i<n;i++){
         char car_x_1 = grille[i][0].car;
         for(int j=1;j<m;j++){
@@ -139,7 +157,15 @@ score_set score(random_char_color** grille,int n,int m){
             }
             else{
                 if (supp_x==1){
-                    printf(" i : %d, count_x : %d, char : %c\n",i,count_x,car_x_1);
+
+                    // permet d'ajouter les positions a supp dans le tableau
+                    for(int z=1;z<=count_x;z++){
+                        position pos;
+                        pos.x=j-z;
+                        pos.y=i;
+                        all_pos[count_pos] = pos;
+                        count_pos+=1;
+                    }
                 }
                 supp_x = 0;
                 count_x = 1;
@@ -147,49 +173,86 @@ score_set score(random_char_color** grille,int n,int m){
             car_x_1 = car_x_2;
         }
         if (supp_x==1){
-            printf(" i : %d, count_x : %d, char : %c\n",i,count_x,car_x_1);
+
+            // permet d'ajouter les positions a supp dans le tableau
+            for(int z=1;z<=count_x;z++){
+                position pos;
+                pos.x=m-z;
+                pos.y=i;
+                all_pos[count_pos] = pos;
+                count_pos+=1;
+            }
         }
         supp_x = 0;
         count_x = 1;
     }
 
+    // boucle qui check en colonne ! ===================
+    int count_y = 1;
+    int supp_y = 0;
 
-    char car_y_1 = grille[0][0].car;
-    int count_y = 0;
-    // parcourir les y, x par x
-    for(int i;i<m;i++){
-        for(int j;j<n;j++){
+    for(int i=0;i<m;i++){
+        char car_y_1 = grille[0][i].car;
+        for(int j=1;j<n;j++){
+            char car_y_2 = grille[j][i].car;
+            if(car_y_1==car_y_2){
+                count_y+=1;
+                if(count_y>=3){
+                    supp_y = 1;
+                }
+            }
+            else{
+                if (supp_y==1){
+                    // permet d'ajouter les positions a supp dans le tableau
+                    for(int z=1;z<=count_y;z++){
+                        position pos;
+                        pos.x=i;
+                        pos.y=j-z;
+                        all_pos[count_pos] = pos;
+                        count_pos+=1;
+                    }
+                }
+                supp_y = 0;
+                count_y = 1;
+            }
+            car_y_1 = car_y_2;
         }
+        if (supp_y==1){
+            for(int z=1;z<=count_y;z++){
+                position pos;
+                pos.x=i;
+                pos.y=n-z;
+                all_pos[count_pos] = pos;
+                count_pos+=1;
+            }
+        }
+        supp_y = 0;
+        count_y = 1;
     }
+
+    //le tableau est cree avec tt les pos a supp, mnt on les supp
+    random_char_color** g_supp = supp_case(all_pos,grille,count_pos);
+    score.grille = g_supp;
+    score.points = 10;
+
     return score;
 }
 
-char** supp_case(position* all_position, random_char_color** grille,int taille)
-{
 
-    for(int i=0;i<taille;i++){
-        int pos_x = all_position[i].x;
-        int pos_y = all_position[i].y;
-
-        grille[pos_y][pos_x].car = ' ';
-        grille[pos_y][pos_x].num = 15;
-    }
-
-    return grille;
-}
 
 int main()
 {
     srand(8);
     color(15,0);
-    int n=10;
-    int m=10;
+    int n=25;
+    int m=25;
 
     random_char_color** grille = creation_full_grille(n,m);
     affichage(n,m,grille);
 
-    score_set s = score(grille,n,m);
+    score_set s = supp_score(grille,n,m);
 
+    affichage(n,m,s.grille);
     return 0;
 }
 
