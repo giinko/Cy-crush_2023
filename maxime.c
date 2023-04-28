@@ -67,7 +67,7 @@ void affichage(int n, int m,random_char_color** grille)
         printf("   ");
         for(int k=0;k<m;k++){
             if(p==0){
-                printf("%d ",k+1);
+                printf("%c ",'A'+k);
             }
             else{ printf("_ ");}
         }
@@ -75,7 +75,7 @@ void affichage(int n, int m,random_char_color** grille)
     }
 
     for(int i=0;i<n;i++){
-        printf("%c |",'A'+i);
+        printf("%d |",1+i);
         for( int j=0;j<m;j++){
             color(grille[i][j].num,0);
             printf("%c ",grille[i][j].car);
@@ -244,8 +244,8 @@ int main()
 {
     srand(8);
     color(15,0);
-    int n=25;
-    int m=25;
+    int n=10;
+    int m=30;
 
     random_char_color** grille = creation_full_grille(n,m);
     affichage(n,m,grille);

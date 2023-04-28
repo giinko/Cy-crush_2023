@@ -2,25 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include <windows.h>
-// testtettete fares tu pu t trop moche nn je rigole je taime
-/*
-0: noir
-1: bleu foncé
-2: vert
-3: bleu-gris
-4: marron
-5: pourpre
-6: kaki
-7: gris clair
-8: gris
-9: bleu
-10: vert fluo
-11: turquoise
-12: rouge
-13: rose fluo
-14: jaune fluo
-15: blanc
-*/
 
 
 /* Structure nécéssaire pour la suite */
@@ -87,7 +68,7 @@ void affichage(int n, int m,random_char_color** grille)
         printf("   ");
         for(int k=0;k<m;k++){
             if(p==0){
-                printf("%d ",k+1);
+                printf("%c ",'A'+k);
             }
             else{ printf("_ ");}
         }
@@ -95,7 +76,7 @@ void affichage(int n, int m,random_char_color** grille)
     }
 
     for(int i=0;i<n;i++){
-        printf("%c |",'A'+i);
+        printf("%d |",1+i);
         for( int j=0;j<m;j++){
             color(grille[i][j].num,0);
             printf("%c ",grille[i][j].car);
@@ -105,7 +86,9 @@ void affichage(int n, int m,random_char_color** grille)
     }
 }
 
-// fonction qui permet de modifier la grille et la reenvoie
+
+// fonction qui permet de modifier la grille et la reenvoie ============= a modifier plus valable pour notre projet !===
+
 
 char** moov_grille(random_char_color** grille, position pos, char dep){
 
@@ -138,72 +121,135 @@ char** moov_grille(random_char_color** grille, position pos, char dep){
     grille[pos2.y][pos2.x].num = color_temp1;
 
     return grille;
+}//==================================================================================================================
 
-}
 
-char** supp_case(position* all_position, random_char_color** grille)
+//Fonction qui supp les positions placer en parametre
+
+random_char_color** supp_case(position* all_position, random_char_color** grille,int taille)
 {
-    int taille = sizeof(all_position)/sizeof(position);
 
-    for(int i=0;i<=taille;i++){
-        printf(""); //recupe la pos dans all pos et supp dans grille
+    for(int i=0;i<taille;i++){
+        int pos_x = all_position[i].x;
+        int pos_y = all_position[i].y;
+
+        grille[pos_y][pos_x].car = '.';
+        grille[pos_y][pos_x].num = 15;
     }
 
     return grille;
 }
 
 
-// Fonction qui calcule les points et qui supp les lignes =================== en dev ==========================
+// Fonction qui calcule les points et qui supp les lignes
+//Ne calcule pas encore les points a définir !
+//Il faut faire la diagonale aussi !
 
 
-score_set score(char** grille,int n,int m){
+score_set supp_score(random_char_color** grille,int n,int m){
     score_set score;
-    char car_x_1 = grille[0][0];
-    int count_x;
-    char car_y_1 = grille[0][0];
-    int count_y;
-    // Bien regarder n et m, inverser i et j dans le code !
-    // parcourir les x, y par y
-    for(int i;i<n;i++){
-        for(int j;j<m;j++){
-            char car_x_2 = grille[i][j];
-            if(car_x_1==car_x_2){count_x+=1;}
-            if(count_x>=3){ printf("");}
+    position all_pos[n*m];
+    int count_pos=0;
 
+    // boucle qui check en ligne ! ===================
+    int count_x = 1;
+    int supp_x = 0;
 
-            // supp les cases si c'est finis. check si encore + ou si fin du tableau.
-            // cree d'autre variable pour check si
+    for(int i=0;i<n;i++){
+        char car_x_1 = grille[i][0].car;
+        for(int j=1;j<m;j++){
+            char car_x_2 = grille[i][j].car;
+            if(car_x_1==car_x_2){
+                count_x+=1;
+                if(count_x>=3){
+                    supp_x = 1;
+                }
+            }
+            else{
+                if (supp_x==1){
 
-            // cree une fonction qui supp les case comme ca plus facile de check si la grille a ete modifier suffit
-            // d'ajouter un compteur dans la fonction qui supp les cases si elle ne bouge pas on modifie
-
+                    // permet d'ajouter les positions a supp dans le tableau
+                    for(int z=1;z<=count_x;z++){
+                        position pos;
+                        pos.x=j-z;
+                        pos.y=i;
+                        all_pos[count_pos] = pos;
+                        count_pos+=1;
+                    }
+                }
+                supp_x = 0;
+                count_x = 1;
+            }
+            car_x_1 = car_x_2;
         }
-    }
-    // parcourir les y, x par x
-    for(int i;i<m;i++){
-        for(int j;j<n;j++){
+        if (supp_x==1){
 
+            // permet d'ajouter les positions a supp dans le tableau
+            for(int z=1;z<=count_x;z++){
+                position pos;
+                pos.x=m-z;
+                pos.y=i;
+                all_pos[count_pos] = pos;
+                count_pos+=1;
+            }
         }
+        supp_x = 0;
+        count_x = 1;
     }
 
+    // boucle qui check en colonne ! ===================
+    int count_y = 1;
+    int supp_y = 0;
+
+    for(int i=0;i<m;i++){
+        char car_y_1 = grille[0][i].car;
+        for(int j=1;j<n;j++){
+            char car_y_2 = grille[j][i].car;
+            if(car_y_1==car_y_2){
+                count_y+=1;
+                if(count_y>=3){
+                    supp_y = 1;
+                }
+            }
+            else{
+                if (supp_y==1){
+                    // permet d'ajouter les positions a supp dans le tableau
+                    for(int z=1;z<=count_y;z++){
+                        position pos;
+                        pos.x=i;
+                        pos.y=j-z;
+                        all_pos[count_pos] = pos;
+                        count_pos+=1;
+                    }
+                }
+                supp_y = 0;
+                count_y = 1;
+            }
+            car_y_1 = car_y_2;
+        }
+        if (supp_y==1){
+            for(int z=1;z<=count_y;z++){
+                position pos;
+                pos.x=i;
+                pos.y=n-z;
+                all_pos[count_pos] = pos;
+                count_pos+=1;
+            }
+        }
+        supp_y = 0;
+        count_y = 1;
+    }
+
+    //le tableau est cree avec tt les pos a supp, mnt on les supp
+    random_char_color** g_supp = supp_case(all_pos,grille,count_pos);
+    score.grille = g_supp;
+    score.points = 10;
 
     return score;
-}*/
-            /*
-             * ont cree une fonction qui supp, des qu'il y a des case je lui enoie un tab avec les case a supp,
-             * elle supp et elle ajoute 1 a un compteur personnel a la fin de la fonction on vérifie si ce compteur
-             * a été modifier pour savoir si la fonction a été utiliser, si la grille n'a pas été modifier elle peut
-             * etre afficher car on a finis de la "traiter"
-             * cree aussi une fonction qui a chaque tour fait déscendre les cases quand on a finis de tt tt check
-             * on check tte la grille une fois on fait tt déscendre, si y'a eu des modife on refait sinon
-             * on refait pareil on check tte la grile et on fait déscendre ainsie de suite jusqua plus de modif.
-             * on reenvoie le score a chaque fois mais on commence a le compter a partir du premier coup.
-             * on a du taff lol c pas des hehe
-             *
-             */
-//======================================================================================================================
+}
 
 
+// Main a revoir, car .h apres je test sur maxime.c
 int main()
 {
     //variable de base pour le code, initalisation
@@ -234,6 +280,8 @@ int main()
 
     return 0;
 }
+
+
 
 /*
  * Cree une fonction qui check si aucune case ne se touchent 3 ou plus
