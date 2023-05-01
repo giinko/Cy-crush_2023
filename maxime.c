@@ -238,10 +238,24 @@ score_set supp_score(random_char_color** grille,int n,int m){
     return score;
 }
 // on va la mettre a droite de base pour le projet, mais modifiable par la suite
-def grille_gravite(random_char_color** grille){
+random_char_color grille_gravite(random_char_color** grille,int n,int m){
     char direction = 'R';
     if (direction == 'R'){
 
+        for(int i=0;i<n;i++){
+            for(int j=m;j>1;j--){
+                char car_dep1 = grille[i][j].car;
+                if (car_dep1 == '.'){
+                    printf("");
+                }
+            }
+        }
+        //
+        //on scan de droite a gauchef, si c'est diff de point on stock dans un nouveau tab,
+        //on parcours le tab ensuite et on rajoute les car
+        //methode pas opti en place, 2 boucles + mémoir mais tres fonctionel !!
+        //
+        //
         // on scan la grille de droite a gauche, si il y a un point on prend le point premier char quis suis
         // dans la ligne et on le place
         /*
@@ -253,8 +267,6 @@ def grille_gravite(random_char_color** grille){
          * un while ou un check a voir, ou une boucle qui peut continuer de boucler dans le vide.
          * while me semble aproprier a voir .
          */
-
-
     }
 
 
@@ -266,7 +278,7 @@ int main()
     srand(8);
     color(15,0);
     int n=10;
-    int m=30;
+    int m=10;
 
     random_char_color** grille = creation_full_grille(n,m);
     affichage(n,m,grille);
@@ -276,6 +288,9 @@ int main()
     affichage(n,m,s.grille);
     return 0;
 }
+
+// n ord et m abs, on va modif ca apres trop relou !!
+
 
 // pour ligne : seed 4
 
