@@ -237,7 +237,28 @@ score_set supp_score(random_char_color** grille,int n,int m){
 
     return score;
 }
+// on va la mettre a droite de base pour le projet, mais modifiable par la suite
+def grille_gravite(random_char_color** grille){
+    char direction = 'R';
+    if (direction == 'R'){
 
+        // on scan la grille de droite a gauche, si il y a un point on prend le point premier char quis suis
+        // dans la ligne et on le place
+        /*
+         * ex 1 :  X O O . . O
+         *
+         * ex 2 :  X O . . O O
+         *
+         * un peu comme l'acienne foonction de déplacmeent on échange, si rien a échanger alors, ligne suivant on fait
+         * un while ou un check a voir, ou une boucle qui peut continuer de boucler dans le vide.
+         * while me semble aproprier a voir .
+         */
+
+
+    }
+
+
+}
 
 
 int main()
