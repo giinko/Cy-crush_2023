@@ -64,7 +64,7 @@ char** creation_full_grille(int n,int m){
 void affichage(int n, int m,random_char_color** grille)
 {
     for(int p=0;p<2;p++){
-        printf("   ");
+        printf("    ");
         for(int k=0;k<m;k++){
             if(p==0){
                 printf("%c ",'A'+k);
@@ -75,7 +75,10 @@ void affichage(int n, int m,random_char_color** grille)
     }
 
     for(int i=0;i<n;i++){
-        printf("%d |",1+i);
+
+        if(i<9){printf("%d  |",1+i);}
+        else{printf("%d |",1+i);}
+
         for( int j=0;j<m;j++){
             color(grille[i][j].num,0);
             printf("%c ",grille[i][j].car);
@@ -239,8 +242,10 @@ score_set supp_score(random_char_color** grille,int n,int m){
 }
 // on va la mettre a droite de base pour le projet, mais modifiable par la suite
 random_char_color** grille_gravite(random_char_color** grille,int n,int m){
+    // pour pouvoir changé la direction ultérieurement
     char direction = 'R';
 
+    //Gravité à droite
     if (direction == 'R'){
 
         for(int i=0;i<n;i++){
@@ -259,15 +264,14 @@ random_char_color** grille_gravite(random_char_color** grille,int n,int m){
                 grille[i][m-w].car = grav_rest[w].car;
                 grille[i][m-w].num = grav_rest[w].num;
             }
+
             for(int y=count_grav_tab;y<=m;y++){
                 grille[i][m-y].car = '.';
                 grille[i][m-y].num = 15;
             }
         }
     }
-
     return grille;
-
 }
 
 
@@ -275,8 +279,8 @@ int main()
 {
     srand(8);
     color(15,0);
-    int n=5;
-    int m=5;
+    int n=10;
+    int m=10;
 
     random_char_color** grille = creation_full_grille(n,m);
     affichage(n,m,grille);
