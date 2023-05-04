@@ -238,37 +238,35 @@ score_set supp_score(random_char_color** grille,int n,int m){
     return score;
 }
 // on va la mettre a droite de base pour le projet, mais modifiable par la suite
-random_char_color grille_gravite(random_char_color** grille,int n,int m){
+random_char_color** grille_gravite(random_char_color** grille,int n,int m){
     char direction = 'R';
+
     if (direction == 'R'){
 
         for(int i=0;i<n;i++){
-            for(int j=m;j>1;j--){
-                char car_dep1 = grille[i][j].car;
-                if (car_dep1 == '.'){
-                    printf("");
+            random_char_color grav_rest[m];
+            int count_grav_tab = 0;
+            for(int j=m;j>=0;j--){
+                char car_dep_grav = grille[i][j].car;
+                int col_dep_grav = grille[i][j].num;
+                if (car_dep_grav != '.'){
+                    grav_rest[count_grav_tab].car = car_dep_grav;
+                    grav_rest[count_grav_tab].num = col_dep_grav;
+                    count_grav_tab +=1;
                 }
             }
+            for (int w=0;w<count_grav_tab;w++){
+                grille[i][m-w].car = grav_rest[w].car;
+                grille[i][m-w].num = grav_rest[w].num;
+            }
+            for(int y=count_grav_tab;y<=m;y++){
+                grille[i][m-y].car = '.';
+                grille[i][m-y].num = 15;
+            }
         }
-        //
-        //on scan de droite a gauchef, si c'est diff de point on stock dans un nouveau tab,
-        //on parcours le tab ensuite et on rajoute les car
-        //methode pas opti en place, 2 boucles + mémoir mais tres fonctionel !!
-        //
-        //
-        // on scan la grille de droite a gauche, si il y a un point on prend le point premier char quis suis
-        // dans la ligne et on le place
-        /*
-         * ex 1 :  X O O . . O
-         *
-         * ex 2 :  X O . . O O
-         *
-         * un peu comme l'acienne foonction de déplacmeent on échange, si rien a échanger alors, ligne suivant on fait
-         * un while ou un check a voir, ou une boucle qui peut continuer de boucler dans le vide.
-         * while me semble aproprier a voir .
-         */
     }
 
+    return grille;
 
 }
 
@@ -277,15 +275,18 @@ int main()
 {
     srand(8);
     color(15,0);
-    int n=10;
-    int m=10;
+    int n=5;
+    int m=5;
 
     random_char_color** grille = creation_full_grille(n,m);
     affichage(n,m,grille);
 
     score_set s = supp_score(grille,n,m);
-
     affichage(n,m,s.grille);
+
+    random_char_color** grille1 = grille_gravite(s.grille,n,m);
+    affichage(n,m,grille1);
+
     return 0;
 }
 
