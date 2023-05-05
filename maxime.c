@@ -143,6 +143,8 @@ score_set supp_score(random_char_color** grille,int n,int m){
     score_set score;
     position all_pos[n*m];
     int count_pos=0;
+    int count_score = 0;
+    score.points = 0;
 
     // boucle qui check en ligne ! ===================
     int count_x = 1;
@@ -152,7 +154,7 @@ score_set supp_score(random_char_color** grille,int n,int m){
         char car_x_1 = grille[i][0].car;
         for(int j=1;j<m;j++){
             char car_x_2 = grille[i][j].car;
-            if(car_x_1==car_x_2){
+            if((car_x_1==car_x_2)&&(car_x_1!='.')){
                 count_x+=1;
                 if(count_x>=3){
                     supp_x = 1;
@@ -170,6 +172,7 @@ score_set supp_score(random_char_color** grille,int n,int m){
                         count_pos+=1;
                     }
                 }
+                count_score += count_x;
                 supp_x = 0;
                 count_x = 1;
             }
@@ -186,6 +189,7 @@ score_set supp_score(random_char_color** grille,int n,int m){
                 count_pos+=1;
             }
         }
+        count_score += count_x;
         supp_x = 0;
         count_x = 1;
     }
@@ -198,7 +202,7 @@ score_set supp_score(random_char_color** grille,int n,int m){
         char car_y_1 = grille[0][i].car;
         for(int j=1;j<n;j++){
             char car_y_2 = grille[j][i].car;
-            if(car_y_1==car_y_2){
+            if((car_y_1==car_y_2)&&(car_y_1!='.')){
                 count_y+=1;
                 if(count_y>=3){
                     supp_y = 1;
@@ -215,6 +219,7 @@ score_set supp_score(random_char_color** grille,int n,int m){
                         count_pos+=1;
                     }
                 }
+                count_score += supp_y;
                 supp_y = 0;
                 count_y = 1;
             }
@@ -229,6 +234,7 @@ score_set supp_score(random_char_color** grille,int n,int m){
                 count_pos+=1;
             }
         }
+        count_score += supp_y;
         supp_y = 0;
         count_y = 1;
     }
@@ -236,7 +242,7 @@ score_set supp_score(random_char_color** grille,int n,int m){
     //le tableau est cree avec tt les pos a supp, mnt on les supp
     random_char_color** g_supp = supp_case(all_pos,grille,count_pos);
     score.grille = g_supp;
-    score.points = 10;
+    score.points = count_pos;
 
     return score;
 }
@@ -275,21 +281,62 @@ random_char_color** grille_gravite(random_char_color** grille,int n,int m){
 }
 
 
+// Fonction qui remplit une grille aléatoirement
+random_char_color** remplir_grille(random_char_color** grille,int n,int m){
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(grille[i][j].car == '.'){
+                grille[i][j] = random_char();
+            }
+        }
+    }
+    return grille;
+}
+
+
+// Fonction qui prend une grille en parametre et qui reenvoie une grille prete a jouer
+random_char_color** start_grille(random_char_color** grille, int n,int m){
+    int score = 1;
+    while (score>0){
+
+        score_set grille_score = supp_score(grille,n,m);
+
+        random_char_color** grille1 = grille_gravite(grille_score.grille,n,m);
+
+        random_char_color** grille2 = remplir_grille(grille1,n,m);
+
+        grille = grille2;
+        score = grille_score.points;
+    }
+    return grille;
+}
+
 int main()
 {
     srand(8);
     color(15,0);
-    int n=10;
+    int n=15;
     int m=10;
 
+    // creation grille
     random_char_color** grille = creation_full_grille(n,m);
     affichage(n,m,grille);
 
+    // supp les choses a supp
     score_set s = supp_score(grille,n,m);
     affichage(n,m,s.grille);
+    printf("\n %d \n",s.points);
 
+    // Gravité de la grille
     random_char_color** grille1 = grille_gravite(s.grille,n,m);
     affichage(n,m,grille1);
+
+    // Ajout des nouveaux symbols qui tombent.
+    random_char_color** grille2 = remplir_grille(grille1,n,m);
+    affichage(n,m,grille2);
+
+    random_char_color** grille3 = start_grille(grille,n,m);
+    affichage(n,m,grille3);
 
     return 0;
 }
