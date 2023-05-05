@@ -8,7 +8,7 @@
 typedef struct{
     int num;
     char car;
-}random_char_color;
+}struct_grille_cc;
 
 typedef struct{
     int x;
@@ -17,7 +17,7 @@ typedef struct{
 
 typedef struct{
     int points;
-    random_char_color** grille;
+    struct_grille_cc** grille;
 }score_set;
 
 
@@ -32,9 +32,9 @@ void color(int t,int f)
 
 // Fonction qui choisi un caractere aléatoire parmis la liste prédéfinis
 
-random_char_color random_char()
+struct_grille_cc random_char()
 {
-    random_char_color zz;
+    struct_grille_cc zz;
     int r = rand()%4;
     char tab[4] = {'X','O','@','+'};
     int color[4] = {14,12,1,2};
@@ -48,9 +48,9 @@ random_char_color random_char()
 
 char** creation_full_grille(int n,int m){
 
-    random_char_color** tab = malloc(n * sizeof(random_char_color*));
+    struct_grille_cc** tab = malloc(n * sizeof(struct_grille_cc*));
     for (int i = 0; i < n; i++) {
-        tab[i] = malloc(m * sizeof(random_char_color));
+        tab[i] = malloc(m * sizeof(struct_grille_cc));
         for (int j = 0; j < m; j++) {
             tab[i][j] = random_char();
         }
@@ -61,7 +61,7 @@ char** creation_full_grille(int n,int m){
 
 // fonction qui affiche la grille en parametre avec la taille
 
-void affichage(int n, int m,random_char_color** grille)
+void affichage(int n, int m, struct_grille_cc** grille)
 {
     for(int p=0;p<2;p++){
         printf("    ");
@@ -90,7 +90,7 @@ void affichage(int n, int m,random_char_color** grille)
 
 // fonction qui permet de modifier la grille et la reenvoie
 
-char** moov_grille(random_char_color** grille, position pos, char dep){
+char** moov_grille(struct_grille_cc** grille, position pos, char dep){
 
     position pos1 = pos;
     position pos2 = pos;
@@ -124,7 +124,7 @@ char** moov_grille(random_char_color** grille, position pos, char dep){
 
 }
 
-random_char_color** supp_case(position* all_position, random_char_color** grille,int taille)
+struct_grille_cc** supp_case(position* all_position, struct_grille_cc** grille, int taille)
 {
 
     for(int i=0;i<taille;i++){
@@ -139,7 +139,7 @@ random_char_color** supp_case(position* all_position, random_char_color** grille
 }
 
 
-score_set supp_score(random_char_color** grille,int n,int m){
+score_set supp_score(struct_grille_cc** grille, int n, int m){
     score_set score;
     position all_pos[n*m];
     int count_pos=0;
@@ -240,14 +240,14 @@ score_set supp_score(random_char_color** grille,int n,int m){
     }
 
     //le tableau est cree avec tt les pos a supp, mnt on les supp
-    random_char_color** g_supp = supp_case(all_pos,grille,count_pos);
+    struct_grille_cc** g_supp = supp_case(all_pos, grille, count_pos);
     score.grille = g_supp;
     score.points = count_pos;
 
     return score;
 }
 // on va la mettre a droite de base pour le projet, mais modifiable par la suite
-random_char_color** grille_gravite(random_char_color** grille,int n,int m){
+struct_grille_cc** grille_gravite(struct_grille_cc** grille, int n, int m){
     // pour pouvoir changé la direction ultérieurement
     char direction = 'R';
 
@@ -255,7 +255,7 @@ random_char_color** grille_gravite(random_char_color** grille,int n,int m){
     if (direction == 'R'){
 
         for(int i=0;i<n;i++){
-            random_char_color grav_rest[m];
+            struct_grille_cc grav_rest[m];
             int count_grav_tab = 0;
             for(int j=m;j>=0;j--){
                 char car_dep_grav = grille[i][j].car;
@@ -282,7 +282,7 @@ random_char_color** grille_gravite(random_char_color** grille,int n,int m){
 
 
 // Fonction qui remplit une grille aléatoirement
-random_char_color** remplir_grille(random_char_color** grille,int n,int m){
+struct_grille_cc** remplir_grille(struct_grille_cc** grille, int n, int m){
     for(int i=0;i<n;i++){
         for(int j=0;j<m;j++){
             if(grille[i][j].car == '.'){
@@ -295,15 +295,15 @@ random_char_color** remplir_grille(random_char_color** grille,int n,int m){
 
 
 // Fonction qui prend une grille en parametre et qui reenvoie une grille prete a jouer
-random_char_color** start_grille(random_char_color** grille, int n,int m){
+struct_grille_cc** start_grille(struct_grille_cc** grille, int n, int m){
     int score = 1;
     while (score>0){
 
         score_set grille_score = supp_score(grille,n,m);
 
-        random_char_color** grille1 = grille_gravite(grille_score.grille,n,m);
+        struct_grille_cc** grille1 = grille_gravite(grille_score.grille, n, m);
 
-        random_char_color** grille2 = remplir_grille(grille1,n,m);
+        struct_grille_cc** grille2 = remplir_grille(grille1, n, m);
 
         grille = grille2;
         score = grille_score.points;
@@ -311,35 +311,97 @@ random_char_color** start_grille(random_char_color** grille, int n,int m){
     return grille;
 }
 
+//Fonction qui permet de déplacer les pions dans la grille
+struct_grille_cc** deplacement_grille(struct_grille_cc** grille,position pos1,position pos2){
+
+    int pos1_x = pos1.x;
+    int pos1_y = pos1.y;
+    struct_grille_cc case1;
+    case1.car = grille[pos1_y][pos1_x].car;
+    case1.num = grille[pos1_y][pos1_x].num;
+
+    int pos2_x = pos2.x;
+    int pos2_y = pos2.y;
+    struct_grille_cc case2;
+    case2.car = grille[pos2_y][pos2_x].car;
+    case2.num = grille[pos2_y][pos2_x].num;
+
+    grille[pos1_y][pos1_x] = case2;
+    grille[pos2_y][pos2_x] = case1;
+
+    return grille;
+
+}
+
+
+
 int main()
 {
     srand(8);
     color(15,0);
-    int n=15;
-    int m=10;
+    int n=5;
+    int m=5;
 
     // creation grille
-    random_char_color** grille = creation_full_grille(n,m);
+    struct_grille_cc** grille = creation_full_grille(n, m);
     affichage(n,m,grille);
 
+    // Initialisatino de la grille
+    struct_grille_cc** grille3 = start_grille(grille, n, m);
+    affichage(n,m,grille3);
+
+    //Déplacement sur la grille
+    position pos1;
+    position pos2;
+
+
+    printf("Indiquez moi la position des points que vous voulez chnager.\n");
+    printf("Par exemple : A:3, B:4, j'echange a3 et b4\n");
+
+    char pos_car;
+    int pos_num;
+    printf("Position 1 (A:3) : ");
+    scanf("%c %d",&pos_car,&pos_num);
+    pos1.x = pos_num;
+    pos1.y = pos_car-65;
+
+    char pos_car1;
+    int pos_num1;
+    printf("Position 2 (B:2) : ");
+    scanf("%c %d",&pos_car1,&pos_num1);
+    printf("char : %c\n",pos_car1);
+    pos2.x = pos_num1;
+    pos2.y = pos_car1;
+
+    printf("%d // %d // %d // %d",pos1.x,pos1.y,pos2.x,pos2.y);
+    struct_grille_cc** grille4 = deplacement_grille(grille3, pos1,pos2);
+    affichage(n,m,grille4);
+
+    return 0;
+}
+
+
+
+// permet de bien comprendre l'enchainement !! voir fonction start aussi !
+/*
     // supp les choses a supp
     score_set s = supp_score(grille,n,m);
     affichage(n,m,s.grille);
     printf("\n %d \n",s.points);
 
     // Gravité de la grille
-    random_char_color** grille1 = grille_gravite(s.grille,n,m);
+    struct_grille_cc** grille1 = grille_gravite(s.grille, n, m);
     affichage(n,m,grille1);
 
     // Ajout des nouveaux symbols qui tombent.
-    random_char_color** grille2 = remplir_grille(grille1,n,m);
+    struct_grille_cc** grille2 = remplir_grille(grille1, n, m);
     affichage(n,m,grille2);
+ */
 
-    random_char_color** grille3 = start_grille(grille,n,m);
-    affichage(n,m,grille3);
 
-    return 0;
-}
+
+
+
 
 // n ord et m abs, on va modif ca apres trop relou !!
 
@@ -364,7 +426,7 @@ int main()
     tab_pos[0] = pos1;
     tab_pos[1] = pos2;
     tab_pos[2] = pos3;
-    random_char_color** g = supp_case(tab_pos, grille, taille);
+    struct_grille_cc** g = supp_case(tab_pos, grille, taille);
 
     free(tab_pos);
 int main()
@@ -376,7 +438,7 @@ int main()
     int m=5;
 
     //reste du code
-    random_char_color** grille = creation_full_grille(n,m);
+    struct_grille_cc** grille = creation_full_grille(n,m);
     affichage(n,m,grille);
 
     int stop = 1;
@@ -386,7 +448,7 @@ int main()
         printf("Merci de donner la position et le déplacer de votre pion (X/Y/DEP):\n");
         scanf("%d/%d/%c",&position.x,&position.y,&dep); // pouvoir choisir A1 ou B5 de cette facon la.
 
-        random_char_color** grille_temp = moov_grille(grille,position,dep);
+        struct_grille_cc** grille_temp = moov_grille(grille,position,dep);
 
         if(dep == 'S'){stop=0;}
         else{

@@ -9,7 +9,7 @@
 typedef struct{
     int num;
     char car;
-}random_char_color;
+}struct_grille_cc;
 
 typedef struct{
     int x;
@@ -33,9 +33,9 @@ void color(int t,int f)
 
 // Fonction qui choisi un caractere aléatoire parmis la liste prédéfinis
 
-random_char_color random_char()
+struct_grille_cc random_char()
 {
-    random_char_color zz;
+    struct_grille_cc zz;
     int r = rand()%4;
     char tab[4] = {'X','O','@','+'};
     int color[4] = {14,12,1,2};
@@ -49,9 +49,9 @@ random_char_color random_char()
 
 char** creation_full_grille(int n,int m){
 
-    random_char_color** tab = malloc(n * sizeof(random_char_color*));
+    struct_grille_cc** tab = malloc(n * sizeof(struct_grille_cc*));
     for (int i = 0; i < n; i++) {
-        tab[i] = malloc(m * sizeof(random_char_color));
+        tab[i] = malloc(m * sizeof(struct_grille_cc));
         for (int j = 0; j < m; j++) {
             tab[i][j] = random_char();
         }
@@ -62,7 +62,7 @@ char** creation_full_grille(int n,int m){
 
 // fonction qui affiche la grille en parametre avec la taille
 
-void affichage(int n, int m,random_char_color** grille)
+void affichage(int n, int m, struct_grille_cc** grille)
 {
     for(int p=0;p<2;p++){
         printf("   ");
@@ -90,7 +90,7 @@ void affichage(int n, int m,random_char_color** grille)
 // fonction qui permet de modifier la grille et la reenvoie ============= a modifier plus valable pour notre projet !===
 
 
-char** moov_grille(random_char_color** grille, position pos, char dep){
+char** moov_grille(struct_grille_cc** grille, position pos, char dep){
 
     position pos1 = pos;
     position pos2 = pos;
@@ -126,7 +126,7 @@ char** moov_grille(random_char_color** grille, position pos, char dep){
 
 //Fonction qui supp les positions placer en parametre
 
-random_char_color** supp_case(position* all_position, random_char_color** grille,int taille)
+struct_grille_cc** supp_case(position* all_position, struct_grille_cc** grille, int taille)
 {
 
     for(int i=0;i<taille;i++){
@@ -146,7 +146,7 @@ random_char_color** supp_case(position* all_position, random_char_color** grille
 //Il faut faire la diagonale aussi !
 
 
-score_set supp_score(random_char_color** grille,int n,int m){
+score_set supp_score(struct_grille_cc** grille, int n, int m){
     score_set score;
     position all_pos[n*m];
     int count_pos=0;
@@ -241,7 +241,7 @@ score_set supp_score(random_char_color** grille,int n,int m){
     }
 
     //le tableau est cree avec tt les pos a supp, mnt on les supp
-    random_char_color** g_supp = supp_case(all_pos,grille,count_pos);
+    struct_grille_cc** g_supp = supp_case(all_pos, grille, count_pos);
     score.grille = g_supp;
     score.points = 10;
 
@@ -259,7 +259,7 @@ int main()
     int m=5;
 
     //reste du code
-    random_char_color** grille = creation_full_grille(n,m);
+    struct_grille_cc** grille = creation_full_grille(n, m);
     affichage(n,m,grille);
 
     int stop = 1;
@@ -269,7 +269,7 @@ int main()
         printf("Merci de donner la position et le déplacer de votre pion (X/Y/DEP):\n");
         scanf("%d/%d/%c",&position.x,&position.y,&dep); // pouvoir choisir A1 ou B5 de cette facon la.
 
-        random_char_color** grille_temp = moov_grille(grille,position,dep);
+        struct_grille_cc** grille_temp = moov_grille(grille, position, dep);
 
         if(dep == 'S'){stop=0;}
         else{
@@ -278,10 +278,12 @@ int main()
         }
     }
 
+
+
     return 0;
 }
 
-
+// ca avance tres bien
 
 /*
  * Cree une fonction qui check si aucune case ne se touchent 3 ou plus
