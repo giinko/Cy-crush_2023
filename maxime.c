@@ -205,7 +205,8 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
         count_y = 1;
     }
 
-    // Boucle qui supp en diagonale
+    // Boucle qui supp en diagonale ====================
+
     int count_diag;
     int supp_diag;
 
@@ -221,11 +222,6 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
         }
     }
 
-
-
-
-
-
     //le tableau est cree avec tt les pos a supp, mnt on les supp
     struct_grille_cc** g_supp = supp_case(all_pos, grille, count_pos);
     score.grille = g_supp;
@@ -233,7 +229,10 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
 
     return score;
 }
-// on va la mettre a droite de base pour le projet, mais modifiable par la suite
+
+
+// Fonction qui gère la gravité de la grille
+
 struct_grille_cc** grille_gravite(struct_grille_cc** grille, int n, int m){
     // pour pouvoir changé la direction ultérieurement
     char direction = 'R';
@@ -281,7 +280,7 @@ struct_grille_cc** remplir_grille(struct_grille_cc** grille, int n, int m){
 }
 
 
-// Fonction qui prend une grille en parametre et qui reenvoie une grille prete a jouer
+// Fonction qui prend une grille en paramètre et qui reenvoie une grille prête a jouer
 struct_grille_cc** start_grille(struct_grille_cc** grille, int n, int m){
     int score = 1;
     while (score>0){
@@ -320,12 +319,13 @@ struct_grille_cc** deplacement_grille(struct_grille_cc** grille,position pos1,po
 }
 
 // Fonction qui gere la reaction en chaine
-
-struct_grille_cc** grille_reac_chaine(struct_grille_cc** grille,int n,int m){
+score_grille grille_reac_chaine(struct_grille_cc** grille,int n,int m){
 
     // Modifier cette fonction pour améliorer l'esthétique.
 
     int score = 1;
+    int all_score = 0;
+    score_grille struct_grille_score;
     while (score>0){
         // supp les choses a supp
         score_grille grille1 = glob_supp_score(grille, n, m);
@@ -334,15 +334,19 @@ struct_grille_cc** grille_reac_chaine(struct_grille_cc** grille,int n,int m){
         struct_grille_cc** grille2 = grille_gravite(grille1.grille, n, m);
 
         score = grille1.points;
+        all_score += score;
         grille = grille2;
     }
-    return grille;
+
+    struct_grille_score.points = all_score;
+    struct_grille_score.grille = grille;
+    return struct_grille_score;
 }
 
-
-void game(struct_grille_cc** grille,int n,int m){
-    int finish = 5;
-    while(finish>0){
+// Fonction qui fait tourner le jeu
+int game(struct_grille_cc** grille,int n,int m,int score){
+    int finish = 1;
+    while(finish!=0){
 
         //Déplacement sur la grille ======== voir si possiblité de créé une fonction !!
         // Cree une struc avec 2 pos, puis une focntion qui reenvoie 2 pos !!
@@ -355,13 +359,13 @@ void game(struct_grille_cc** grille,int n,int m){
         char pos_car;
         int pos_num;
         printf("Position 1 : ");
-        scanf("%1c:%1d",&pos_car,&pos_num);
+        scanf("%1c%1d",&pos_car,&pos_num); // Check les erreur, si == 2 et tte les infos comme on veut on continue
         while(getchar()!='\n'); // reset le scanf
         pos1.y = pos_num-1;
         pos1.x = pos_car-65;
 
         printf("Position 2 : ");
-        scanf("%1c:%1d",&pos_car,&pos_num);
+        scanf("%1c%1d",&pos_car,&pos_num);
         while(getchar()!='\n');
         pos2.y = pos_num-1;
         pos2.x = pos_car-65;
@@ -371,13 +375,22 @@ void game(struct_grille_cc** grille,int n,int m){
         affichage(n,m,grille2);
         printf("\n");
 
-        grille = grille_reac_chaine(grille2,n,m);
+        score_grille struct_grille_score;
+        struct_grille_score = grille_reac_chaine(grille2,n,m);
+
+        grille = struct_grille_score.grille;
         affichage(n,m,grille);
         printf("\n");
 
-        finish -= 1;
+        if(struct_grille_score.points == 0){
+            finish = 0;
+        }
+        else{
+            score+=struct_grille_score.points;
+        }
 
     }
+    return score;
 }
 
 int main()
@@ -394,8 +407,11 @@ int main()
     struct_grille_cc** grille3 = start_grille(grille, n, m);
     affichage(n,m,grille3);
 
-    game(grille3,n,m);
+    // Jeu
+    int final_score;
+    final_score = game(grille3,n,m,0);
 
+    printf("Le score final est de : %d",final_score);
     return 0;
 }
 
