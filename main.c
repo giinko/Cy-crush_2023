@@ -19,7 +19,7 @@ typedef struct{
 typedef struct{
     int points;
     char** grille;
-}score_set;
+}score_grille;
 
 
 /* Fonction qui permet de changer la couleur des caractères de la consol */
@@ -146,8 +146,8 @@ struct_grille_cc** supp_case(position* all_position, struct_grille_cc** grille, 
 //Il faut faire la diagonale aussi !
 
 
-score_set supp_score(struct_grille_cc** grille, int n, int m){
-    score_set score;
+score_grille supp_score(struct_grille_cc** grille, int n, int m){
+    score_grille score;
     position all_pos[n*m];
     int count_pos=0;
 

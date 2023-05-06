@@ -18,7 +18,7 @@ typedef struct{
 typedef struct{
     int points;
     struct_grille_cc** grille;
-}score_set;
+}score_grille;
 
 
 /* Fonction qui permet de changer la couleur des caractères de la consol */
@@ -139,8 +139,8 @@ struct_grille_cc** supp_case(position* all_position, struct_grille_cc** grille, 
 }
 
 
-score_set supp_score(struct_grille_cc** grille, int n, int m){
-    score_set score;
+score_grille supp_score(struct_grille_cc** grille, int n, int m){
+    score_grille score;
     position all_pos[n*m];
     int count_pos=0;
     int count_score = 0;
@@ -299,7 +299,7 @@ struct_grille_cc** start_grille(struct_grille_cc** grille, int n, int m){
     int score = 1;
     while (score>0){
 
-        score_set grille_score = supp_score(grille,n,m);
+        score_grille grille_score = supp_score(grille, n, m);
 
         struct_grille_cc** grille1 = grille_gravite(grille_score.grille, n, m);
 
@@ -330,13 +330,35 @@ struct_grille_cc** deplacement_grille(struct_grille_cc** grille,position pos1,po
     grille[pos2_y][pos2_x] = case1;
 
     return grille;
-
 }
+
+// Fonction qui gere la reaction en chaine
+
+struct_grille_cc** grille_reac_chaine(struct_grille_cc** grille,int n,int m){
+
+    // Modifier cette fonction pour améliorer l'esthétique.
+
+    int score = 1;
+    while (score>0){
+        // supp les choses a supp
+        score_grille grille1 = supp_score(grille, n, m);
+
+        // Gravité de la grille
+        struct_grille_cc** grille2 = grille_gravite(grille1.grille, n, m);
+
+        score = grille1.points;
+        grille = grille2;
+    }
+    return grille;
+}
+
 
 void game(struct_grille_cc** grille,int n,int m){
     int finish = 5;
     while(finish>0){
-        //Déplacement sur la grille
+
+        //Déplacement sur la grille ======== voir si possiblité de créé une fonction !!
+        // Cree une struc avec 2 pos, puis une focntion qui reenvoie 2 pos !!
         position pos1;
         position pos2;
 
@@ -347,41 +369,29 @@ void game(struct_grille_cc** grille,int n,int m){
         int pos_num;
         printf("Position 1 : ");
         scanf("%1c:%1d",&pos_car,&pos_num);
+        while(getchar()!='\n'); // reset le scanf
         pos1.y = pos_num-1;
         pos1.x = pos_car-65;
 
         printf("Position 2 : ");
-        scanf(" %1c:%1d",&pos_car,&pos_num);
+        scanf("%1c:%1d",&pos_car,&pos_num);
+        while(getchar()!='\n');
         pos2.y = pos_num-1;
         pos2.x = pos_car-65;
 
         // On déplace le coup.
         struct_grille_cc** grille2 = deplacement_grille(grille, pos1,pos2);
         affichage(n,m,grille2);
+        printf("\n");
 
-        // supp les choses a supp
-        score_set grille3 = supp_score(grille2,n,m);
-        affichage(n,m,grille3.grille);
+        grille = grille_reac_chaine(grille2,n,m);
+        affichage(n,m,grille);
+        printf("\n");
 
-        // Gravité de la grille
-        struct_grille_cc** grille4 = grille_gravite(grille3.grille, n, m);
-        affichage(n,m,grille4);
-
-        // supp les choses a supp
-        score_set grille5 = supp_score(grille2,n,m);
-        affichage(n,m,grille4);
-
-        grille = grille5.grille;
         finish -= 1;
-        printf("\n");
-        printf("\n");
-        printf("\n");
-        printf("\n");
-        printf("\n");
-        scanf("");
+
     }
 }
-
 
 int main()
 {
@@ -402,12 +412,13 @@ int main()
     return 0;
 }
 
-
+// Fonction qui check si il y a toujours au moins 2 symbols sinon game finis !
+// réflechir pas suffisent !!
 
 // permet de bien comprendre l'enchainement !! voir fonction start aussi !
 /*
     // supp les choses a supp
-    score_set s = supp_score(grille,n,m);
+    score_grille s = supp_score(grille,n,m);
     affichage(n,m,s.grille);
     printf("\n %d \n",s.points);
 

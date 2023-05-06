@@ -4,20 +4,24 @@
 int main()
 {
 
-
-    char car1;
-    int num1;
-
-    scanf("%1c-%1d",&car1,&num1);
-    printf("char : %c, int : %d\n", car1,num1);
-
-    char car2;
-    int num2;
-
-    scanf(" %1c-%1d",&car2,&num2);
-    printf("char : %c, int : %d\n", car2,num2);
+    for (int i = 0; i < 2; ++i) {
 
 
+        char car1;
+        int num1;
+
+        scanf("%1c-%1d", &car1, &num1);
+        while(getchar()!='\n');
+        printf("char : %c, int : %d\n", car1, num1);
+
+        char car2;
+        int num2;
+
+        scanf("%1c-%1d", &car2, &num2);
+        while(getchar()!='\n');
+        printf("char : %c, int : %d\n", car2, num2);
+
+    }
     // VOILA CREE TT ICI BG
 
 
