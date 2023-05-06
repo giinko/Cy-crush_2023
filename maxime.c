@@ -46,7 +46,7 @@ struct_grille_cc random_char()
 
 // fonction qui cree une grille a partir de 2 dimensions
 
-char** creation_full_grille(int n,int m){
+struct_grille_cc** creation_full_grille(int n,int m){
 
     struct_grille_cc** tab = malloc(n * sizeof(struct_grille_cc*));
     for (int i = 0; i < n; i++) {
@@ -333,6 +333,54 @@ struct_grille_cc** deplacement_grille(struct_grille_cc** grille,position pos1,po
 
 }
 
+void game(struct_grille_cc** grille,int n,int m){
+    int finish = 5;
+    while(finish>0){
+        //Déplacement sur la grille
+        position pos1;
+        position pos2;
+
+        printf("Indiquez moi la position des points que vous voulez chnager.\n");
+        printf("Par exemple : A:3, B:4, j'echange a3 et b4\n");
+
+        char pos_car;
+        int pos_num;
+        printf("Position 1 : ");
+        scanf("%1c:%1d",&pos_car,&pos_num);
+        pos1.y = pos_num-1;
+        pos1.x = pos_car-65;
+
+        printf("Position 2 : ");
+        scanf(" %1c:%1d",&pos_car,&pos_num);
+        pos2.y = pos_num-1;
+        pos2.x = pos_car-65;
+
+        // On déplace le coup.
+        struct_grille_cc** grille2 = deplacement_grille(grille, pos1,pos2);
+        affichage(n,m,grille2);
+
+        // supp les choses a supp
+        score_set grille3 = supp_score(grille2,n,m);
+        affichage(n,m,grille3.grille);
+
+        // Gravité de la grille
+        struct_grille_cc** grille4 = grille_gravite(grille3.grille, n, m);
+        affichage(n,m,grille4);
+
+        // supp les choses a supp
+        score_set grille5 = supp_score(grille2,n,m);
+        affichage(n,m,grille4);
+
+        grille = grille5.grille;
+        finish -= 1;
+        printf("\n");
+        printf("\n");
+        printf("\n");
+        printf("\n");
+        printf("\n");
+        scanf("");
+    }
+}
 
 
 int main()
@@ -344,38 +392,12 @@ int main()
 
     // creation grille
     struct_grille_cc** grille = creation_full_grille(n, m);
-    affichage(n,m,grille);
 
     // Initialisatino de la grille
     struct_grille_cc** grille3 = start_grille(grille, n, m);
     affichage(n,m,grille3);
 
-    //Déplacement sur la grille
-    position pos1;
-    position pos2;
-
-
-    printf("Indiquez moi la position des points que vous voulez chnager.\n");
-    printf("Par exemple : A:3, B:4, j'echange a3 et b4\n");
-
-    char pos_car;
-    int pos_num;
-    printf("Position 1 (A:3) : ");
-    scanf("%c %d",&pos_car,&pos_num);
-    pos1.x = pos_num;
-    pos1.y = pos_car-65;
-
-    char pos_car1;
-    int pos_num1;
-    printf("Position 2 (B:2) : ");
-    scanf("%c %d",&pos_car1,&pos_num1);
-    printf("char : %c\n",pos_car1);
-    pos2.x = pos_num1;
-    pos2.y = pos_car1;
-
-    printf("%d // %d // %d // %d",pos1.x,pos1.y,pos2.x,pos2.y);
-    struct_grille_cc** grille4 = deplacement_grille(grille3, pos1,pos2);
-    affichage(n,m,grille4);
+    game(grille3,n,m);
 
     return 0;
 }
