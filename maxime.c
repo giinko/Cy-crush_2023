@@ -88,42 +88,8 @@ void affichage(int n, int m, struct_grille_cc** grille)
     }
 }
 
-// fonction qui permet de modifier la grille et la reenvoie
 
-char** moov_grille(struct_grille_cc** grille, position pos, char dep){
-
-    position pos1 = pos;
-    position pos2 = pos;
-    char char_temp1 = grille[pos1.y][pos1.x].car;
-    int color_temp1 = grille[pos1.y][pos1.x].num;
-
-    // check si le dep est possible !!! pas encore fait car dep des versions !!
-    if (dep == 'U'){
-        pos2.y -=1;
-    }
-    else if(dep == 'D'){
-        pos2.y += 1;
-    }
-    else if(dep == 'L'){
-        pos2.x -=1;
-    }
-    else if(dep == 'R'){
-        pos2.x +=1;
-    }
-    else{printf("tg t con\n");}
-
-    char char_temp2 = grille[pos2.y][pos2.x].car;
-    int color_temp2 = grille[pos2.y][pos2.x].num;
-
-    grille[pos1.y][pos1.x].car = char_temp2;
-    grille[pos1.y][pos1.x].num = color_temp2;
-    grille[pos2.y][pos2.x].car = char_temp1;
-    grille[pos2.y][pos2.x].num = color_temp1;
-
-    return grille;
-
-}
-
+// Fonction qui reenvoie la grille avec les position supp
 struct_grille_cc** supp_case(position* all_position, struct_grille_cc** grille, int taille)
 {
 
@@ -138,8 +104,8 @@ struct_grille_cc** supp_case(position* all_position, struct_grille_cc** grille, 
     return grille;
 }
 
-
-score_grille supp_score(struct_grille_cc** grille, int n, int m){
+// Renvoie uns structure avec la grille supprimer et le score
+score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
     score_grille score;
     position all_pos[n*m];
     int count_pos=0;
@@ -239,6 +205,27 @@ score_grille supp_score(struct_grille_cc** grille, int n, int m){
         count_y = 1;
     }
 
+    // Boucle qui supp en diagonale
+    int count_diag;
+    int supp_diag;
+
+    for (int i = 0; i < n; ++i) {
+        if(i==0){
+            // on check tte la ligne (j) diag vers le bas et la droite
+        }
+        else if(i==m){
+            // on check tte la ligne (j) diag vers le haut et la droite
+        }
+        else{
+            // on check diag en partant du point i en haut et en bas vers la droite
+        }
+    }
+
+
+
+
+
+
     //le tableau est cree avec tt les pos a supp, mnt on les supp
     struct_grille_cc** g_supp = supp_case(all_pos, grille, count_pos);
     score.grille = g_supp;
@@ -299,7 +286,7 @@ struct_grille_cc** start_grille(struct_grille_cc** grille, int n, int m){
     int score = 1;
     while (score>0){
 
-        score_grille grille_score = supp_score(grille, n, m);
+        score_grille grille_score = glob_supp_score(grille, n, m);
 
         struct_grille_cc** grille1 = grille_gravite(grille_score.grille, n, m);
 
@@ -341,7 +328,7 @@ struct_grille_cc** grille_reac_chaine(struct_grille_cc** grille,int n,int m){
     int score = 1;
     while (score>0){
         // supp les choses a supp
-        score_grille grille1 = supp_score(grille, n, m);
+        score_grille grille1 = glob_supp_score(grille, n, m);
 
         // Gravité de la grille
         struct_grille_cc** grille2 = grille_gravite(grille1.grille, n, m);
@@ -418,7 +405,7 @@ int main()
 // permet de bien comprendre l'enchainement !! voir fonction start aussi !
 /*
     // supp les choses a supp
-    score_grille s = supp_score(grille,n,m);
+    score_grille s = glob_supp_score(grille,n,m);
     affichage(n,m,s.grille);
     printf("\n %d \n",s.points);
 
