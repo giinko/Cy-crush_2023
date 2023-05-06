@@ -3,7 +3,7 @@
 #include <time.h>
 #include <windows.h>
 
-/* Structure nécéssaire pour la suite */
+/* Structure nécéssaire pour la suite ================ */
 
 typedef struct{
     int num;
@@ -20,6 +20,8 @@ typedef struct{
     struct_grille_cc** grille;
 }score_grille;
 
+
+// ==========================================================
 
 /* Fonction qui permet de changer la couleur des caractères de la consol */
 
@@ -59,7 +61,7 @@ struct_grille_cc** creation_full_grille(int n,int m){
 }
 
 
-// fonction qui affiche la grille en parametre avec la taille
+// fonction qui affiche la grille en parametre en fonction de la taille
 
 void affichage(int n, int m, struct_grille_cc** grille)
 {
@@ -232,7 +234,6 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
 
 
 // Fonction qui gère la gravité de la grille
-
 struct_grille_cc** grille_gravite(struct_grille_cc** grille, int n, int m){
     // pour pouvoir changé la direction ultérieurement
     char direction = 'R';
@@ -393,6 +394,7 @@ int game(struct_grille_cc** grille,int n,int m,int score){
     return score;
 }
 
+// Focntion main
 int main()
 {
     srand(8);
