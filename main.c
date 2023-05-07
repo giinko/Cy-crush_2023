@@ -296,6 +296,9 @@ int main()
  *
  * Faire 1 mode facile, une mode moyen, un mode difficile un mode personnalisé
  * dasn chaque mode donner le meilleur score et le nbr de coup qu'il reste.
+ *
+ * faire un dossier réglage avec tous les paramètre modifiable via le dossier que le jeu va prendre en compte
+ *
  */
 
 

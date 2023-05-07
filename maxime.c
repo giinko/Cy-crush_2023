@@ -209,20 +209,76 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
 
     // Boucle qui supp en diagonale ====================
 
-    int count_diag;
-    int supp_diag;
+    affichage(n,m,grille);
 
-    for (int i = 0; i < n; ++i) {
-        if(i==0){
-            // on check tte la ligne (j) diag vers le bas et la droite
-        }
-        else if(i==m){
-            // on check tte la ligne (j) diag vers le haut et la droite
-        }
-        else{
-            // on check diag en partant du point i en haut et en bas vers la droite
+    // si m est inférieur ou égale a n
+    if (m<=n) {
+        for (int i = 0; i < n; ++i) {
+            if (i == 0) {// on check tte la ligne (j) diag vers le bas et la droite
+
+                for (int j = 0; j < m; ++j) {
+                    int count_descente = 0;
+                    char car1 = grille[0][j].car;
+                    int count_diag = 1;
+                    int supp_diag = 0;
+
+                    for (int k = 1; k < (m - j); ++k) {
+                        char car2 = grille[k][k + j].car;
+
+                        if (car1 == car2) {
+                            count_diag++;
+                            if (count_diag >= 3) {
+                                supp_diag = 1;
+                            }
+                        } else {
+                            if (supp_diag == 1) {
+                                printf("Ca supp ptet i:%d, j:%d\n", i, j);
+                                for (int z = 0; z < count_diag; z++) {
+                                    position pos;
+                                    printf("x : %d, y : %d\n", j + z, z);
+                                    pos.x = j + z;
+                                    pos.y = z;
+                                    all_pos[count_pos] = pos;
+                                    count_pos += 1;
+                                }
+                            }
+                            count_diag = 1;
+                            supp_diag = 0;
+                        }
+                        count_descente++;
+                        printf("car1 : %c, car2 : %c, c_diag : %d \n", car1, car2, count_diag);
+                        car1 = car2;
+                    }
+                    if (supp_diag == 1) {
+                        printf("Ca supp ptet i:%d, j:%d\n", i, j);
+                        for (int z = 0; z < count_diag; z++) {
+                            position pos;
+                            printf("x : %d, y : %d\n", j + z, z);
+                            pos.x = j + z;
+                            pos.y = z;
+                            all_pos[count_pos] = pos;
+                            count_pos += 1;
+                        }
+                    }
+
+                    count_diag = 1;
+                    supp_diag = 0;
+                    printf("\n");
+
+                }
+            } else if (i == m) {
+                // on check tte la ligne (j) diag vers le haut et la droite
+            } else {
+                // on check diag en partant du point i en haut et en bas vers la droite
+            }
         }
     }
+
+    // si n est inférieur à m :
+    else{
+        // On peu reprendre  pour n>m et inverser a voir ce que ca donne.
+    }
+
 
     //le tableau est cree avec tt les pos a supp, mnt on les supp
     struct_grille_cc** g_supp = supp_case(all_pos, grille, count_pos);
@@ -399,7 +455,7 @@ int main()
 {
     srand(8);
     color(15,0);
-    int n=5;
+    int n=10;
     int m=5;
 
     // creation grille
