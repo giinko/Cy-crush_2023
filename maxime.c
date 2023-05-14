@@ -106,6 +106,8 @@ struct_grille_cc** supp_case(position* all_position, struct_grille_cc** grille, 
     return grille;
 }
 
+
+
 // Renvoie uns structure avec la grille supprimer et le score
 score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
     score_grille score;
@@ -140,7 +142,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
                         count_pos+=1;
                     }
                 }
-                count_score += count_x;
+                count_score += count_x; // a modifier
                 supp_x = 0;
                 count_x = 1;
             }
@@ -225,7 +227,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
                     for (int k = 1; k < (m - j); ++k) {
                         char car2 = grille[k][k + j].car;
 
-                        if (car1 == car2) {
+                        if ((car1 == car2) && car1 != '.') {
                             count_diag++;
                             if (count_diag >= 3) {
                                 supp_diag = 1;
@@ -266,9 +268,28 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
                     printf("\n");
 
                 }
+
+
+            //=============================================================================
             } else if (i == m) {
                 // on check tte la ligne (j) diag vers le haut et la droite
-            } else {
+
+
+                for (int j = 0; j>m; j++) {
+                    int count_descente = 0;
+                    char car1 = grille[m-1][j].car;
+                    int count_diag = 1;
+                    int supp_diag = 0;
+
+                    for (int k = 1; k < (m - j); ++k) {
+                        char car2 = grille[k][k + j].car;
+
+
+                    }
+                }
+            }
+
+            else {
                 // on check diag en partant du point i en haut et en bas vers la droite
             }
         }
@@ -283,7 +304,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
     //le tableau est cree avec tt les pos a supp, mnt on les supp
     struct_grille_cc** g_supp = supp_case(all_pos, grille, count_pos);
     score.grille = g_supp;
-    score.points = count_pos;
+    score.points = count_pos; // a modifier
 
     return score;
 }
@@ -417,7 +438,7 @@ int game(struct_grille_cc** grille,int n,int m,int score){
         int pos_num;
         printf("Position 1 : ");
         scanf("%1c%1d",&pos_car,&pos_num); // Check les erreur, si == 2 et tte les infos comme on veut on continue
-        while(getchar()!='\n'); // reset le scanf
+        while(getchar()!='\n'); // reset le scanf viens de internet
         pos1.y = pos_num-1;
         pos1.x = pos_car-65;
 
@@ -455,7 +476,7 @@ int main()
 {
     srand(8);
     color(15,0);
-    int n=10;
+    int n=5;
     int m=5;
 
     // creation grille
