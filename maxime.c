@@ -3,6 +3,12 @@
 #include <time.h>
 #include <windows.h>
 
+
+
+#define True 1
+#define False 0
+
+
 /* Structure nécéssaire pour la suite ================ */
 
 typedef struct{
@@ -22,6 +28,8 @@ typedef struct{
 
 
 // ==========================================================
+
+typedef struct score score;
 
 /* Fonction qui permet de changer la couleur des caractères de la consol */
 
@@ -110,11 +118,13 @@ struct_grille_cc** supp_case(position* all_position, struct_grille_cc** grille, 
 
 // Renvoie uns structure avec la grille supprimer et le score
 score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
+
     score_grille score;
     position all_pos[n*m];
     int count_pos=0;
     int count_score = 0;
     score.points = 0;
+
 
     // boucle qui check en ligne ! ===================
     int count_x = 1;
@@ -209,95 +219,234 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
         count_y = 1;
     }
 
+
     // Boucle qui supp en diagonale ====================
+    // ===============================================================================
 
     affichage(n,m,grille);
 
-    // si m est inférieur ou égale a n
-    if (m<=n) {
-        for (int i = 0; i < n; ++i) {
-            if (i == 0) {// on check tte la ligne (j) diag vers le bas et la droite
+    // Pour chaque ligne :
+    for(int i=0;i<n;i++) {
 
-                for (int j = 0; j < m; ++j) {
-                    int count_descente = 0;
-                    char car1 = grille[0][j].car;
-                    int count_diag = 1;
-                    int supp_diag = 0;
+        // Colonne 1 ======================================================
+        if (i == 0) {
 
-                    for (int k = 1; k < (m - j); ++k) {
-                        char car2 = grille[k][k + j].car;
+            for (int j = 0; j < m; ++j) {
 
-                        if ((car1 == car2) && car1 != '.') {
-                            count_diag++;
-                            if (count_diag >= 3) {
-                                supp_diag = 1;
-                            }
-                        } else {
-                            if (supp_diag == 1) {
-                                printf("Ca supp ptet i:%d, j:%d\n", i, j);
-                                for (int z = 0; z < count_diag; z++) {
-                                    position pos;
-                                    printf("x : %d, y : %d\n", j + z, z);
-                                    pos.x = j + z;
-                                    pos.y = z;
-                                    all_pos[count_pos] = pos;
-                                    count_pos += 1;
-                                }
-                            }
-                            count_diag = 1;
-                            supp_diag = 0;
-                        }
-                        count_descente++;
-                        printf("car1 : %c, car2 : %c, c_diag : %d \n", car1, car2, count_diag);
-                        car1 = car2;
-                    }
-                    if (supp_diag == 1) {
-                        printf("Ca supp ptet i:%d, j:%d\n", i, j);
-                        for (int z = 0; z < count_diag; z++) {
-                            position pos;
-                            printf("x : %d, y : %d\n", j + z, z);
-                            pos.x = j + z;
-                            pos.y = z;
-                            all_pos[count_pos] = pos;
-                            count_pos += 1;
-                        }
+                //Variable de base
+                char car1 = grille[0][j].car;
+                int k = 1;
+                int count_car = 1;
+                int bool_diag = False;
+                position tab[n+m];
+                int tab_count = 0;
+
+                position pos; // Attention X et Y inverser !
+                pos.x=j;
+                pos.y=0;
+
+                tab[tab_count] = pos;
+                while ((i+k<n)&&(j+k<m)){
+                    char car2 = grille[k][j+k].car;
+                    pos.x=j+k;
+                    pos.y=k;
+                    //printf("X : %d, Y : %d, count : %d, char : %c | %c\n",pos.x,pos.y,count_car,car1,car2);
+                    if((car1==car2)&&(car2!='.')){
+                        count_car++;
+                        if(count_car>=3){bool_diag = True;}
+                        tab_count++;
+                        tab[tab_count] = pos;
                     }
 
-                    count_diag = 1;
-                    supp_diag = 0;
-                    printf("\n");
+                    else{
+                        if(bool_diag){
+                            for (int z = 0; z < count_car; ++z) {
+                                position pos1 = tab[z];
+                                //printf("X : %d, Y : %d\n",pos1.x,pos1.y);
+                                all_pos[count_pos] = pos1;
+                                count_pos ++;
+                            }
+                        }
+                        count_car=1;
+                        tab_count=0;
+                        tab[tab_count] = pos;
+                        bool_diag = False;
 
+                    }
+                    car1=car2;
+                    k++;
                 }
-
-
-            //=============================================================================
-            } else if (i == m) {
-                // on check tte la ligne (j) diag vers le haut et la droite
-
-
-                for (int j = 0; j>m; j++) {
-                    int count_descente = 0;
-                    char car1 = grille[m-1][j].car;
-                    int count_diag = 1;
-                    int supp_diag = 0;
-
-                    for (int k = 1; k < (m - j); ++k) {
-                        char car2 = grille[k][k + j].car;
-
-
+                if(bool_diag){
+                    for (int z = 0; z < count_car; ++z) {
+                        position pos1 = tab[z];
+                        //printf("X : %d, Y : %d\n",pos1.x,pos1.y);
+                        all_pos[count_pos] = pos1;
+                        count_pos ++;
                     }
                 }
-            }
-
-            else {
-                // on check diag en partant du point i en haut et en bas vers la droite
             }
         }
-    }
 
-    // si n est inférieur à m :
-    else{
-        // On peu reprendre  pour n>m et inverser a voir ce que ca donne.
+
+
+        // Colonne n-1 ========================================================
+
+        else if(i==(n-1)){
+            for (int j = 0; j < m; ++j) {
+
+                //Variable de base
+                char car1 = grille[n-1][j].car;
+                int k = 1;
+                int count_car = 1;
+                int bool_diag = False;
+                position tab[n+m];
+                int tab_count = 0;
+
+                position pos; // Attention X et Y inverser !
+                pos.x=j;
+                pos.y=n-1;
+
+                tab[tab_count] = pos;
+                while (((n-1)-k>0)&&(j+k<m)){
+                    char car2 = grille[n-1-k][j+k].car;
+                    pos.x=j+k;
+                    pos.y=n-1-k;
+                    if((car1==car2)&&(car2!='.')){
+                        count_car++;
+                        if(count_car>=3){bool_diag = True;}
+                        tab_count++;
+                        tab[tab_count] = pos;
+                    }
+
+                    else{
+                        if(bool_diag){
+                            for (int z = 0; z < count_car; ++z) {
+                                position pos1 = tab[z];
+                                //printf("X : %d, Y : %d\n",pos1.x,pos1.y);
+                                all_pos[count_pos] = pos1;
+                                count_pos ++;
+                            }
+                        }
+                        count_car=1;
+                        tab_count=0;
+                        tab[tab_count] = pos;
+                        bool_diag = False;
+
+                    }
+                    car1=car2;
+                    k++;
+                }
+                if(bool_diag){
+                    for (int z = 0; z < count_car; ++z) {
+                        position pos1 = tab[z];
+                        all_pos[count_pos] = pos1;
+                        count_pos ++;
+                    }
+                }
+            }
+        }
+
+        //Toute les autres colonnes
+        else {
+
+            // Vers le bas =========================================
+
+            //Variable de base
+            char car1 = grille[i][0].car;
+            int k = 1;
+            int count_car = 1;
+            int bool_diag = False;
+            position tab[n + m];
+            int tab_count = 0;
+
+            position pos; // Attention X et Y inverser !
+            pos.x = 0;
+            pos.y = i;
+            tab[tab_count] = pos;
+
+            while ((i + k < n) && (k < m)) {
+                char car2 = grille[i + k][k].car;
+                pos.x = k;
+                pos.y = i + k;
+
+                if ((car1 == car2) && (car2 != '.')) {
+                    count_car++;
+                    if (count_car >= 3) { bool_diag = True; }
+                    tab_count++;
+                    tab[tab_count] = pos;
+                } else {
+                    if (bool_diag) {
+                        for (int z = 0; z < count_car; ++z) {
+                            position pos1 = tab[z];
+                            all_pos[count_pos] = pos1;
+                            count_pos++;
+                        }
+                    }
+                    bool_diag = False;
+                    count_car = 1;
+                    tab_count = 0;
+                    tab[tab_count] = pos;
+
+                }
+                car1 = car2;
+                k++;
+            }
+            if (bool_diag) {
+                for (int z = 0; z < count_car; ++z) {
+                    position pos1 = tab[z];
+                    all_pos[count_pos] = pos1;
+                    count_pos++;
+                }
+            }
+
+            // Vers le haut ========================================
+            car1 = grille[i][0].car;
+            k = 1;
+            count_car = 1;
+            bool_diag = False;
+            tab_count = 0;
+
+            pos.x = 0;
+            pos.y = i;
+            tab[tab_count] = pos;
+
+            while ((i - k >= 0) && (k < m)) {
+                char car2 = grille[i - k][k].car;
+                pos.x = k;
+                pos.y = i - k;
+                if ((car1 == car2) && (car2 != '.')) {
+                    count_car++;
+                    if (count_car >= 3) { bool_diag = True; }
+                    tab_count++;
+                    tab[tab_count] = pos;
+                }
+                else {
+                    if (bool_diag) {
+                        for (int z = 0; z < count_car; ++z) {
+                            position pos1 = tab[z];
+                            all_pos[count_pos] = pos1;
+                            count_pos++;
+                        }
+                    }
+                    bool_diag = False;
+                    count_car = 1;
+                    tab_count = 0;
+                    tab[tab_count] = pos;
+
+                }
+                car1 = car2;
+                k++;
+            }
+            if (bool_diag) {
+                for (int z = 0; z < count_car; ++z) {
+                    position pos1 = tab[z];
+                    all_pos[count_pos] = pos1;
+                    count_pos++;
+                }
+
+
+            }
+        }
     }
 
 
@@ -476,8 +625,8 @@ int main()
 {
     srand(8);
     color(15,0);
-    int n=5;
-    int m=5;
+    int n=8;
+    int m=8;
 
     // creation grille
     struct_grille_cc** grille = creation_full_grille(n, m);
