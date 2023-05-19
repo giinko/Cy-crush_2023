@@ -223,7 +223,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
     // Boucle qui supp en diagonale ====================
     // ===============================================================================
 
-   // affichage(n,m,grille);
+    affichage(n,m,grille);
 
     // Pour chaque ligne :
     for(int i=0;i<n;i++) {
@@ -289,7 +289,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
 
 
 
-            // Colonne n-1 ========================================================
+        // Colonne n-1 ========================================================
 
         else if(i==(n-1)){
             for (int j = 0; j < m; ++j) {
@@ -346,7 +346,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
             }
         }
 
-            //Toute les autres colonnes
+        //Toute les autres colonnes
         else {
 
             // Vers le bas =========================================
@@ -619,142 +619,28 @@ int game(struct_grille_cc** grille,int n,int m,int score){
     }
     return score;
 }
-int parametres(int * pnb, int * pmb){
-    int fin2 = 0;
-    while(!fin2)
-    {
-        int c2;
 
-        /* affichage menu-paramètres */
-
-        printf("Parametres : \n");
-        printf("[1] - Changer la taille de la grille\n"
-               "[2] - Changer le sens de gravite\n"
-               "[3] - Activer/desactiver les jokers :\n"
-               "[4] - Quitter\n");
-
-        printf("Je fais le choix numero : "); c2 = getchar();
-
-        /* suppression des caracteres dans stdin */
-        if(c2 != '\n' && c2 != EOF)
-        {
-            int d;
-            while((d = getchar()) != '\n' && d != EOF);
-        }
-
-        switch(c2)
-        { //changer la taille de la grille
-            case '1':
-                printf("Taille actuelle : %d/%d\n", *pnb, *pmb);
-                printf("Changer la taille en longueur : ");
-               scanf("%d", pnb);
-                printf("Changer la taille en largeur : ");
-                scanf("%d", pmb);
-                return 1 ;
-                fin2 = 1;
-                break;
-                // changer le sens de la gravité
-            case '2':
-                return 2 ;
-                fin2 = 1;
-                break;
-                // Activer/désactiver Joker
-            case '3':
-                printf("Choix 3\n");
-                return 3 ;
-                fin2 = 1;
-                break;
-                // quitter
-            case '4':
-                fin2 = 1;
-                break;
-
-            default:
-                printf("Choix invalide, veuillez recommencer.\n");
-        }
-    }
-
-}
-
-int menu(int * pna, int * pma){
-    int fin;
-
-    fin = 0;
-    while(!fin)
-    {
-        int c;
-
-        /* affichage menu */
-
-        printf("Bonjour ! Bienvenue sur CY Crush \n");
-        printf("[1] - Lancer le jeu\n"
-               "[2] - Parametres\n"
-               "[3] - Charger une grille\n"
-               "[4] - Quitter\n");
-
-        printf("Je fais le choix numero : "); c = getchar();
-
-        /* suppression des caracteres dans stdin */
-        if(c != '\n' && c != EOF)
-        {
-            int d;
-            while((d = getchar()) != '\n' && d != EOF);
-        }
-
-        switch(c)
-        {
-            case '1':
-                return 1 ;
-                fin = 1;
-                break;
-
-            case '2':
-                parametres(pna, pma);
-                break;
-
-            case '3':
-                printf("Choix 3\n");
-                return 3 ;
-                fin = 1;
-                break;
-
-            case '4':
-                fin = 1;
-                break;
-
-            default:
-                printf("Choix invalide, veuillez recommencer.\n");
-        }
-    }
-}
 // Focntion main
 int main()
 {
-    int n = 8 ;
-    int m = 8 ;
-    int* pn = &n;
-    int* pm = &m;
-
-   int menuu = menu(pn, pm) ;
-
-if(menuu == 1) {
     srand(8);
-    color(15, 0);
+    color(15,0);
+    int n=8;
+    int m=8;
 
     // creation grille
-    struct_grille_cc **grille = creation_full_grille(n, m);
+    struct_grille_cc** grille = creation_full_grille(n, m);
 
-    // Initialisation de la grille
-    struct_grille_cc **grille3 = start_grille(grille, n, m);
-    affichage(n, m, grille3);
+    // Initialisatino de la grille
+    struct_grille_cc** grille3 = start_grille(grille, n, m);
+    affichage(n,m,grille3);
 
     // Jeu
     int final_score;
-    final_score = game(grille3, n, m, 0);
+    final_score = game(grille3,n,m,0);
 
-    printf("Le score final est de : %d", final_score);
+    printf("Le score final est de : %d",final_score);
     return 0;
-}
 }
 
 // Fonction qui check si il y a toujours au moins 2 symbols sinon game finis !

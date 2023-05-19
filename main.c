@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <windows.h>
+<<<<<<< HEAD
 
 /*
 0: noir
@@ -21,6 +22,8 @@
 14: jaune fluo
 15: blanc
 */
+=======
+>>>>>>> 9b05fdabc1a847e2bbef88093c37571d36e3fc97
 
 
 /* Structure nécéssaire pour la suite */
@@ -28,7 +31,7 @@
 typedef struct{
     int num;
     char car;
-}random_char_color;
+}struct_grille_cc;
 
 typedef struct{
     int x;
@@ -38,7 +41,7 @@ typedef struct{
 typedef struct{
     int points;
     char** grille;
-}score_set;
+}score_grille;
 
 
 /* Fonction qui permet de changer la couleur des caractères de la consol */
@@ -52,9 +55,9 @@ void color(int t,int f)
 
 // Fonction qui choisi un caractere aléatoire parmis la liste prédéfinis
 
-random_char_color random_char()
+struct_grille_cc random_char()
 {
-    random_char_color zz;
+    struct_grille_cc zz;
     int r = rand()%4;
     char tab[4] = {'X','O','@','+'};
     int color[4] = {14,12,1,2};
@@ -68,9 +71,9 @@ random_char_color random_char()
 
 char** creation_full_grille(int n,int m){
 
-    random_char_color** tab = malloc(n * sizeof(random_char_color*));
+    struct_grille_cc** tab = malloc(n * sizeof(struct_grille_cc*));
     for (int i = 0; i < n; i++) {
-        tab[i] = malloc(m * sizeof(random_char_color));
+        tab[i] = malloc(m * sizeof(struct_grille_cc));
         for (int j = 0; j < m; j++) {
             tab[i][j] = random_char();
         }
@@ -81,13 +84,13 @@ char** creation_full_grille(int n,int m){
 
 // fonction qui affiche la grille en parametre avec la taille
 
-void affichage(int n, int m,random_char_color** grille)
+void affichage(int n, int m, struct_grille_cc** grille)
 {
     for(int p=0;p<2;p++){
         printf("   ");
         for(int k=0;k<m;k++){
             if(p==0){
-                printf("%d ",k+1);
+                printf("%c ",'A'+k);
             }
             else{ printf("_ ");}
         }
@@ -95,7 +98,7 @@ void affichage(int n, int m,random_char_color** grille)
     }
 
     for(int i=0;i<n;i++){
-        printf("%c |",'A'+i);
+        printf("%d |",1+i);
         for( int j=0;j<m;j++){
             color(grille[i][j].num,0);
             printf("%c ",grille[i][j].car);
@@ -105,9 +108,11 @@ void affichage(int n, int m,random_char_color** grille)
     }
 }
 
-// fonction qui permet de modifier la grille et la reenvoie
 
-char** moov_grille(random_char_color** grille, position pos, char dep){
+// fonction qui permet de modifier la grille et la reenvoie ============= a modifier plus valable pour notre projet !===
+
+
+char** moov_grille(struct_grille_cc** grille, position pos, char dep){
 
     position pos1 = pos;
     position pos2 = pos;
@@ -138,57 +143,135 @@ char** moov_grille(random_char_color** grille, position pos, char dep){
     grille[pos2.y][pos2.x].num = color_temp1;
 
     return grille;
+}//==================================================================================================================
 
+
+//Fonction qui supp les positions placer en parametre
+
+struct_grille_cc** supp_case(position* all_position, struct_grille_cc** grille, int taille)
+{
+
+    for(int i=0;i<taille;i++){
+        int pos_x = all_position[i].x;
+        int pos_y = all_position[i].y;
+
+        grille[pos_y][pos_x].car = '.';
+        grille[pos_y][pos_x].num = 15;
+    }
+
+    return grille;
 }
-/*
-// Fonction qui calcule les points et qui supp les lignes =================== en dev ==========================
 
 
-score_set score(char** grille,int n,int m){
-    score_set score;
-    char car_x_1 = grille[0][0];
-    int count_x;
-    char car_y_1 = grille[0][0];
-    int count_y;
-    // Bien regarder n et m, inverser i et j dans le code !
-    // parcourir les x, y par y
-    for(int i;i<n;i++){
-        for(int j;j<m;j++){
-            char car_x_2 = grille[i][j];
-            if(car_x_1==car_x_2){count_x+=1;}
-            if(count_x>=3){ printf("");} // supp les cases si c'est finis. check si encore + ou si fin du tableau.
-            // cree d'autre variable pour check si
+// Fonction qui calcule les points et qui supp les lignes
+//Ne calcule pas encore les points a définir !
+//Il faut faire la diagonale aussi !
 
-            // cree une fonction qui supp les case comme ca plus facile de check si la grille a ete modifier suffit
-            // d'ajouter un compteur dans la fonction qui supp les cases si elle ne bouge pas on modifie
 
+score_grille supp_score(struct_grille_cc** grille, int n, int m){
+    score_grille score;
+    position all_pos[n*m];
+    int count_pos=0;
+
+    // boucle qui check en ligne ! ===================
+    int count_x = 1;
+    int supp_x = 0;
+
+    for(int i=0;i<n;i++){
+        char car_x_1 = grille[i][0].car;
+        for(int j=1;j<m;j++){
+            char car_x_2 = grille[i][j].car;
+            if(car_x_1==car_x_2){
+                count_x+=1;
+                if(count_x>=3){
+                    supp_x = 1;
+                }
+            }
+            else{
+                if (supp_x==1){
+
+                    // permet d'ajouter les positions a supp dans le tableau
+                    for(int z=1;z<=count_x;z++){
+                        position pos;
+                        pos.x=j-z;
+                        pos.y=i;
+                        all_pos[count_pos] = pos;
+                        count_pos+=1;
+                    }
+                }
+                supp_x = 0;
+                count_x = 1;
+            }
+            car_x_1 = car_x_2;
         }
-    }
-    // parcourir les y, x par x
-    for(int i;i<m;i++){
-        for(int j;j<n;j++){
+        if (supp_x==1){
 
+            // permet d'ajouter les positions a supp dans le tableau
+            for(int z=1;z<=count_x;z++){
+                position pos;
+                pos.x=m-z;
+                pos.y=i;
+                all_pos[count_pos] = pos;
+                count_pos+=1;
+            }
         }
+        supp_x = 0;
+        count_x = 1;
     }
 
+    // boucle qui check en colonne ! ===================
+    int count_y = 1;
+    int supp_y = 0;
+
+    for(int i=0;i<m;i++){
+        char car_y_1 = grille[0][i].car;
+        for(int j=1;j<n;j++){
+            char car_y_2 = grille[j][i].car;
+            if(car_y_1==car_y_2){
+                count_y+=1;
+                if(count_y>=3){
+                    supp_y = 1;
+                }
+            }
+            else{
+                if (supp_y==1){
+                    // permet d'ajouter les positions a supp dans le tableau
+                    for(int z=1;z<=count_y;z++){
+                        position pos;
+                        pos.x=i;
+                        pos.y=j-z;
+                        all_pos[count_pos] = pos;
+                        count_pos+=1;
+                    }
+                }
+                supp_y = 0;
+                count_y = 1;
+            }
+            car_y_1 = car_y_2;
+        }
+        if (supp_y==1){
+            for(int z=1;z<=count_y;z++){
+                position pos;
+                pos.x=i;
+                pos.y=n-z;
+                all_pos[count_pos] = pos;
+                count_pos+=1;
+            }
+        }
+        supp_y = 0;
+        count_y = 1;
+    }
+
+    //le tableau est cree avec tt les pos a supp, mnt on les supp
+    struct_grille_cc** g_supp = supp_case(all_pos, grille, count_pos);
+    score.grille = g_supp;
+    score.points = 10;
 
     return score;
-}*/
-            /*
-             * ont cree une fonction qui supp, des qu'il y a des case je lui enoie un tab avec les case a supp,
-             * elle supp et elle ajoute 1 a un compteur personnel a la fin de la fonction on vérifie si ce compteur
-             * a été modifier pour savoir si la fonction a été utiliser, si la grille n'a pas été modifier elle peut
-             * etre afficher car on a finis de la "traiter"
-             * cree aussi une fonction qui a chaque tour fait déscendre les cases quand on a finis de tt tt check
-             * on check tte la grille une fois on fait tt déscendre, si y'a eu des modife on refait sinon
-             * on refait pareil on check tte la grile et on fait déscendre ainsie de suite jusqua plus de modif.
-             * on reenvoie le score a chaque fois mais on commence a le compter a partir du premier coup.
-             * on a du taff lol c pas des hehe
-             *
-             */
-//======================================================================================================================
+}
 
 
+// Main a revoir, car .h apres je test sur maxime.c
 int main()
 {
     //variable de base pour le code, initalisation
@@ -198,7 +281,7 @@ int main()
     int m=5;
 
     //reste du code
-    random_char_color** grille = creation_full_grille(n,m);
+    struct_grille_cc** grille = creation_full_grille(n, m);
     affichage(n,m,grille);
 
     int stop = 1;
@@ -208,7 +291,7 @@ int main()
         printf("Merci de donner la position et le déplacer de votre pion (X/Y/DEP):\n");
         scanf("%d/%d/%c",&position.x,&position.y,&dep); // pouvoir choisir A1 ou B5 de cette facon la.
 
-        random_char_color** grille_temp = moov_grille(grille,position,dep);
+        struct_grille_cc** grille_temp = moov_grille(grille, position, dep);
 
         if(dep == 'S'){stop=0;}
         else{
@@ -217,8 +300,12 @@ int main()
         }
     }
 
+
+
     return 0;
 }
+
+// ca avance tres bien
 
 /*
  * Cree une fonction qui check si aucune case ne se touchent 3 ou plus
@@ -231,6 +318,9 @@ int main()
  *
  * Faire 1 mode facile, une mode moyen, un mode difficile un mode personnalisé
  * dasn chaque mode donner le meilleur score et le nbr de coup qu'il reste.
+ *
+ * faire un dossier réglage avec tous les paramètre modifiable via le dossier que le jeu va prendre en compte
+ *
  */
 
 
