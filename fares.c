@@ -580,22 +580,39 @@ int game(struct_grille_cc** grille,int n,int m,int score){
         position pos1;
         position pos2;
 
-        printf("Indiquez moi la position des points que vous voulez chnager.\n");
+        printf("Indiquez moi la position des points que vous voulez changer.\n");
         printf("Par exemple : A:3, B:4, j'echange a3 et b4\n");
 
-        char pos_car;
-        int pos_num;
-        printf("Position 1 : ");
-        scanf("%1c%1d",&pos_car,&pos_num); // Check les erreur, si == 2 et tte les infos comme on veut on continue
-        while(getchar()!='\n'); // reset le scanf viens de internet
-        pos1.y = pos_num-1;
-        pos1.x = pos_car-65;
+        char pos1_car;
+        int pos1_num;
+        char pos2_car;
+        int pos2_num;
 
-        printf("Position 2 : ");
-        scanf("%1c%1d",&pos_car,&pos_num);
-        while(getchar()!='\n');
-        pos2.y = pos_num-1;
-        pos2.x = pos_car-65;
+        int valid_input = 0;
+
+        while (!valid_input) {
+
+            printf("Position 1 : ");
+            scanf("%1c%1d",&pos1_car,&pos1_num); // Check les erreur, si == 2 et tte les infos comme on veut on continue
+            while(getchar() != '\n'); // reset le scanf viens de internet
+            pos1.y = pos1_num-1;
+            pos1.x = pos1_car-65;
+
+            printf("Position 2 : ");
+            scanf("%1c%1d",&pos2_car,&pos2_num);
+            while(getchar()!='\n');
+            pos2.y = pos2_num-1;
+            pos2.x = pos2_car-65;
+
+            // Vérification des coordonnées
+            if ((pos1_car - 'A' < n) && (pos1_num < m) &&
+                (pos2_car - 'A' < n) && (pos2_num < m)) {
+                valid_input = 1;
+            } else {
+                printf("Coordonnées invalides. Veuillez entrer des coordonnées valides.\n");
+            }
+        }
+
 
         // On déplace le coup.
         struct_grille_cc** grille2 = deplacement_grille(grille, pos1,pos2);
@@ -619,61 +636,89 @@ int game(struct_grille_cc** grille,int n,int m,int score){
     }
     return score;
 }
-int parametres(int * pnb, int * pmb){
+void changement_taillegrille(int* pnc, int* pmc) {
+    printf("\n\n\n"
+           "   ______         ______                __  \n"
+           "  / ____/_  __   / ____/______  _______/ /_ \n"
+           " / /   / / / /  / /   / ___/ / / / ___/ __ \\\n"
+           "/ /___/ /_/ /  / /___/ /  / /_/ (__  ) / / /\n"
+           "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
+           "     /____/                                 \n\n");
+
+    printf("Taille actuelle de la grille : %d en longueur, et %d en largeur.\n", *pnc, *pmc);
+    printf("Merci de saisir des nombres inferieur a 20.\n");
+    printf("Vous serez ensuite dirige au menu principal.\n\n");
+    printf("Nouvelle la taille en longueur : ");
+    scanf("%d", pmc);
+    while (*pmc > 20) {
+        printf("Votre grille sera trop longue ! Choisissez un nombre plus petit.\n");
+        printf("Nouvelle la taille en largeur : ");
+        scanf("%d", pmc);
+    }
+
+    printf("Changez la taille en largeur : ");
+    scanf("%d", pnc);
+    while (*pnc > 20) {
+        printf("Votre grille sera trop large ! Choisissez un nombre plus petit.\n");
+        printf("Changez la taille en largeur : ");
+        scanf("%d", pnc);
+    }
+}
+
+void parametres(int* pnb, int* pmb) {
     int fin2 = 0;
-    while(!fin2)
-    {
+    int choix;
+
+    while (!fin2) {
         int c2;
 
         /* affichage menu-paramètres */
 
+        printf("\n"
+               "   ______         ______                __  \n"
+               "  / ____/_  __   / ____/______  _______/ /_ \n"
+               " / /   / / / /  / /   / ___/ / / / ___/ __ \\\n"
+               "/ /___/ /_/ /  / /___/ /  / /_/ (__  ) / / /\n"
+               "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
+               "     /____/                                 \n\n");
         printf("Parametres : \n");
         printf("[1] - Changer la taille de la grille\n"
                "[2] - Changer le sens de gravite\n"
                "[3] - Activer/desactiver les jokers :\n"
-               "[4] - Quitter\n");
+               "[4] - Revenir au menu principal\n");
 
-        printf("Je fais le choix numero : "); c2 = getchar();
+        printf("Je fais le choix numero : ");
+        c2 = getchar();
 
         /* suppression des caracteres dans stdin */
-        if(c2 != '\n' && c2 != EOF)
-        {
+        if (c2 != '\n' && c2 != EOF) {
             int d;
-            while((d = getchar()) != '\n' && d != EOF);
+            while ((d = getchar()) != '\n' && d != EOF);
         }
 
-        switch(c2)
-        { //changer la taille de la grille
+        switch (c2) {
+            // changer la taille de la grille
             case '1':
-                printf("Taille actuelle : %d/%d\n", *pnb, *pmb);
-                printf("Changer la taille en longueur : ");
-               scanf("%d", pnb);
-                printf("Changer la taille en largeur : ");
-                scanf("%d", pmb);
-                return 1 ;
+                changement_taillegrille(pnb, pmb);
                 fin2 = 1;
                 break;
                 // changer le sens de la gravité
             case '2':
-                return 2 ;
                 fin2 = 1;
                 break;
                 // Activer/désactiver Joker
             case '3':
                 printf("Choix 3\n");
-                return 3 ;
                 fin2 = 1;
                 break;
                 // quitter
             case '4':
                 fin2 = 1;
                 break;
-
             default:
                 printf("Choix invalide, veuillez recommencer.\n");
         }
     }
-
 }
 
 int menu(int * pna, int * pma){
@@ -686,7 +731,13 @@ int menu(int * pna, int * pma){
 
         /* affichage menu */
 
-        printf("Bonjour ! Bienvenue sur CY Crush \n");
+        printf("Maxime, Fares and Sany present :\n"
+               "   ______         ______                __  \n"
+               "  / ____/_  __   / ____/______  _______/ /_ \n"
+               " / /   / / / /  / /   / ___/ / / / ___/ __ \\\n"
+               "/ /___/ /_/ /  / /___/ /  / /_/ (__  ) / / /\n"
+               "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
+               "     /____/                                  \n\n");
         printf("[1] - Lancer le jeu\n"
                "[2] - Parametres\n"
                "[3] - Charger une grille\n"
