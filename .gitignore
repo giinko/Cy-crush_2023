@@ -4,3 +4,7 @@ cmake-build-debug
 maxime.exe
 fares.exe
 sany.exe
+header\main.o
+header\game.o
+header\menu.o
+header/exec.exe
