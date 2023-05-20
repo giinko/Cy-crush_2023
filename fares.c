@@ -570,6 +570,16 @@ score_grille grille_reac_chaine(struct_grille_cc** grille,int n,int m){
     return struct_grille_score;
 }
 
+int verif_position(char pos_car, int pos_num, int na, int ma){
+
+    if ((pos_car - 'A' < na) && (pos_num < ma)) {
+        return = 1;
+    } else {
+        printf("Coordonnées invalides. Veuillez entrer des coordonnées valides.\n");
+    }
+
+}
+
 // Fonction qui fait tourner le jeu
 int game(struct_grille_cc** grille,int n,int m,int score){
     int finish = 1;
@@ -598,21 +608,18 @@ int game(struct_grille_cc** grille,int n,int m,int score){
             pos1.y = pos1_num-1;
             pos1.x = pos1_car-65;
 
+            // Vérification des coordonnées 1
+            valid_input = verif_position(pos1_car, pos1_num, n, m);
+
             printf("Position 2 : ");
             scanf("%1c%1d",&pos2_car,&pos2_num);
             while(getchar()!='\n');
             pos2.y = pos2_num-1;
             pos2.x = pos2_car-65;
 
-            // Vérification des coordonnées
-            if ((pos1_car - 'A' < n) && (pos1_num < m) &&
-                (pos2_car - 'A' < n) && (pos2_num < m)) {
-                valid_input = 1;
-            } else {
-                printf("Coordonnées invalides. Veuillez entrer des coordonnées valides.\n");
-            }
+            // Vérification des coordonnées 2
+            valid_input = verif_position(pos2_car, pos2_num, n, m);
         }
-
 
         // On déplace le coup.
         struct_grille_cc** grille2 = deplacement_grille(grille, pos1,pos2);
@@ -637,6 +644,7 @@ int game(struct_grille_cc** grille,int n,int m,int score){
     return score;
 }
 void changement_taillegrille(int* pnc, int* pmc) {
+
     printf("\n\n\n"
            "   ______         ______                __  \n"
            "  / ____/_  __   / ____/______  _______/ /_ \n"
