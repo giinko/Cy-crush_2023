@@ -570,6 +570,7 @@ score_grille grille_reac_chaine(struct_grille_cc** grille,int n,int m){
     return struct_grille_score;
 }
 
+// Fonction qui vérifie les positions
 int verif_position(char pos_car, int pos_num, int na, int ma) {
     if ((pos_car >= 'A' && pos_car <= 'A' + na - 1) && (pos_num >= 1 && pos_num <= ma)) {
         return 1;
@@ -579,9 +580,8 @@ int verif_position(char pos_car, int pos_num, int na, int ma) {
     }
 }
 
-
 // Fonction qui fait tourner le jeu
-int game(struct_grille_cc** grille,int n,int m,int score){
+int game(struct_grille_cc** grille,int ni,int mi,int score){
     int finish = 1;
     while(finish!=0){
 
@@ -590,8 +590,8 @@ int game(struct_grille_cc** grille,int n,int m,int score){
         position pos1;
         position pos2;
 
-        printf("Indiquez moi la position des points que vous voulez changer.\n");
-        printf("Par exemple : A3, B4, j'echange a3 et b4\n");
+        printf("Indiquez-moi la position des points que vous voulez changer.\n");
+        printf("Par exemple : Position 1 : A3 , puis position 2 : B4 (j'echange A3 et B4)\n");
 
         char pos1_car;
         int pos1_num;
@@ -616,19 +616,19 @@ int game(struct_grille_cc** grille,int n,int m,int score){
             pos2.x = pos2_car - 'A';
 
             // Vérification des coordonnées
-            valid_input = verif_position(pos1_car, pos1_num, n, m) && verif_position(pos2_car, pos2_num, n, m);
+            valid_input = verif_position(pos1_car, pos1_num, ni, mi) && verif_position(pos2_car, pos2_num, ni, mi);
         }
 
         // On déplace le coup.
         struct_grille_cc** grille2 = deplacement_grille(grille, pos1,pos2);
-        affichage(n,m,grille2);
+        affichage(ni,mi,grille2);
         printf("\n");
 
         score_grille struct_grille_score;
-        struct_grille_score = grille_reac_chaine(grille2,n,m);
+        struct_grille_score = grille_reac_chaine(grille2,ni,mi);
 
         grille = struct_grille_score.grille;
-        affichage(n,m,grille);
+        affichage(ni,mi,grille);
         printf("\n");
 
         if(struct_grille_score.points == 0){
@@ -641,6 +641,80 @@ int game(struct_grille_cc** grille,int n,int m,int score){
     }
     return score;
 }
+int changement_gravite(int* sgravite){
+    char sens_gravite[20];
+    int fin3 = 0 ;
+
+    while (!fin3) {
+        if (*sgravite == 1) {
+            strcpy(sens_gravite, "vers le bas");
+        } else if (*sgravite == 2) {
+            strcpy(sens_gravite, "vers la droite");
+        } else if (*sgravite == 3) {
+            strcpy(sens_gravite, "vers la gauche");
+        } else if (*sgravite == 4) {
+            strcpy(sens_gravite, "vers le haut");
+        }
+
+        printf("\n\n\n"
+               "   ______         ______                __  \n"
+               "  / ____/_  __   / ____/______  _______/ /_ \n"
+               " / /   / / / /  / /   / ___/ / / / ___/ __ \\\n"
+               "/ /___/ /_/ /  / /___/ /  / /_/ (__  ) / / /\n"
+               "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
+               "     /____/                                 \n\n");
+
+        printf("Sens actuel de la gravite : %s \n", sens_gravite);
+        printf("[1] - Diriger vers le bas \n"
+               "[2] - Diriger vers la droite \n"
+               "[3] - Diriger vers la gauche \n"
+               "[4] - Diriger vers le haut \n"
+               "[5] - Retourner vers les parametres \n"
+               "[6] - Retourner vers le menu principal \n");
+        printf("Choix : ");
+        int c3 = getchar();
+
+        /* suppression des caracteres dans stdin */
+        if (c3 != '\n' && c3 != EOF) {
+            int j;
+            while ((j = getchar()) != '\n' && j != EOF);
+        }
+
+        switch (c3) {
+            // Vers le bas
+            case '1':
+                *sgravite = 1;
+                fin3 = 1;
+                break;
+                // Vers la droite
+            case '2':
+                *sgravite = 2;
+                fin3 = 1;
+                break;
+                // Vers la gauche
+            case '3':
+                *sgravite = 3;
+                fin3 = 1;
+                break;
+                // Vers le haut
+            case '4':
+                *sgravite = 4;
+                fin3 = 1;
+                break;
+                // Retour vers les parametres
+            case '5':
+                fin3 = 1;
+                break;
+                // Retour vers le menu principal
+            case '6':
+                fin3 = 1;
+                return 1;
+                break;
+            default:
+                printf("Choix invalide, veuillez recommencer.\n");
+        }
+    }
+}
 void changement_taillegrille(int* pnc, int* pmc) {
 
     printf("\n\n\n"
@@ -652,36 +726,34 @@ void changement_taillegrille(int* pnc, int* pmc) {
            "     /____/                                 \n\n");
 
     printf("Taille actuelle de la grille : %d en longueur, et %d en largeur.\n", *pnc, *pmc);
-    printf("Merci de saisir des nombres inferieur a 20.\n");
-    printf("Vous serez ensuite dirige au menu principal.\n\n");
+    printf("(Merci de saisir des nombres compris entre 5 et 20)\n\n");
     printf("Nouvelle la taille en longueur : ");
     scanf("%d", pmc);
-    while (*pmc >= 20) {
-        printf("Votre grille sera trop longue ! Choisissez un nombre plus petit.\n");
+    while ((*pmc < 5 ) || (*pmc > 20)) {
+        printf("Longueur invalide. Merci de choisir un nombre entre 5 et 20.\n");
         printf("Nouvelle taille en longueur : ");
         scanf("%d", pmc);
     }
 
     printf("Nouvelle taille en largeur : ");
     scanf("%d", pnc);
-    while (*pnc >= 20) {
-        printf("Votre grille sera trop large ! Choisissez un nombre plus petit.\n");
+    while ((*pnc < 5 ) || (*pnc > 20)) {
+        printf("Largeur invalide. Merci de choisir un nombre entre 5 et 20.\n");
         printf("Nouvelle taille en largeur : ");
         scanf("%d", pnc);
-    }   char i = getchar();
-    printf("\n");
+    }
+    char i = getchar();
 }
 
-void parametres(int* pnb, int* pmb) {
+void parametres(int* pnb, int* pmb, int * pgravite_b) {
     int fin2 = 0;
-    int choix;
 
     while (!fin2) {
         int c2;
 
         /* affichage menu-paramètres */
 
-        printf("\n"
+        printf("\n\n"
                "   ______         ______                __  \n"
                "  / ____/_  __   / ____/______  _______/ /_ \n"
                " / /   / / / /  / /   / ___/ / / / ___/ __ \\\n"
@@ -694,7 +766,7 @@ void parametres(int* pnb, int* pmb) {
                "[3] - Activer/desactiver les jokers :\n"
                "[4] - Revenir au menu principal\n");
 
-        printf("Je fais le choix numero : ");
+        printf("Choix : ");
         c2 = getchar();
 
         /* suppression des caracteres dans stdin */
@@ -707,18 +779,19 @@ void parametres(int* pnb, int* pmb) {
             // changer la taille de la grille
             case '1':
                 changement_taillegrille(pnb, pmb);
-                fin2 = 1;
                 break;
                 // changer le sens de la gravité
             case '2':
-                fin2 = 1;
-                break;
+                if(changement_gravite(pgravite_b) == 1){
+                    fin2 = 1;
+                }
                 // Activer/désactiver Joker
             case '3':
                 printf("Choix 3\n");
                 fin2 = 1;
                 break;
                 // quitter
+                break;
             case '4':
                 fin2 = 1;
                 break;
@@ -728,7 +801,7 @@ void parametres(int* pnb, int* pmb) {
     }
 }
 
-int menu(int * pna, int * pma){
+int menu(int * pna, int * pma, int * pgravite_a){
     int fin;
 
     fin = 0;
@@ -737,7 +810,6 @@ int menu(int * pna, int * pma){
         int c;
 
         /* affichage menu */
-
         printf("Maxime, Fares and Sany present :\n"
                "   ______         ______                __  \n"
                "  / ____/_  __   / ____/______  _______/ /_ \n"
@@ -750,7 +822,8 @@ int menu(int * pna, int * pma){
                "[3] - Charger une grille\n"
                "[4] - Quitter\n");
 
-        printf("Je fais le choix numero : ");
+        printf("Choix : ");
+
 
         c = getchar();
 
@@ -770,7 +843,7 @@ int menu(int * pna, int * pma){
 
             case '2':
                 fin = 1;
-                parametres(pna, pma);
+                parametres(pna, pma, pgravite_a);
                 fin = 0;
                 break;
 
@@ -792,12 +865,15 @@ int menu(int * pna, int * pma){
 // Focntion main
 int main()
 {
-    int n = 8 ;
-    int m = 8 ;
-    int* pn = &n;
-    int* pm = &m;
+    int n = 8 ; // Initialisation de la largeur de la grille à 8
+    int m = 8 ; // Initialisation de la longueur de la grille à 8
+    int* pn = &n; // Pointeur à l'adresse de n
+    int* pm = &m; // Pointeur à l'adresse de m
 
-   int menuu = menu(pn, pm) ;
+    int gravite = 2 ; // initialisation de la gravité vers la droite
+    int * pgravite = &gravite ;
+
+   int menuu = menu(pn, pm, pgravite) ;
 
     if(menuu == 1) {
         srand(8);
