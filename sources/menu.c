@@ -19,9 +19,11 @@ exec exec.exe
 
 dcp toi oublie pas de rajouter menu en +.
 
+ attention maintenant il faut lancer dans le cmd cmd dcp, plus dans le truc direct sinon erreur attention
 
 
-objectif supp le fares .c, le main.c et le maxime .c
 
+objectif -supp le fares .c, le main.c et le maxime .c
+          - rendre le code bcp plus beau et l'améliorer !
 si ta des question snap bb 
 */
