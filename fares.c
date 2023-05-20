@@ -570,15 +570,15 @@ score_grille grille_reac_chaine(struct_grille_cc** grille,int n,int m){
     return struct_grille_score;
 }
 
-int verif_position(char pos_car, int pos_num, int na, int ma){
-
-    if ((pos_car - 'A' < na) && (pos_num < ma)) {
-        return = 1;
+int verif_position(char pos_car, int pos_num, int na, int ma) {
+    if ((pos_car >= 'A' && pos_car <= 'A' + na - 1) && (pos_num >= 1 && pos_num <= ma)) {
+        return 1;
     } else {
-        printf("Coordonnées invalides. Veuillez entrer des coordonnées valides.\n");
+        printf("Coordonnees invalides. Veuillez entrer des coordonnees valides.\n");
+        return 0;
     }
-
 }
+
 
 // Fonction qui fait tourner le jeu
 int game(struct_grille_cc** grille,int n,int m,int score){
@@ -591,7 +591,7 @@ int game(struct_grille_cc** grille,int n,int m,int score){
         position pos2;
 
         printf("Indiquez moi la position des points que vous voulez changer.\n");
-        printf("Par exemple : A:3, B:4, j'echange a3 et b4\n");
+        printf("Par exemple : A3, B4, j'echange a3 et b4\n");
 
         char pos1_car;
         int pos1_num;
@@ -601,24 +601,22 @@ int game(struct_grille_cc** grille,int n,int m,int score){
         int valid_input = 0;
 
         while (!valid_input) {
-
             printf("Position 1 : ");
-            scanf("%1c%1d",&pos1_car,&pos1_num); // Check les erreur, si == 2 et tte les infos comme on veut on continue
-            while(getchar() != '\n'); // reset le scanf viens de internet
-            pos1.y = pos1_num-1;
-            pos1.x = pos1_car-65;
+            scanf(" %c%d", &pos1_car, &pos1_num);
+            while(getchar() != '\n'); // Réinitialisation du scanf
 
-            // Vérification des coordonnées 1
-            valid_input = verif_position(pos1_car, pos1_num, n, m);
+            pos1.y = pos1_num - 1;
+            pos1.x = pos1_car - 'A';
 
             printf("Position 2 : ");
-            scanf("%1c%1d",&pos2_car,&pos2_num);
-            while(getchar()!='\n');
-            pos2.y = pos2_num-1;
-            pos2.x = pos2_car-65;
+            scanf(" %c%d", &pos2_car, &pos2_num);
+            while(getchar() != '\n'); // Réinitialisation du scanf
 
-            // Vérification des coordonnées 2
-            valid_input = verif_position(pos2_car, pos2_num, n, m);
+            pos2.y = pos2_num - 1;
+            pos2.x = pos2_car - 'A';
+
+            // Vérification des coordonnées
+            valid_input = verif_position(pos1_car, pos1_num, n, m) && verif_position(pos2_car, pos2_num, n, m);
         }
 
         // On déplace le coup.
@@ -658,19 +656,20 @@ void changement_taillegrille(int* pnc, int* pmc) {
     printf("Vous serez ensuite dirige au menu principal.\n\n");
     printf("Nouvelle la taille en longueur : ");
     scanf("%d", pmc);
-    while (*pmc > 20) {
+    while (*pmc >= 20) {
         printf("Votre grille sera trop longue ! Choisissez un nombre plus petit.\n");
-        printf("Nouvelle la taille en largeur : ");
+        printf("Nouvelle taille en longueur : ");
         scanf("%d", pmc);
     }
 
-    printf("Changez la taille en largeur : ");
+    printf("Nouvelle taille en largeur : ");
     scanf("%d", pnc);
-    while (*pnc > 20) {
+    while (*pnc >= 20) {
         printf("Votre grille sera trop large ! Choisissez un nombre plus petit.\n");
-        printf("Changez la taille en largeur : ");
+        printf("Nouvelle taille en largeur : ");
         scanf("%d", pnc);
-    }
+    }   char i = getchar();
+    printf("\n");
 }
 
 void parametres(int* pnb, int* pmb) {
@@ -751,7 +750,9 @@ int menu(int * pna, int * pma){
                "[3] - Charger une grille\n"
                "[4] - Quitter\n");
 
-        printf("Je fais le choix numero : "); c = getchar();
+        printf("Je fais le choix numero : ");
+
+        c = getchar();
 
         /* suppression des caracteres dans stdin */
         if(c != '\n' && c != EOF)
@@ -768,7 +769,9 @@ int menu(int * pna, int * pma){
                 break;
 
             case '2':
+                fin = 1;
                 parametres(pna, pma);
+                fin = 0;
                 break;
 
             case '3':
