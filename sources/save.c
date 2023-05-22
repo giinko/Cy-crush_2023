@@ -24,7 +24,7 @@ void ecrir_parametre(param_struct all_param)
 param_struct lire_parametre()
 {
     param_struct all_param;
-    FILE *fichier = fopen("save/parametre.txt", "r");
+    FILE *fichier = fopen("..\\save\\parametre.txt", "r");
 
     if (fichier != NULL)
     {

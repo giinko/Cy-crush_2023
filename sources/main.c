@@ -2,24 +2,20 @@
 #include <stdlib.h>
 
 
-#include "..\header\game.h"
 #include "..\header\menu.h"
-#include "..\header\save.h"
+
 
 int main()
 {
     printf("Maxime, Fares and Sany present :\n");
 
-    param_struct all_param = lire_parametre();
-    /*
-    dans le menu tu prends en parametres, all_param ( la struct)
-    tu fais en sorte que tt marche avec la struc,
-    dc prempalce les pointeur par .long, .larg et tt
-    merci !
-    */
-    int menuu = menu(all_param) ;
+    param_struct_game all_param;
+    all_param.largeur = 8;
+    all_param.longueur = 8;
 
-    if(menuu == 1) {
+    int menu1 = menu(all_param);
+
+    if(menu1 == 1) {
         srand(8);
         color(15, 0);
 
@@ -37,4 +33,6 @@ int main()
         printf("Le score final est de : %d", final_score);
         return 0;
     }
+
+    return 0;
 }
