@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 #include "..\header\game.h"
+#include "..\header\save.h"
 
 
 
@@ -30,12 +31,12 @@ struct_grille_cc random_char()
 
 // fonction qui cree une grille a partir de 2 dimensions
 
-struct_grille_cc** creation_full_grille(int n,int m){
+struct_grille_cc** creation_full_grille(param_struct all_param_1){
 
-    struct_grille_cc** tab = malloc(n * sizeof(struct_grille_cc*));
-    for (int i = 0; i < n; i++) {
-        tab[i] = malloc(m * sizeof(struct_grille_cc));
-        for (int j = 0; j < m; j++) {
+    struct_grille_cc** tab = malloc(all_param_1.largeur * sizeof(struct_grille_cc*));
+    for (int i = 0; i < all_param_1.largeur; i++) {
+        tab[i] = malloc(all_param_1.longueur * sizeof(struct_grille_cc));
+        for (int j = 0; j < all_param_1.longueur; j++) {
             tab[i][j] = random_char();
         }
     }
@@ -265,7 +266,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
 
 
 
-        // Colonne n-1 ========================================================
+            // Colonne n-1 ========================================================
 
         else if(i==(n-1)){
             for (int j = 0; j < m; ++j) {
@@ -322,7 +323,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
             }
         }
 
-        //Toute les autres colonnes
+            //Toute les autres colonnes
         else {
 
             // Vers le bas =========================================
@@ -487,20 +488,20 @@ struct_grille_cc** remplir_grille(struct_grille_cc** grille, int n, int m){
 
 // Fonction qui prend une grille en paramètre et qui reenvoie une grille prête a jouer
 
-struct_grille_cc** start_grille(struct_grille_cc** grille, int n, int m){
+struct_grille_cc** start_grille(struct_grille_cc** grille0, param_struct all_param0){
     int score = 1;
     while (score>0){
 
-        score_grille grille_score = glob_supp_score(grille, n, m);
+        score_grille grille_score = glob_supp_score(grille0, all_param0.largeur, all_param0.longueur);
 
-        struct_grille_cc** grille1 = grille_gravite(grille_score.grille, n, m);
+        struct_grille_cc** grille1 = grille_gravite(grille_score.grille, all_param0.largeur, all_param0.longueur);
 
-        struct_grille_cc** grille2 = remplir_grille(grille1, n, m);
+        struct_grille_cc** grille2 = remplir_grille(grille1, all_param0.largeur, all_param0.longueur);
 
-        grille = grille2;
+        grille0 = grille2;
         score = grille_score.points;
     }
-    return grille;
+    return grille0;
 }
 
 //Fonction qui permet de déplacer les pions dans la grille
@@ -601,5 +602,3 @@ int game(struct_grille_cc** grille,int n,int m,int score){
     }
     return score;
 }
-
-// Focntion main

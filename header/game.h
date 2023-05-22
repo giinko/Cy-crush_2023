@@ -16,9 +16,16 @@ typedef struct{
     struct_grille_cc** grille;
 }score_grille;
 
+typedef struct{
+    int longueur;
+    int largeur;
+    int gravite;
+
+}param_struct;
+
 int game(struct_grille_cc** grille,int n,int m,int score);
-struct_grille_cc** creation_full_grille(int n,int m);
-struct_grille_cc** start_grille(struct_grille_cc** grille, int n, int m);
+struct_grille_cc** creation_full_grille(param_struct all_param);
+struct_grille_cc** start_grille(struct_grille_cc** grille, param_struct all_param);
 void affichage(int n, int m, struct_grille_cc** grille);
 void color(int t,int f);
 struct_grille_cc random_char();
