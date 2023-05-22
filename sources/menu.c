@@ -43,7 +43,7 @@ param_struct changement_gravite(param_struct all_param4){
         printf("Choix : ");
         int c3 = getchar();
 
-        // suppression des caracteres dans stdin 
+        // suppression des caracteres dans stdin
         if (c3 != '\n' && c3 != EOF) {
             int j;
             while ((j = getchar()) != '\n' && j != EOF);
@@ -64,8 +64,8 @@ param_struct changement_gravite(param_struct all_param4){
                 all_param4.gravite = 1;
                 fin3 = 0; // puis retour vers les parametres
                 break;
-            
-            // Vers la droite
+
+                // Vers la droite
             case '2':
                 all_param4.gravite = 2;
                 fin3 = 0; // puis retour vers les parametres
@@ -94,7 +94,8 @@ param_struct changement_taillegrille(param_struct all_param3) {
            "/ /___/ /_/ /  / /___/ /  / /_/ (__  ) / / /\n"
            "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
            "     /____/                                 \n\n");
- // Rappel de la taille de la grille avant de la modifier
+
+    // Rappel de la taille de la grille avant de la modifier
     printf("Taille actuelle de la grille : %d en longueur, et %d en largeur.\n", all_param3.longueur, all_param3.largeur);
 
 // indication des limites de la grille
@@ -161,12 +162,12 @@ param_struct parametres(param_struct all_param2) {
         }
 
         // Etude du choix de l'utilisateur
-          /*
-           A noter sur si on met "fin2 = 1" apres la fonction du menu choisi,
-           L'utilisateur retourne au menu principal directement apres son changement,
-           Sinon il retourne dans les parametres.
-           De même, après un return, l'utilisateur retourne dans le menu principal
-          */
+        /*
+         A noter sur si on met "fin2 = 1" apres la fonction du menu choisi,
+         L'utilisateur retourne au menu principal directement apres son changement,
+         Sinon il retourne dans les parametres.
+         De même, après un return, l'utilisateur retourne dans le menu principal
+        */
 
         switch (c2) {
 
@@ -199,70 +200,70 @@ param_struct parametres(param_struct all_param2) {
 }
 
 
-int menu(param_struct all_param1){
+int menu(param_struct all_param1) {
 
 // Déclaration de la variable fin, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
-int fin = 1;
+    int fin = 1;
 
 // tant que fin = 1 : (si fin = 0 alors c'est la fin de la boucle).
-while (fin) {
-    {
-        int c;
-
-        // CY CRUSH
-        printf("\n"
-               "   ______         ______                __  \n"
-               "  / ____/_  __   / ____/______  _______/ /_ \n"
-               " / /   / / / /  / /   / ___/ / / / ___/ __ \\\n"
-               "/ /___/ /_/ /  / /___/ /  / /_/ (__  ) / / /\n"
-               "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
-               "     /____/                                  \n\n");
-
-        // Menu principal
-        printf("[1] - Lancer le jeu\n"
-               "[2] - Parametres\n"
-               "[3] - Charger une grille\n"
-               "[4] - Quitter\n");
-
-        printf("Choix : ");
-
-        // Enregistrement du choix (dans c2) en caractère.
-        printf("Choix : ");
-        c = getchar();
-
-        /* suppression des caracteres dans stdin */
-        if (c != '\n' && c != EOF) {
-            int d;
-            while ((d = getchar()) != '\n' && d != EOF);
-        }
-
-
-        // Etude du choix de l'utilisateur
-        switch(c)
+    while (fin) {
         {
+            int c;
+
+            // CY CRUSH
+            printf("\n"
+                   "   ______         ______                __  \n"
+                   "  / ____/_  __   / ____/______  _______/ /_ \n"
+                   " / /   / / / /  / /   / ___/ / / / ___/ __ \\\n"
+                   "/ /___/ /_/ /  / /___/ /  / /_/ (__  ) / / /\n"
+                   "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
+                   "     /____/                                  \n\n");
+
+            // Menu principal
+            printf("[1] - Lancer le jeu\n"
+                   "[2] - Parametres\n"
+                   "[3] - Charger une grille\n"
+                   "[4] - Quitter\n");
+
+            printf("Choix : ");
+
+            // Enregistrement du choix (dans c2) en caractère.
+            printf("Choix : ");
+            c = getchar();
+
+            /* suppression des caracteres dans stdin */
+            if (c != '\n' && c != EOF) {
+                int d;
+                while ((d = getchar()) != '\n' && d != EOF);
+            }
+
+
+            // Etude du choix de l'utilisateur
+            switch (c) {
                 // Lance le jeu à l'aide du return 1.
-            case '1':
-                return 1 ;
+                case '1':
+                    return 1;
 
-                //
-            case '2':
-                parametres(all_param1);
-                fin = 0;
-                break;
+                    //
+                case '2':
+                    parametres(all_param1);
+                    fin = 0;
+                    break;
 
-                //
-            case '3':
-                printf("Choix 3 en cours de dev\n");
-                return 2;
+                    //
+                case '3':
+                    printf("Choix 3 en cours de dev\n");
+                    return 2;
 
-                // Fais quitter l'utilisateur (fin de la boucle activé)
-            case '4':
-                fin = 0;
-                break;
+                    // Fais quitter l'utilisateur (fin de la boucle activé)
+                case '4':
+                    fin = 0;
+                    break;
 
-                // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3,4)
-            default:
-                printf("Choix invalide, veuillez recommencer.\n");
+                    // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3,4)
+                default:
+                    printf("Choix invalide, veuillez recommencer.\n");
+            }
         }
     }
 }

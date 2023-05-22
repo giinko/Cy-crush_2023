@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include <windows.h>
-<<<<<<< HEAD
-
 /*
 0: noir
 1: bleu foncé
@@ -22,9 +20,6 @@
 14: jaune fluo
 15: blanc
 */
-=======
->>>>>>> 9b05fdabc1a847e2bbef88093c37571d36e3fc97
-
 
 /* Structure nécéssaire pour la suite */
 

@@ -13,7 +13,7 @@ int main()
     param_struct all_param = lire_parametre();
     /*
     dans le menu tu prends en parametres, all_param ( la struct)
-    tu fais en sorte que tt marche avec la struc, 
+    tu fais en sorte que tt marche avec la struc,
     dc prempalce les pointeur par .long, .larg et tt
     merci !
     */

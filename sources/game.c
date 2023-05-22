@@ -266,7 +266,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
 
 
 
-        // Colonne n-1 ========================================================
+            // Colonne n-1 ========================================================
 
         else if(i==(n-1)){
             for (int j = 0; j < m; ++j) {
@@ -323,7 +323,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
             }
         }
 
-        //Toute les autres colonnes
+            //Toute les autres colonnes
         else {
 
             // Vers le bas =========================================
@@ -602,5 +602,3 @@ int game(struct_grille_cc** grille,int n,int m,int score){
     }
     return score;
 }
-
-// Focntion main

@@ -1,6 +1,12 @@
+typedef struct{
+    int longueur;
+    int largeur;
+    int gravite;
 
 
-int menu(param_struct all_param1);
-void parametres(param_struct all_param2);
-void changement_taillegrille(int* pnc, int* pmc);
-int changement_gravite(int* sgravite);
+}param_struct;
+
+int menu(param_struct all_param);
+param_struct parametres(param_struct all_param);
+param_struct changement_taillegrille(param_struct all_param);
+param_struct changement_gravite(param_struct all_param);
