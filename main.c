@@ -47,7 +47,6 @@ void color(int t,int f)
     SetConsoleTextAttribute(H,f*16+t);
 }
 
-
 // Fonction qui choisi un caractere aléatoire parmis la liste prédéfinis
 
 struct_grille_cc random_char()
