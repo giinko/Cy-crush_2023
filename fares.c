@@ -29,7 +29,6 @@ typedef struct{
 
 // ==========================================================
 
-typedef struct score score;
 
 /* Fonction qui permet de changer la couleur des caractères de la consol */
 
