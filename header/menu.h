@@ -1,5 +1,6 @@
 
-int menu(int * pna, int * pma, int * pgravite_a);
-void parametres(int* pnb, int* pmb, int * pgravite_b);
+
+int menu(param_struct all_param1);
+void parametres(param_struct all_param2);
 void changement_taillegrille(int* pnc, int* pmc);
 int changement_gravite(int* sgravite);

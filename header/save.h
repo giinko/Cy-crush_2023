@@ -1,3 +1,6 @@
+
+
+
 typedef struct{
     int longueur;
     int largeur;
