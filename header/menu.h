@@ -1,12 +1,6 @@
-typedef struct{
-    int longueur;
-    int largeur;
-    int gravite;
+#include "game.h"
 
-
-}param_struct;
-
-int menu(param_struct all_param);
-param_struct parametres(param_struct all_param);
-param_struct changement_taillegrille(param_struct all_param);
-param_struct changement_gravite(param_struct all_param);
+int menu(param_struct_game all_param);
+param_struct_game parametres(param_struct_game all_param);
+param_struct_game changement_taillegrille(param_struct_game all_param);
+param_struct_game changement_gravite(param_struct_game all_param);

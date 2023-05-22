@@ -3,8 +3,6 @@
 #include <stdio.h>
 
 #include "..\header\game.h"
-#include "..\header\save.h"
-
 
 
 /* Fonction qui permet de changer la couleur des caractères de la consol */
@@ -31,12 +29,13 @@ struct_grille_cc random_char()
 
 // fonction qui cree une grille a partir de 2 dimensions
 
-struct_grille_cc** creation_full_grille(param_struct all_param_1){
+struct_grille_cc** creation_full_grille(param_struct_game all_param)
+{
 
-    struct_grille_cc** tab = malloc(all_param_1.largeur * sizeof(struct_grille_cc*));
-    for (int i = 0; i < all_param_1.largeur; i++) {
-        tab[i] = malloc(all_param_1.longueur * sizeof(struct_grille_cc));
-        for (int j = 0; j < all_param_1.longueur; j++) {
+    struct_grille_cc** tab = malloc(all_param.largeur * sizeof(struct_grille_cc*));
+    for (int i = 0; i < all_param.largeur; i++) {
+        tab[i] = malloc(all_param.longueur * sizeof(struct_grille_cc));
+        for (int j = 0; j < all_param.longueur; j++) {
             tab[i][j] = random_char();
         }
     }
@@ -94,7 +93,8 @@ struct_grille_cc** supp_case(position* all_position, struct_grille_cc** grille, 
 
 // Renvoie uns structure avec la grille supprimer et le score
 
-score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
+score_grille glob_supp_score(struct_grille_cc** grille, int n, int m)
+{
 
     score_grille score;
     position all_pos[n*m];
@@ -197,10 +197,8 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
     }
 
 
-    // Boucle qui supp en diagonale ====================
-    // ===============================================================================
+    // Boucle qui supp en diagonale =======================================
 
-    affichage(n,m,grille);
 
     // Pour chaque ligne :
     for(int i=0;i<n;i++) {
@@ -227,7 +225,6 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
                     char car2 = grille[k][j+k].car;
                     pos.x=j+k;
                     pos.y=k;
-                    //printf("X : %d, Y : %d, count : %d, char : %c | %c\n",pos.x,pos.y,count_car,car1,car2);
                     if((car1==car2)&&(car2!='.')){
                         count_car++;
                         if(count_car>=3){bool_diag = True;}
@@ -239,7 +236,6 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
                         if(bool_diag){
                             for (int z = 0; z < count_car; ++z) {
                                 position pos1 = tab[z];
-                                //printf("X : %d, Y : %d\n",pos1.x,pos1.y);
                                 all_pos[count_pos] = pos1;
                                 count_pos ++;
                             }
@@ -256,7 +252,6 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
                 if(bool_diag){
                     for (int z = 0; z < count_car; ++z) {
                         position pos1 = tab[z];
-                        //printf("X : %d, Y : %d\n",pos1.x,pos1.y);
                         all_pos[count_pos] = pos1;
                         count_pos ++;
                     }
@@ -266,7 +261,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
 
 
 
-            // Colonne n-1 ========================================================
+        // Colonne n-1 ========================================================
 
         else if(i==(n-1)){
             for (int j = 0; j < m; ++j) {
@@ -323,7 +318,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
             }
         }
 
-            //Toute les autres colonnes
+        //Toute les autres colonnes
         else {
 
             // Vers le bas =========================================
@@ -438,7 +433,8 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m){
 
 // Fonction qui gère la gravité de la grille
 
-struct_grille_cc** grille_gravite(struct_grille_cc** grille, int n, int m){
+struct_grille_cc** grille_gravite(struct_grille_cc** grille, int n, int m)
+{
     // pour pouvoir changé la direction ultérieurement
     char direction = 'R';
 
@@ -474,7 +470,8 @@ struct_grille_cc** grille_gravite(struct_grille_cc** grille, int n, int m){
 
 // Fonction qui remplit une grille aléatoirement
 
-struct_grille_cc** remplir_grille(struct_grille_cc** grille, int n, int m){
+struct_grille_cc** remplir_grille(struct_grille_cc** grille, int n, int m)
+{
     for(int i=0;i<n;i++){
         for(int j=0;j<m;j++){
             if(grille[i][j].car == '.'){
@@ -488,25 +485,27 @@ struct_grille_cc** remplir_grille(struct_grille_cc** grille, int n, int m){
 
 // Fonction qui prend une grille en paramètre et qui reenvoie une grille prête a jouer
 
-struct_grille_cc** start_grille(struct_grille_cc** grille0, param_struct all_param0){
+struct_grille_cc** start_grille(struct_grille_cc** grille, param_struct_game all_param)
+{
     int score = 1;
     while (score>0){
 
-        score_grille grille_score = glob_supp_score(grille0, all_param0.largeur, all_param0.longueur);
+        score_grille grille_score = glob_supp_score(grille, all_param.largeur, all_param.longueur);
 
-        struct_grille_cc** grille1 = grille_gravite(grille_score.grille, all_param0.largeur, all_param0.longueur);
+        struct_grille_cc** grille1 = grille_gravite(grille_score.grille, all_param.largeur, all_param.longueur);
 
-        struct_grille_cc** grille2 = remplir_grille(grille1, all_param0.largeur, all_param0.longueur);
+        struct_grille_cc** grille2 = remplir_grille(grille1, all_param.largeur, all_param.longueur);
 
-        grille0 = grille2;
+        grille = grille2;
         score = grille_score.points;
     }
-    return grille0;
+    return grille;
 }
 
 //Fonction qui permet de déplacer les pions dans la grille
 
-struct_grille_cc** deplacement_grille(struct_grille_cc** grille,position pos1,position pos2){
+struct_grille_cc** deplacement_grille(struct_grille_cc** grille,position pos1,position pos2)
+{
 
     int pos1_x = pos1.x;
     int pos1_y = pos1.y;
@@ -528,7 +527,8 @@ struct_grille_cc** deplacement_grille(struct_grille_cc** grille,position pos1,po
 
 // Fonction qui gere la reaction en chaine
 
-score_grille grille_reac_chaine(struct_grille_cc** grille,int n,int m){
+score_grille grille_reac_chaine(struct_grille_cc** grille,int n,int m)
+{
 
     // Modifier cette fonction pour améliorer l'esthétique.
 
@@ -554,17 +554,16 @@ score_grille grille_reac_chaine(struct_grille_cc** grille,int n,int m){
 
 // Fonction qui fait tourner le jeu
 
-int game(struct_grille_cc** grille,int n,int m,int score){
+int game(struct_grille_cc** grille,int n,int m,int score)
+{
     int finish = 1;
     while(finish!=0){
 
-        //Déplacement sur la grille ======== voir si possiblité de créé une fonction !!
-        // Cree une struc avec 2 pos, puis une focntion qui reenvoie 2 pos !!
         position pos1;
         position pos2;
 
         printf("Indiquez moi la position des points que vous voulez chnager.\n");
-        printf("Par exemple : A:3, B:4, j'echange a3 et b4\n");
+        printf("Par exemple : A3, B4, j'echange a3 et b4\n");
 
         char pos_car;
         int pos_num;
