@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <time.h>
 
 #include "..\header\menu.h"
 
@@ -9,15 +9,16 @@ int main()
 {
     printf("Maxime, Fares and Sany present :\n");
 
-    param_struct_game all_param;
-    all_param.largeur = 8;
-    all_param.longueur = 8;
+    param_struct_game all_param = lire_parametre();
 
     int menu1 = menu(all_param);
 
     if(menu1 == 1) {
-        srand(8);
+        srand(time( NULL ));
         color(15, 0);
+
+        //re check les param
+        all_param = lire_parametre();
 
         // creation grille
         struct_grille_cc **grille = creation_full_grille(all_param);

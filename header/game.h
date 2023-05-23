@@ -1,6 +1,8 @@
 #define True 1
 #define False 0
 
+#include "save.h"
+
 typedef struct{
     int num;
     char car;
@@ -15,12 +17,6 @@ typedef struct{
     int points;
     struct_grille_cc** grille;
 }score_grille;
-
-typedef struct{
-    int longueur;
-    int largeur;
-    int gravite;
-}param_struct_game;
 
 void color(int t,int f);
 struct_grille_cc random_char();

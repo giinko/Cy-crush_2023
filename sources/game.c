@@ -562,8 +562,8 @@ int game(struct_grille_cc** grille,int n,int m,int score)
         position pos1;
         position pos2;
 
-        printf("Indiquez moi la position des points que vous voulez chnager.\n");
-        printf("Par exemple : A3, B4, j'echange a3 et b4\n");
+        printf("Indiquez la position des symboles que vous voulez changer.\n");
+        printf("Par exemple : A3 ou B4\n");
 
         char pos_car;
         int pos_num;
@@ -588,6 +588,7 @@ int game(struct_grille_cc** grille,int n,int m,int score)
         struct_grille_score = grille_reac_chaine(grille2,n,m);
 
         grille = struct_grille_score.grille;
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n");
         affichage(n,m,grille);
         printf("\n");
 

@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include "..\header\save.h"
 
-void ecrir_parametre(param_struct all_param)
+void ecrir_parametre(param_struct_game all_param)
 {
 
-    FILE *fichier = fopen("save\\parametre.txt", "w+");
+    FILE *fichier = fopen("..\\save\\parametre.txt", "w+");
     if (fichier != NULL)
     {
 
@@ -21,9 +21,9 @@ void ecrir_parametre(param_struct all_param)
 
 }
 
-param_struct lire_parametre()
+param_struct_game lire_parametre()
 {
-    param_struct all_param;
+    param_struct_game all_param;
     FILE *fichier = fopen("..\\save\\parametre.txt", "r");
 
     if (fichier != NULL)

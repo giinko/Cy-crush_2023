@@ -23,6 +23,7 @@ param_struct_game changement_gravite(param_struct_game all_param4)
         }
 
         // CY CRUSH
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n");
         printf("\n\n\n"
                "   ______         ______                __  \n"
                "  / ____/_  __   / ____/______  _______/ /_ \n"
@@ -80,6 +81,7 @@ param_struct_game changement_gravite(param_struct_game all_param4)
 
 param_struct_game changement_taillegrille(param_struct_game all_param3) {
 
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n");
     printf("\n\n\n" //CY CRUSH
            "   ______         ______                __  \n"
            "  / ____/_  __   / ____/______  _______/ /_ \n"
@@ -117,21 +119,28 @@ param_struct_game changement_taillegrille(param_struct_game all_param3) {
 
     //récupère le dernier caractère pour éviter la regénération du menu.
     char stop = getchar();
+
+    // sauvegarde les paramètres dans le dossier paramètre
+    ecrir_parametre(all_param3);
+
     // retour des nouveaux parametres
     return all_param3 ;
 }
 
 
-param_struct_game parametres(param_struct_game all_param2) {
+param_struct_game parametres(param_struct_game all_param) {
 
-    // Déclaration de la variable fin2, pour mettre fin à la boucle : 0 = ça tourne, 1 = stop.
-    int fin2 = 0;
+    // Déclaration de la variable fin2, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
+    int fin2 = 1;
+
+    param_struct_game all_param2 = all_param;
 
     // tant que fin2 = 0 : (si fin2 = 1 alors c'est la fin de la boucle).
-    while (!fin2) {
+    while (fin2) {
         int c2;
 
         // CY CRUSH
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n");
         printf("\n\n"
                "   ______         ______                __  \n"
                "  / ____/_  __   / ____/______  _______/ /_ \n"
@@ -157,43 +166,36 @@ param_struct_game parametres(param_struct_game all_param2) {
             while ((d = getchar()) != '\n' && d != EOF);
         }
 
-        // Etude du choix de l'utilisateur
-        /*
-         A noter sur si on met "fin2 = 1" apres la fonction du menu choisi,
-         L'utilisateur retourne au menu principal directement apres son changement,
-         Sinon il retourne dans les parametres.
-         De même, après un return, l'utilisateur retourne dans le menu principal
-        */
-
         switch (c2) {
 
             // Entre dans le menu changement de la taille de la grille
             case '1':
-                all_param2 = changement_taillegrille(all_param2);
+                all_param2 = changement_taillegrille(all_param);
                 break;
 
-                // Entre dans le menu changement de sens de gravité.
+            // Entre dans le menu changement de sens de gravité.
             case '2':
-                all_param2 = changement_gravite(all_param2);
+                all_param2 = changement_gravite(all_param);
                 break;
 
-                // Entre dans le menu changement du nombre des caracteres (4 par defaut)
+            // Entre dans le menu changement du nombre des caracteres (4 par defaut)
             case '3':
                 printf("Choix 3\n");
-                fin2 = 1;
+                fin2 = 0;
                 break;
 
-                // Fais quitter l'utilisateur si il fait 4
-                break;
+            // Fais quitter l'utilisateur si il fait 4
             case '4':
-                fin2 = 1;
+                fin2 = 0;
                 break;
 
-                // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3,4)
+            // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3,4)
             default:
                 printf("Choix invalide, veuillez recommencer.\n");
         }
+        all_param = all_param2;
     }
+    return all_param;
 }
 
 
@@ -202,12 +204,15 @@ int menu(param_struct_game all_param1) {
 // Déclaration de la variable fin, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
     int fin = 1;
 
+    param_struct_game all_param2;
+
 // tant que fin = 1 : (si fin = 0 alors c'est la fin de la boucle).
     while (fin) {
 
         int c;
 
         // CY CRUSH
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n");
         printf("\n"
                "   ______         ______                __  \n"
                "  / ____/_  __   / ____/______  _______/ /_ \n"
@@ -241,12 +246,17 @@ int menu(param_struct_game all_param1) {
 
                 //
             case '2':
-                parametres(all_param1);
+                all_param2 = parametres(all_param1);
+                all_param1 = all_param2;
                 break;
 
                 //
             case '3':
-                printf("Choix 3 en cours de dev\n");
+                printf(" == En cours de dev ... == \n")
+                printf(" == En cours de dev ... == \n")
+                printf(" == En cours de dev ... == \n")
+                printf(" == En cours de dev ... == \n")
+                printf(" == En cours de dev ... == \n");
                 break;
 
                 // Fais quitter l'utilisateur (fin de la boucle activé)
