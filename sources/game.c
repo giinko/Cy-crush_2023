@@ -15,12 +15,12 @@ void color(int t,int f)
 
 // Fonction qui choisi un caractere aléatoire parmis la liste prédéfinis
 
-struct_grille_cc random_char()
+struct_grille_cc random_char(int nbr_symbole)
 {
     struct_grille_cc zz;
-    int r = rand()%4;
-    char tab[4] = {'X','O','@','+'};
-    int color[4] = {14,12,1,2};
+    int r = rand()%nbr_symbole;
+    char tab[6] = {'X','O','@','+','Y','C'};
+    int color[6] = {14,12,1,2,5,4};
     zz.car = tab[r];
     zz.num = color[r];
     return zz;
@@ -36,7 +36,7 @@ struct_grille_cc** creation_full_grille(param_struct_game all_param)
     for (int i = 0; i < all_param.largeur; i++) {
         tab[i] = malloc(all_param.longueur * sizeof(struct_grille_cc));
         for (int j = 0; j < all_param.longueur; j++) {
-            tab[i][j] = random_char();
+            tab[i][j] = random_char(all_param.symbole);
         }
     }
     return tab;
@@ -470,12 +470,12 @@ struct_grille_cc** grille_gravite(struct_grille_cc** grille, int n, int m)
 
 // Fonction qui remplit une grille aléatoirement
 
-struct_grille_cc** remplir_grille(struct_grille_cc** grille, int n, int m)
+struct_grille_cc** remplir_grille(struct_grille_cc** grille, param_struct_game all_param)
 {
-    for(int i=0;i<n;i++){
-        for(int j=0;j<m;j++){
+    for(int i=0;i<all_param.largeur;i++){
+        for(int j=0;j<all_param.longueur;j++){
             if(grille[i][j].car == '.'){
-                grille[i][j] = random_char();
+                grille[i][j] = random_char(all_param.symbole);
             }
         }
     }
@@ -494,7 +494,7 @@ struct_grille_cc** start_grille(struct_grille_cc** grille, param_struct_game all
 
         struct_grille_cc** grille1 = grille_gravite(grille_score.grille, all_param.largeur, all_param.longueur);
 
-        struct_grille_cc** grille2 = remplir_grille(grille1, all_param.largeur, all_param.longueur);
+        struct_grille_cc** grille2 = remplir_grille(grille1, all_param);
 
         grille = grille2;
         score = grille_score.points;

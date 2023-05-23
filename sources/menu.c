@@ -252,10 +252,10 @@ int menu(param_struct_game all_param1) {
 
                 //
             case '3':
-                printf(" == En cours de dev ... == \n")
-                printf(" == En cours de dev ... == \n")
-                printf(" == En cours de dev ... == \n")
-                printf(" == En cours de dev ... == \n")
+                printf(" == En cours de dev ... == \n");
+                printf(" == En cours de dev ... == \n");
+                printf(" == En cours de dev ... == \n");
+                printf(" == En cours de dev ... == \n");
                 printf(" == En cours de dev ... == \n");
                 break;
 
