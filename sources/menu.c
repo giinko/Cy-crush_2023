@@ -3,6 +3,77 @@
 
 #include "..\header\menu.h"
 
+param_struct_game changement_caractere(param_struct_game all_param5) {
+
+    // Déclaration de la variable fin3, pour mettre fin à la boucle : 0 = ça tourne, 1 = stop.
+    int fin3 = 1;
+
+    // tant que fin3 = 0 : (si fin3 = 1 alors c'est la fin de la boucle).
+    while (fin3) {
+
+        // CY CRUSH
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n");
+        printf("\n\n\n"
+               "   ______         ______                __  \n"
+               "  / ____/_  __   / ____/______  _______/ /_ \n"
+               " / /   / / / /  / /   / ___/ / / / ___/ __ \\\n"
+               "/ /___/ /_/ /  / /___/ /  / /_/ (__  ) / / /\n"
+               "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
+               "     /____/                                 \n\n");
+
+        // Rappel du sens de la gravite
+        printf("Actuellement, il y a %d de symboles differents \n", all_param5.symbole);
+
+        // Indication des differents choix disponible
+        printf("[4] - Jouer avec 4 symboles differents \n"
+               "[5] - Jouer avec 5 symboles differents \n"
+               "[6] - Jouer avec 6 symboles differents \n"
+               "[0] - Retourner vers les parametres \n");
+
+        // Enregistrement du choix dans une variable c3 en caractère.
+        printf("---> ");
+        int c4 = getchar();
+
+        // suppression des caracteres dans stdin
+        if (c4 != '\n' && c4 != EOF) {
+            int j;
+            while ((j = getchar()) != '\n' && j != EOF);
+        }
+
+        // Etude du choix de l'utilisateur
+        switch (c4) {
+
+                // Joue avec 4 symboles
+            case '4':
+                all_param5.symbole = 4;
+                fin3 = 0; // puis retour vers les parametres
+                break;
+
+                // Joue avec 5 symboles
+            case '5':
+                all_param5.symbole = 5;
+                fin3 = 0; // puis retour vers les parametres
+                break;
+
+                // Joue avec 6 symboles
+            case '6':
+                all_param5.symbole = 6;
+                fin3 = 0; // puis retour vers les parametres
+                break;
+
+                // Retour vers les parametres
+            case '0':
+                fin3 = 0;
+                break;
+
+                // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3,4)
+            default:
+                printf("Choix invalide, veuillez recommencer.\n");
+        }
+    }
+    return all_param5;
+};
+
 param_struct_game changement_gravite(param_struct_game all_param4)
 {
 
@@ -41,7 +112,7 @@ param_struct_game changement_gravite(param_struct_game all_param4)
                "[3] - Retourner vers les parametres \n");
 
         // Enregistrement du choix dans une variable c3 en caractère.
-        printf("Choix : ");
+        printf("---> ");
         int c3 = getchar();
 
         // suppression des caracteres dans stdin
@@ -141,6 +212,11 @@ param_struct_game parametres(param_struct_game all_param) {
 
         // CY CRUSH
         printf("\n\n\n\n\n\n\n\n\n\n\n\n");
+
+        if(all_param != all_param2){
+            printf("Changements correctements enresgitrés");
+        }
+
         printf("\n\n"
                "   ______         ______                __  \n"
                "  / ____/_  __   / ____/______  _______/ /_ \n"
@@ -153,11 +229,11 @@ param_struct_game parametres(param_struct_game all_param) {
         printf("Parametres : \n");
         printf("[1] - Changer la taille de la grille\n"
                "[2] - Changer le sens de gravite\n"
-               "[3] - Changer le nombre de caracteres\n"
+               "[3] - Changer le nombre de symboles\n"
                "[4] - Quitter les parametres\n");
 
         // Enregistrement du choix (dans c2) en caractère.
-        printf("Choix : ");
+        printf("---> ");
         c2 = getchar();
 
         /* suppression des caracteres dans stdin */
@@ -180,8 +256,7 @@ param_struct_game parametres(param_struct_game all_param) {
 
             // Entre dans le menu changement du nombre des caracteres (4 par defaut)
             case '3':
-                printf("Choix 3\n");
-                fin2 = 0;
+                all_param2 = changement_caractere(all_param);
                 break;
 
             // Fais quitter l'utilisateur si il fait 4
@@ -228,7 +303,7 @@ int menu(param_struct_game all_param1) {
                "[4] - Quitter\n");
 
         // Enregistrement du choix (dans c2) en caractère.
-        printf("Choix : ");
+        printf("---> ");
         c = getchar();
 
         /* suppression des caracteres dans stdin */
@@ -252,10 +327,10 @@ int menu(param_struct_game all_param1) {
 
                 //
             case '3':
-                printf(" == En cours de dev ... == \n")
-                printf(" == En cours de dev ... == \n")
-                printf(" == En cours de dev ... == \n")
-                printf(" == En cours de dev ... == \n")
+                printf(" == En cours de dev ... == \n");
+                printf(" == En cours de dev ... == \n");
+                printf(" == En cours de dev ... == \n");
+                printf(" == En cours de dev ... == \n");
                 printf(" == En cours de dev ... == \n");
                 break;
 
