@@ -71,6 +71,7 @@ param_struct_game changement_caractere(param_struct_game all_param5) {
                 printf("Choix invalide, veuillez recommencer.\n");
         }
     }
+    ecrir_parametre(all_param5);
     return all_param5;
 };
 
@@ -212,10 +213,10 @@ param_struct_game parametres(param_struct_game all_param) {
 
         // CY CRUSH
         printf("\n\n\n\n\n\n\n\n\n\n\n\n");
-
+/*
         if(all_param != all_param2){
             printf("Changements correctements enresgitrés");
-        }
+        } */
 
         printf("\n\n"
                "   ______         ______                __  \n"

@@ -19,7 +19,7 @@ int main()
 
         //re check les param
         all_param = lire_parametre();
-
+        printf("%d, %d, %d, %d", all_param.longueur,all_param.largeur,all_param.symbole,all_param.gravite);
         // creation grille
         struct_grille_cc **grille = creation_full_grille(all_param);
 
