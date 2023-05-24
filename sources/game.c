@@ -480,7 +480,7 @@ struct_grille_cc** remplir_grille(struct_grille_cc** grille, param_struct_game a
     for(int i=0;i<all_param.largeur;i++){
         for(int j=0;j<all_param.longueur;j++){
 
-            if(grille[i][j].car == '.'){
+            if(grille[i][j].car == '.'){ // pour 5 carac ca marche nicke
 
                     if((j>0)&&(j<all_param.longueur-1)&&(i>0)&&(i<all_param.largeur-1)){
                         struct_grille_cc rdm_car = random_char(all_param.symbole);

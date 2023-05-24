@@ -42,3 +42,8 @@ param_struct_game lire_parametre()
     }
     return all_param;
 }
+
+void save_grille(param_struct_game all_param,struct_grille_cc **grille)
+{
+    printf("yaya");
+}

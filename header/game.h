@@ -3,21 +3,6 @@
 
 #include "save.h"
 
-typedef struct{
-    int num;
-    char car;
-}struct_grille_cc;
-
-typedef struct{
-    int x;
-    int y;
-}position;
-
-typedef struct{
-    int points;
-    struct_grille_cc** grille;
-}score_grille;
-
 void color(int t,int f);
 struct_grille_cc random_char(int nbr_symbole);
 struct_grille_cc** creation_full_grille(param_struct_game all_param_1);
