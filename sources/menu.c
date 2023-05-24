@@ -80,8 +80,7 @@ param_struct_game changement_caractere(param_struct_game all_param5) {
     }
     ecrir_parametre(all_param5);
     return all_param5;
-};
-
+}
 param_struct_game changement_gravite(param_struct_game all_param4)
 {
 
@@ -158,8 +157,6 @@ param_struct_game changement_gravite(param_struct_game all_param4)
         }
     }
 }
-
-
 param_struct_game changement_taillegrille(param_struct_game all_param3) {
     int fin3 = 1;
     int b = 0 ;
@@ -250,8 +247,6 @@ param_struct_game changement_taillegrille(param_struct_game all_param3) {
         }
     }
 }
-
-
 param_struct_game parametres(param_struct_game all_param) {
 
     param_struct_game all_param2 = all_param;
@@ -642,8 +637,6 @@ param_struct_game charger_grille(param_struct_game all_param6){
     }
     return all_param6 ;
 }
-
-
 int menu(param_struct_game all_param1) {
 
 // Déclaration de la variable fin, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
