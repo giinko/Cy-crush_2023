@@ -583,7 +583,14 @@ score_grille grille_reac_chaine(struct_grille_cc** grille,int n,int m)
     return struct_grille_score;
 }
 
+int verifierStop(char reponse[]) {
 
+        if (strcmp(reponse, "stop") == 0) {
+            return 1;  // Le tableau correspond à "stop"
+        } else {
+            return 0;  // Le tableau est différent de "stop"
+        }
+}
 // Fonction qui fait tourner le jeu
 
 int game(struct_grille_cc** grille,int n,int m,int score)
