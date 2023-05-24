@@ -1,4 +1,4 @@
-longueur_grille : 7
-largeur_grille : 6
-nbr_symbole : 5
+longueur_grille : 15
+largeur_grille : 15
+nbr_symbole : 4
 Direction_gravite : 1

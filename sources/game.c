@@ -472,10 +472,38 @@ struct_grille_cc** grille_gravite(struct_grille_cc** grille, int n, int m)
 
 struct_grille_cc** remplir_grille(struct_grille_cc** grille, param_struct_game all_param)
 {
+
+    char tab[6] = {'X','O','@','+','Y','C'};
+    int color[6] = {14,12,1,2,5,4};
+    int count_remp1=0;
+    int count_remp2=4;
     for(int i=0;i<all_param.largeur;i++){
         for(int j=0;j<all_param.longueur;j++){
+
             if(grille[i][j].car == '.'){
-                grille[i][j] = random_char(all_param.symbole);
+
+                    if((j>0)&&(j<all_param.longueur-1)&&(i>0)&&(i<all_param.largeur-1)){
+                        struct_grille_cc rdm_car = random_char(all_param.symbole);
+                        int fin = 1;
+                        int stop = 0;
+                        while ((fin==1) || (stop < all_param.symbole)){
+                            rdm_car.car = tab[stop];
+                            rdm_car.num = color[stop];
+                            if ((rdm_car.car != grille[i][j-1].car)&&(rdm_car.car != grille[i][j+1].car)&&(rdm_car.car != grille[i-1][j].car)&&(rdm_car.car != grille[i+1][j].car)){
+                                fin=0;
+                            }
+                            stop ++;
+                        }
+                        if (stop == all_param.symbole-1 ){
+                            grille[i][j] = rdm_car;
+                        }
+                        else{
+                            grille[i][j] = random_char(all_param.symbole);
+                        }
+                    }
+                    else{
+                        grille[i][j] = random_char(all_param.symbole);
+                    }
             }
         }
     }
@@ -498,6 +526,7 @@ struct_grille_cc** start_grille(struct_grille_cc** grille, param_struct_game all
 
         grille = grille2;
         score = grille_score.points;
+        affichage(all_param.largeur, all_param.longueur,grille);
     }
     return grille;
 }
