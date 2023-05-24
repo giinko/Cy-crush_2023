@@ -690,7 +690,9 @@ int menu(param_struct all_param) {
 
             // Lance le jeu à l'aide du return 1.
             case '1':
-                printf("Chargement de votre grille... Veuillez patienter");
+                if (all_param.symbole == 4){
+                    printf("Chargement de votre grille... Veuillez patienter\n\n");
+                }
                 return 1;
 
                 //

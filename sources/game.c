@@ -526,7 +526,7 @@ struct_grille_cc** start_grille(struct_grille_cc** grille, param_struct all_para
 
         grille = grille2;
         score = grille_score.points;
-        affichage(all_param.largeur, all_param.longueur,grille);
+       // affichage(all_param.largeur, all_param.longueur,grille);
     }
     return grille;
 }
@@ -600,13 +600,13 @@ int game(struct_grille_cc** grille,int n,int m,int score)
         char pos_car;
         int pos_num;
         printf("Position 1 : ");
-        scanf("%1c%1d",&pos_car,&pos_num); // Check les erreur, si == 2 et tte les infos comme on veut on continue
+        scanf("%1c%2d",&pos_car,&pos_num); // Check les erreur, si == 2 et tte les infos comme on veut on continue
         while(getchar()!='\n'); // reset le scanf viens de internet
         pos1.y = pos_num-1;
         pos1.x = pos_car-65;
 
         printf("Position 2 : ");
-        scanf("%1c%1d",&pos_car,&pos_num);
+        scanf("%1c%2d",&pos_car,&pos_num);
         while(getchar()!='\n');
         pos2.y = pos_num-1;
         pos2.x = pos_car-65;
