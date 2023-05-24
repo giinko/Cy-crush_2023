@@ -7,13 +7,19 @@ param_struct_game changement_caractere(param_struct_game all_param5) {
 
     // Déclaration de la variable fin3, pour mettre fin à la boucle : 0 = ça tourne, 1 = stop.
     int fin3 = 1;
+    int d = 0;
 
     // tant que fin3 = 0 : (si fin3 = 1 alors c'est la fin de la boucle).
     while (fin3) {
 
         // CY CRUSH
-        printf("\n\n\n\n\n\n\n\n\n\n\n\n");
-        printf("\n\n\n"
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        if(d == 1){
+            printf("Choix invalide, veuillez recommencer.\n");
+        }
+
+        d = 0;
+        printf("\n"
                "   ______         ______                __  \n"
                "  / ____/_  __   / ____/______  _______/ /_ \n"
                " / /   / / / /  / /   / ___/ / / / ___/ __ \\\n"
@@ -28,7 +34,7 @@ param_struct_game changement_caractere(param_struct_game all_param5) {
         printf("[4] - Jouer avec 4 symboles differents \n"
                "[5] - Jouer avec 5 symboles differents \n"
                "[6] - Jouer avec 6 symboles differents \n"
-               "[0] - Retourner vers les parametres \n");
+               "[0] - Retourner vers les parametres \n\n");
 
         // Enregistrement du choix dans une variable c3 en caractère.
         printf("---> ");
@@ -68,7 +74,8 @@ param_struct_game changement_caractere(param_struct_game all_param5) {
 
                 // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3,4)
             default:
-                printf("Choix invalide, veuillez recommencer.\n");
+                d = 1 ;
+                break;
         }
     }
     ecrir_parametre(all_param5);
@@ -79,10 +86,10 @@ param_struct_game changement_gravite(param_struct_game all_param4)
 {
 
     // Declaration d'un tableau de caractère qui va traduire la gravité.
-    char sens_gravite[20] = "vers la droite." ;
-
+    char sens_gravite[20];
     // Déclaration de la variable fin3, pour mettre fin à la boucle : 0 = ça tourne, 1 = stop.
     int fin3 = 1;
+    int c = 0;
 
     // tant que fin3 = 0 : (si fin3 = 1 alors c'est la fin de la boucle).
     while (fin3) {
@@ -95,22 +102,27 @@ param_struct_game changement_gravite(param_struct_game all_param4)
         }
 
         // CY CRUSH
-        printf("\n\n\n\n\n\n\n\n\n\n\n\n");
-        printf("\n\n\n"
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        if(c == 1){
+            printf("Choix invalide, veuillez recommencer.\n");
+        }
+
+        c = 0;
+        printf("\n"
                "   ______         ______                __  \n"
                "  / ____/_  __   / ____/______  _______/ /_ \n"
                " / /   / / / /  / /   / ___/ / / / ___/ __ \\\n"
                "/ /___/ /_/ /  / /___/ /  / /_/ (__  ) / / /\n"
                "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
                "     /____/                                 \n\n");
+        printf("Menu de changement de la gravite. \n");
 
         // Rappel du sens de la gravite
-        printf("Actuellement, le sens de la gravite est %s \n", sens_gravite);
-
+        printf("Actuellement, le sens de la gravite est %s \n\n", sens_gravite);
         // Indication des differents choix disponible
         printf("[1] - Diriger vers le bas \n"
                "[2] - Diriger vers la droite \n"
-               "[3] - Retourner vers les parametres \n");
+               "[3] - Retourner vers les parametres \n\n");
 
         // Enregistrement du choix dans une variable c3 en caractère.
         printf("---> ");
@@ -128,110 +140,176 @@ param_struct_game changement_gravite(param_struct_game all_param4)
             // Vers le bas
             case '1':
                 all_param4.gravite = 1;
-                fin3 = 0; // puis retour vers les parametres
-                break;
+                return all_param4;
 
-                // Vers la droite
+            // Vers la droite
             case '2':
                 all_param4.gravite = 2;
-                fin3 = 0; // puis retour vers les parametres
-                break;
+                return all_param4;
 
             // Retour vers les parametres
             case '3':
-                fin3 = 0;
-                break;
+                return all_param4;
 
             // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3)
             default:
-                printf("Choix invalide, veuillez recommencer.\n");
+                c = 1 ;
+                break;
         }
     }
-    return all_param4;
 }
 
 
 param_struct_game changement_taillegrille(param_struct_game all_param3) {
+    int fin3 = 1;
+    int b = 0 ;
 
-    printf("\n\n\n\n\n\n\n\n\n\n\n\n");
-    printf("\n\n\n" //CY CRUSH
-           "   ______         ______                __  \n"
-           "  / ____/_  __   / ____/______  _______/ /_ \n"
-           " / /   / / / /  / /   / ___/ / / / ___/ __ \\\n"
-           "/ /___/ /_/ /  / /___/ /  / /_/ (__  ) / / /\n"
-           "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
-           "     /____/                                 \n\n");
+    // tant que fin3 = 0 : (si fin3 = 1 alors c'est la fin de la boucle).
+    while (fin3) {
 
-    // Rappel de la taille de la grille avant de la modifier
-    printf("Taille actuelle de la grille : %d en longueur, et %d en largeur.\n", all_param3.longueur, all_param3.largeur);
+        // Enregistrement du choix dans une variable c3 en caractère.
 
-// indication des limites de la grille
-    printf("(Merci de saisir des nombres compris entre 5 et 25)\n\n");
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        if(b == 1){
+            printf("Choix invalide, veuillez recommencer.\n");
+        }
 
-// Enregistrer la nouvelle taille en longueur
-    printf("Nouvelle taille en longueur : ");
-    scanf("%d", &all_param3.longueur);
-
-// Vérification de la validité des nouvelles valeurs
-    while ((all_param3.longueur < 5 ) || (all_param3.longueur > 25)) {
-        printf("Longueur invalide. Merci de choisir un nombre entre 5 et 25.\n");
-        printf("Nouvelle taille en longueur : ");
-        scanf("%d", &all_param3.longueur);
-    }
-// Enregistrer la nouvelle taille en largeur
-    printf("Nouvelle taille en largeur : ");
-    scanf("%d", &all_param3.largeur);
-
-// Vérification de la validité des nouvelles valeurs
-    while ((all_param3.largeur < 5 ) || (all_param3.largeur > 25)) {
-        printf("Largeur invalide. Merci de choisir un nombre entre 5 et 25.\n");
-        printf("Nouvelle taille en largeur : ");
-        scanf("%d", &all_param3.largeur);
-    }
-
-    //récupère le dernier caractère pour éviter la regénération du menu.
-    char stop = getchar();
-
-    // sauvegarde les paramètres dans le dossier paramètre
-    ecrir_parametre(all_param3);
-
-    // retour des nouveaux parametres
-    return all_param3 ;
-}
-
-
-param_struct_game parametres(param_struct_game all_param) {
-
-    // Déclaration de la variable fin2, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
-    int fin2 = 1;
-
-    param_struct_game all_param2 = all_param;
-
-    // tant que fin2 = 0 : (si fin2 = 1 alors c'est la fin de la boucle).
-    while (fin2) {
-        int c2;
-
-        // CY CRUSH
-        printf("\n\n\n\n\n\n\n\n\n\n\n\n");
-/*
-        if(all_param != all_param2){
-            printf("Changements correctements enresgitrés");
-        } */
-
-        printf("\n\n"
+        b = 0;
+        printf("\n" //CY CRUSH
                "   ______         ______                __  \n"
                "  / ____/_  __   / ____/______  _______/ /_ \n"
                " / /   / / / /  / /   / ___/ / / / ___/ __ \\\n"
                "/ /___/ /_/ /  / /___/ /  / /_/ (__  ) / / /\n"
                "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
-               "     /____/                                 \n\n");
+               "     /____/                                 \n\n\n");
+
+        // Rappel de la taille de la grille avant de la modifier
+        printf("Menu de changement de la taille de la grille. \n");
+        printf("Actuellement, la taille de la grille est : \n\n");
+        printf("Longueur : %d\n", all_param3.longueur);
+        printf("Largeur : %d\n\n", all_param3.largeur);
+        printf("Voulez-vous toujours changer la taille ?\n\n");
+        printf("[1] - Oui \n"
+               "[2] - Non, quitter \n\n");
+        printf("---> ");
+
+        int c6 = getchar();
+
+        // suppression des caracteres dans stdin
+        if (c6 != '\n' && c6 != EOF) {
+            int e;
+            while ((e = getchar()) != '\n' && e != EOF);
+        }
+
+        // Etude du choix de l'utilisateur
+        switch (c6) {
+
+            // Vers le bas
+            case '1':
+                printf("\nTres bien, veuillez entrer la nouvelle taille souhaitee.");
+
+// indication des limites de la grille
+                printf("(Merci de saisir des nombres compris entre 5 et 25)\n\n");
+
+// Enregistrer la nouvelle taille en longueur
+                printf("Nouvelle taille en longueur : ");
+                scanf("%d", &all_param3.longueur);
+
+// Vérification de la validité des nouvelles valeurs
+                while ((all_param3.longueur < 5) || (all_param3.longueur > 25)) {
+                    printf("\nLongueur invalide. Merci de choisir un nombre entre 5 et 25.\n\n");
+                    printf("Nouvelle taille en longueur : ");
+                    scanf("%d", &all_param3.longueur);
+                }
+// Enregistrer la nouvelle taille en largeur
+                printf("Nouvelle taille en largeur : ");
+                scanf("%d", &all_param3.largeur);
+
+// Vérification de la validité des nouvelles valeurs
+                while ((all_param3.largeur < 5) || (all_param3.largeur > 25)) {
+                    printf("\nLargeur invalide. Merci de choisir un nombre entre 5 et 25.\n\n");
+                    printf("Nouvelle taille en largeur : ");
+                    scanf("%d", &all_param3.largeur);
+                }
+                //récupère le dernier caractère pour éviter la regénération du menu.
+                char stop = getchar();
+
+                // sauvegarde les paramètres dans le dossier paramètre
+                ecrir_parametre(all_param3);
+
+                return all_param3;
+
+                // Vers la droite
+            case '2':
+                return all_param3;
+
+                // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3)
+            default:
+                b = 1 ;
+                break;
+        }
+    }
+}
+
+
+param_struct_game parametres(param_struct_game all_param) {
+
+    param_struct_game all_param2 = all_param;
+
+    char sensgravite[20];
+
+    // Déclaration de la variable fin2, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
+    int fin2 = 1;
+    int a = 0;
+
+    // tant que fin2 = 0 : (si fin2 = 1 alors c'est la fin de la boucle).
+    while (fin2) {
+
+        int c2;
+
+        if (all_param2.gravite == 1) {
+            strcpy(sensgravite, "vers le bas");
+        } else if (all_param2.gravite == 2) {
+            strcpy(sensgravite, "vers la droite");
+        }
+
+        // CY CRUSH
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
+        if(all_param.longueur != all_param2.longueur){
+            printf("Changements en longueur correctement enregistres.\n");
+        }
+        if(all_param.largeur != all_param2.largeur){
+            printf("Changements en largeur correctement enresgitres.\n");
+        }
+        if(all_param.gravite != all_param2.gravite){
+            printf("Changement de gravite correctement enresgitre.\n");
+        }
+        if(all_param.symbole != all_param2.symbole){
+            printf("Changement du nombre de symbole correctement enresgitre.\n");
+        }
+        if(a == 1){
+            printf("Choix invalide, veuillez recommencer.\n");
+        }
+
+        a = 0;
+        all_param = all_param2;
+
+        printf("\n"
+               "   ______         ______                __  \n"
+               "  / ____/_  __   / ____/______  _______/ /_ \n"
+               " / /   / / / /  / /   / ___/ / / / ___/ __ \\\n"
+               "/ /___/ /_/ /  / /___/ /  / /_/ (__  ) / / /\n"
+               "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
+               "     /____/                                 \n\n\n");
 
         // Menu des parametres
-        printf("Parametres : \n");
-        printf("[1] - Changer la taille de la grille\n"
-               "[2] - Changer le sens de gravite\n"
-               "[3] - Changer le nombre de symboles\n"
-               "[4] - Quitter les parametres\n");
+        printf("Parametres :                               | Parametres actuels :\n");
+        printf("                                           | \n");
+        printf("[1] - Changer la taille de la grille       | taille de la grille : %d / %d\n", all_param2.longueur, all_param2.largeur);
+        printf("[2] - Changer le sens de gravite           | sens de gravite : %s\n", sensgravite);
+        printf("[3] - Changer le nombre de symboles        | nombre de symboles : %d\n", all_param2.symbole);
+        printf("[4] - Quitter les parametres               |\n\n");
 
         // Enregistrement du choix (dans c2) en caractère.
         printf("---> ");
@@ -267,9 +345,9 @@ param_struct_game parametres(param_struct_game all_param) {
 
             // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3,4)
             default:
-                printf("Choix invalide, veuillez recommencer.\n");
+                a = 1 ;
+                break;
         }
-        all_param = all_param2;
     }
     return all_param;
 }
@@ -279,6 +357,7 @@ int menu(param_struct_game all_param1) {
 
 // Déclaration de la variable fin, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
     int fin = 1;
+    int i = 0 ;
 
     param_struct_game all_param2;
 
@@ -288,20 +367,25 @@ int menu(param_struct_game all_param1) {
         int c;
 
         // CY CRUSH
-        printf("\n\n\n\n\n\n\n\n\n\n\n\n");
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        if(i == 1){
+            printf("Choix invalide, veuillez recommencer.\n");
+        }
+
+        i = 0;
         printf("\n"
                "   ______         ______                __  \n"
                "  / ____/_  __   / ____/______  _______/ /_ \n"
                " / /   / / / /  / /   / ___/ / / / ___/ __ \\\n"
                "/ /___/ /_/ /  / /___/ /  / /_/ (__  ) / / /\n"
                "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
-               "     /____/                                  \n\n");
+               "     /____/                                  \n\n\n");
 
         // Menu principal
         printf("[1] - Lancer le jeu\n"
                "[2] - Parametres\n"
                "[3] - Charger une grille\n"
-               "[4] - Quitter\n");
+               "[4] - Quitter\n\n");
 
         // Enregistrement du choix (dans c2) en caractère.
         printf("---> ");
@@ -316,8 +400,10 @@ int menu(param_struct_game all_param1) {
 
         // Etude du choix de l'utilisateur
         switch (c) {
+
             // Lance le jeu à l'aide du return 1.
             case '1':
+                printf("Chargement de votre grille... Veuillez patienter");
                 return 1;
 
                 //
@@ -342,7 +428,8 @@ int menu(param_struct_game all_param1) {
 
                 // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3,4)
             default:
-                printf("Choix invalide, veuillez recommencer.\n");
+                i = 1 ;
+                break;
         }
     }
 }
