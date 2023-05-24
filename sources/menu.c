@@ -404,8 +404,10 @@ param_struct chargement_partie1(param_struct all_param01)
 
             // Charger la partie 1
             case '1':
-                printf("=========DEV LE CHARGEMENT DE LA PARTIE=========");
-                //Faire charger la partie 1
+                param_struct all_param = lire_parametre();
+                struct_grille_cc** grille = creation_full_grille(all_param);
+                struc_charge_grille crg_gr = charge_grille(1,grille);
+                // On va return crg_gr !!!!!!!!!!!!! je vais dodo on verra demain pour p2 et p3 suffit de modifier le 1 au dessu.
 
                 return all_param01;
 
