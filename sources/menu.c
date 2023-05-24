@@ -288,6 +288,15 @@ param_struct_game parametres(param_struct_game all_param) {
         if(all_param.symbole != all_param2.symbole){
             printf("Changement du nombre de symbole correctement enresgitre.\n");
         }
+        if(all_param.gravite == all_param2.gravite){
+            if (all_param.largeur == all_param2.largeur){
+                if (all_param.longueur == all_param2.longueur){
+                    if (all_param.symbole == all_param2.symbole){
+                        printf("Aucun changement enresgitre.\n");
+                    }
+                }
+            }
+        }
         if(a == 1){
             printf("Choix invalide, veuillez recommencer.\n");
         }
@@ -350,6 +359,288 @@ param_struct_game parametres(param_struct_game all_param) {
         }
     }
     return all_param;
+}
+param_struct_game chargement_partie1(param_struct_game all_param0)
+{
+
+    // Déclaration de la variable fin3, pour mettre fin à la boucle : 0 = ça tourne, 1 = stop.
+    int fin = 1;
+    int c = 0;
+
+    // tant que fin3 = 0 : (si fin3 = 1 alors c'est la fin de la boucle).
+    while (fin) {
+
+        // CY CRUSH
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        if (c == 1) {
+            printf("Choix invalide, veuillez recommencer.\n");
+        }
+
+        c = 0;
+        printf("\n"
+               "   ______         ______                __  \n"
+               "  / ____/_  __   / ____/______  _______/ /_ \n"
+               " / /   / / / /  / /   / ___/ / / / ___/ __ \\\n"
+               "/ /___/ /_/ /  / /___/ /  / /_/ (__  ) / / /\n"
+               "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
+               "     /____/                                 \n\n");
+        printf("Chargement de la partie 1 pret.\n\n");
+
+        // Rappel du sens de la gravite
+
+        printf("Etes-vous sur de vouloir charger cette partie ?\n\n");
+        printf("[1] - Oui \n"
+               "[2] - Non, quitter \n\n");
+        printf("---> ");
+
+        int c6 = getchar();
+
+        // suppression des caracteres dans stdin
+        if (c6 != '\n' && c6 != EOF) {
+            int e;
+            while ((e = getchar()) != '\n' && e != EOF);
+        }
+
+        // Etude du choix de l'utilisateur
+        switch (c6) {
+
+            // Charger la partie 1
+            case '1':
+                printf("=========DEV LE CHARGEMENT DE LA PARTIE=========");
+                //Faire charger la partie 1
+
+                return all_param0;
+
+                // Faire quitter
+            case '2':
+                return all_param0;
+
+                // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3)
+            default:
+                c = 1;
+                break;
+        }
+    }
+}
+param_struct_game chargement_partie2(param_struct_game all_param0)
+{
+
+    // Déclaration de la variable fin3, pour mettre fin à la boucle : 0 = ça tourne, 1 = stop.
+    int fin = 1;
+    int c = 0;
+
+    // tant que fin3 = 0 : (si fin3 = 1 alors c'est la fin de la boucle).
+    while (fin) {
+
+        // CY CRUSH
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        if (c == 1) {
+            printf("Choix invalide, veuillez recommencer.\n");
+        }
+
+        c = 0;
+        printf("\n"
+               "   ______         ______                __  \n"
+               "  / ____/_  __   / ____/______  _______/ /_ \n"
+               " / /   / / / /  / /   / ___/ / / / ___/ __ \\\n"
+               "/ /___/ /_/ /  / /___/ /  / /_/ (__  ) / / /\n"
+               "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
+               "     /____/                                 \n\n");
+        printf("Chargement de la partie 2 pret.\n\n");
+
+        // Rappel du sens de la gravite
+
+        printf("Etes-vous sur de vouloir charger cette partie ?\n\n");
+        printf("[1] - Oui \n"
+               "[2] - Non, quitter \n\n");
+        printf("---> ");
+
+        int c6 = getchar();
+
+        // suppression des caracteres dans stdin
+        if (c6 != '\n' && c6 != EOF) {
+            int e;
+            while ((e = getchar()) != '\n' && e != EOF);
+        }
+
+        // Etude du choix de l'utilisateur
+        switch (c6) {
+
+            // Charger la partie 2
+            case '1':
+                printf("=========DEV LE CHARGEMENT DE LA PARTIE=========");
+                //Faire charger la partie 2
+
+                return all_param0;
+
+                // Faire quitter
+            case '2':
+                return all_param0;
+
+                // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3)
+            default:
+                c = 1;
+                break;
+        }
+    }
+}
+param_struct_game chargement_partie3(param_struct_game all_param0)
+{
+
+    // Déclaration de la variable fin3, pour mettre fin à la boucle : 0 = ça tourne, 1 = stop.
+    int fin = 1;
+    int c = 0;
+
+    // tant que fin3 = 0 : (si fin3 = 1 alors c'est la fin de la boucle).
+    while (fin) {
+
+        // CY CRUSH
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        if (c == 1) {
+            printf("Choix invalide, veuillez recommencer.\n");
+        }
+
+        c = 0;
+        printf("\n"
+               "   ______         ______                __  \n"
+               "  / ____/_  __   / ____/______  _______/ /_ \n"
+               " / /   / / / /  / /   / ___/ / / / ___/ __ \\\n"
+               "/ /___/ /_/ /  / /___/ /  / /_/ (__  ) / / /\n"
+               "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
+               "     /____/                                 \n\n");
+        printf("Chargement de la partie 3 pret.\n\n");
+
+        // Rappel du sens de la gravite
+
+        printf("Etes-vous sur de vouloir charger cette partie ?\n\n");
+        printf("[1] - Oui \n"
+               "[2] - Non, quitter \n\n");
+        printf("---> ");
+
+        int c6 = getchar();
+
+        // suppression des caracteres dans stdin
+        if (c6 != '\n' && c6 != EOF) {
+            int e;
+            while ((e = getchar()) != '\n' && e != EOF);
+        }
+
+        // Etude du choix de l'utilisateur
+        switch (c6) {
+
+            // Charger la partie 3
+            case '1':
+                printf("=========DEV LE CHARGEMENT DE LA PARTIE=========");
+                //Faire charger la partie 3
+
+                return all_param0;
+
+                // Faire quitter
+            case '2':
+                fin = 0;
+                break;
+
+                // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3)
+            default:
+                c = 1;
+                break;
+        }
+    }
+}
+param_struct_game charger_grille(param_struct_game all_param6){
+
+    param_struct_game all_param = all_param6 ;
+// Déclaration de la variable fin, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
+    int fin = 1;
+    int i = 0 ;
+    int changement = 0;
+
+// tant que fin = 1 : (si fin = 0 alors c'est la fin de la boucle).
+    while (fin) {
+
+        int f;
+
+        // CY CRUSH
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
+        if (changement == 1) {
+            if (all_param.gravite == all_param6.gravite) {
+                if (all_param.largeur == all_param6.largeur) {
+                    if (all_param.longueur == all_param6.longueur) {
+                        if (all_param.symbole == all_param6.symbole) {
+                            printf("Aucun changement enresgitre.\n");
+                        }
+                    }
+                }
+            }
+        }
+        if(i == 1){
+            printf("Choix invalide, veuillez recommencer.\n");
+        }
+
+        i = 0;
+        printf("\n"
+               "   ______         ______                __  \n"
+               "  / ____/_  __   / ____/______  _______/ /_ \n"
+               " / /   / / / /  / /   / ___/ / / / ___/ __ \\\n"
+               "/ /___/ /_/ /  / /___/ /  / /_/ (__  ) / / /\n"
+               "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
+               "     /____/                                  \n\n\n");
+
+        // Menu chargement grille
+        printf("Menu de chargement d'une grille\n\n");
+        printf("[1] - Partie 1\n"
+               "[2] - Partie 2\n"
+               "[3] - Partie 3\n"
+               "[4] - Quitter\n\n");
+
+        // Enregistrement du choix (dans c2) en caractère.
+        printf("---> ");
+        f = getchar();
+
+        /* suppression des caracteres dans stdin */
+        if (f != '\n' && f != EOF) {
+            int d;
+            while ((d = getchar()) != '\n' && d != EOF);
+        }
+
+
+        // Etude du choix de l'utilisateur
+        switch (f) {
+
+            // Charger la premiere partie
+            case '1':
+                changement = 0 ;
+                all_param6 = chargement_partie1(all_param6);
+                changement = 1 ;
+                break;
+
+                // Charger la deuxieme partie
+            case '2':
+                changement = 0 ;
+                all_param6 = chargement_partie2(all_param6);
+                changement = 1 ;
+                break;
+
+                // Charger la troisième partie
+            case '3':
+                changement = 0 ;
+                all_param6 = chargement_partie3(all_param6);
+                changement = 1 ;
+                break;
+
+                // Fais quitter l'utilisateur (fin de la boucle activé)
+            case '4':
+                fin = 0;
+                break;
+
+                // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3,4)
+            default:
+                i = 1 ;
+                break;
+        }
+    }
+    return all_param6 ;
 }
 
 
@@ -414,11 +705,7 @@ int menu(param_struct_game all_param1) {
 
                 //
             case '3':
-                printf(" == En cours de dev ... == \n");
-                printf(" == En cours de dev ... == \n");
-                printf(" == En cours de dev ... == \n");
-                printf(" == En cours de dev ... == \n");
-                printf(" == En cours de dev ... == \n");
+                all_param2 = charger_grille(all_param1);
                 break;
 
                 // Fais quitter l'utilisateur (fin de la boucle activé)
