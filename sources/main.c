@@ -9,7 +9,7 @@ int main()
 {
     printf("Maxime, Fares and Sany present :\n");
 
-    param_struct_game all_param = lire_parametre();
+    param_struct all_param = lire_parametre();
 
     int menu1 = menu(all_param);
 

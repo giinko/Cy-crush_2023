@@ -13,6 +13,7 @@ void color(int t,int f)
     SetConsoleTextAttribute(H,f*16+t);
 }
 
+
 // Fonction qui choisi un caractere aléatoire parmis la liste prédéfinis
 
 struct_grille_cc random_char(int nbr_symbole)
@@ -29,7 +30,7 @@ struct_grille_cc random_char(int nbr_symbole)
 
 // fonction qui cree une grille a partir de 2 dimensions
 
-struct_grille_cc** creation_full_grille(param_struct_game all_param)
+struct_grille_cc** creation_full_grille(param_struct all_param)
 {
 
     struct_grille_cc** tab = malloc(all_param.largeur * sizeof(struct_grille_cc*));
@@ -88,7 +89,6 @@ struct_grille_cc** supp_case(position* all_position, struct_grille_cc** grille, 
 
     return grille;
 }
-
 
 
 // Renvoie uns structure avec la grille supprimer et le score
@@ -470,7 +470,7 @@ struct_grille_cc** grille_gravite(struct_grille_cc** grille, int n, int m)
 
 // Fonction qui remplit une grille aléatoirement
 
-struct_grille_cc** remplir_grille(struct_grille_cc** grille, param_struct_game all_param)
+struct_grille_cc** remplir_grille(struct_grille_cc** grille, param_struct all_param)
 {
 
     char tab[6] = {'X','O','@','+','Y','C'};
@@ -513,7 +513,7 @@ struct_grille_cc** remplir_grille(struct_grille_cc** grille, param_struct_game a
 
 // Fonction qui prend une grille en paramètre et qui reenvoie une grille prête a jouer
 
-struct_grille_cc** start_grille(struct_grille_cc** grille, param_struct_game all_param)
+struct_grille_cc** start_grille(struct_grille_cc** grille, param_struct all_param)
 {
     int score = 1;
     while (score>0){
@@ -530,6 +530,7 @@ struct_grille_cc** start_grille(struct_grille_cc** grille, param_struct_game all
     }
     return grille;
 }
+
 
 //Fonction qui permet de déplacer les pions dans la grille
 
@@ -553,6 +554,7 @@ struct_grille_cc** deplacement_grille(struct_grille_cc** grille,position pos1,po
 
     return grille;
 }
+
 
 // Fonction qui gere la reaction en chaine
 
@@ -580,6 +582,7 @@ score_grille grille_reac_chaine(struct_grille_cc** grille,int n,int m)
     struct_grille_score.grille = grille;
     return struct_grille_score;
 }
+
 
 // Fonction qui fait tourner le jeu
 

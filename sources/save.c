@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "..\header\save.h"
 
-void ecrir_parametre(param_struct_game all_param)
+void ecrir_parametre(param_struct all_param)
 {
 
     FILE *fichier = fopen("..\\save\\parametre.txt", "w+");
@@ -22,9 +22,9 @@ void ecrir_parametre(param_struct_game all_param)
 
 }
 
-param_struct_game lire_parametre()
+param_struct lire_parametre()
 {
-    param_struct_game all_param;
+    param_struct all_param;
     FILE *fichier = fopen("..\\save\\parametre.txt", "r");
 
     if (fichier != NULL)
@@ -43,7 +43,7 @@ param_struct_game lire_parametre()
     return all_param;
 }
 
-void save_grille(param_struct_game all_param,struct_grille_cc **grille)
+void save_grille(param_struct all_param,struct_grille_cc **grille)
 {
     printf("yaya");
 }

@@ -3,7 +3,7 @@ typedef struct{
     int largeur;
     int gravite;
     int symbole;
-}param_struct_game;
+}param_struct;
 
 typedef struct{
     int num;
@@ -20,5 +20,5 @@ typedef struct{
     struct_grille_cc** grille;
 }score_grille;
 
-void ecrir_parametre(param_struct_game all_param);
-param_struct_game lire_parametre();
+void ecrir_parametre(param_struct all_param);
+param_struct lire_parametre();
