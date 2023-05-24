@@ -625,6 +625,8 @@ int game(struct_grille_cc** grille,int n,int m,int score)
         printf("\n");
 
         if(struct_grille_score.points == 0){
+            param_struct all_param = lire_parametre();
+            save_grille(all_param,grille, 1,score);
             finish = 0;
         }
         else{
