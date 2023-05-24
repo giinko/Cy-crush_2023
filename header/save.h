@@ -23,7 +23,7 @@ typedef struct{
 typedef struct{
     param_struct all_param;
     struct_grille_cc** grille;
-}charge_grille;
+}struc_charge_grille;
 
 void ecrir_parametre(param_struct all_param);
 param_struct lire_parametre();

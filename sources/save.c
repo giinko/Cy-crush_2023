@@ -70,9 +70,8 @@ void save_grille(param_struct all_param,struct_grille_cc **grille, int partie,in
         fprintf(fichier, "largeur_grille : %d\n", all_param.largeur);
         fprintf(fichier, "symbole : %d\n", all_param.symbole);
         fprintf(fichier, "gravite : %d\n", all_param.gravite);
-        printf("fichier choisis\n");
+
         for (int i = 0; i < all_param.largeur; ++i) {
-            printf("fichier choisis\n");
             for (int j = 0; j < all_param.longueur; ++j) {
                 fprintf(fichier, "%c:%d\n", grille[i][j].car, grille[i][j].num);
             }
@@ -84,9 +83,13 @@ void save_grille(param_struct all_param,struct_grille_cc **grille, int partie,in
     }
 }
 
-void save_grille(param_struct all_param,struct_grille_cc **grille, int partie,int score)
+struc_charge_grille charge_grille(int partie,struct_grille_cc **grille)
 {
     FILE *fichier;
+    param_struct all_param;
+    struc_charge_grille crg_grille;
+    int score;
+
     if (partie==1)
     {
         fichier = fopen("..\\save\\partie_1.txt", "w+");
@@ -104,23 +107,34 @@ void save_grille(param_struct all_param,struct_grille_cc **grille, int partie,in
     }
 
     if (fichier != NULL) {
+        int game=1;
+        fscanf(fichier, "game : %d\n",&game);
 
-        fprintf(fichier, "game : 1\n");
-        fprintf(fichier, "score : %d\n", score);
-        fprintf(fichier, "longueur_grille : %d\n", all_param.longueur);
-        fprintf(fichier, "largeur_grille : %d\n", all_param.largeur);
-        fprintf(fichier, "symbole : %d\n", all_param.symbole);
-        fprintf(fichier, "gravite : %d\n", all_param.gravite);
-        printf("fichier choisis\n");
-        for (int i = 0; i < all_param.largeur; ++i) {
-            printf("fichier choisis\n");
-            for (int j = 0; j < all_param.longueur; ++j) {
-                fprintf(fichier, "%c:%d\n", grille[i][j].car, grille[i][j].num);
+            if (game==1){
+
+                fscanf(fichier, "score : %d\n", &score);
+                fscanf(fichier, "longueur_grille : %d\n", &all_param.longueur);
+                fscanf(fichier, "largeur_grille : %d\n", &all_param.largeur);
+                fscanf(fichier, "symbole : %d\n", &all_param.symbole);
+                fscanf(fichier, "gravite : %d\n", &all_param.gravite);
+
+                for (int i = 0; i < all_param.largeur; ++i) {
+                    for (int j = 0; j < all_param.longueur; ++j) {
+                        fscanf(fichier, "%c:%d\n", &grille[i][j].car, &grille[i][j].num);
+                    }
+                }
+
+                crg_grille.grille = grille;
+                crg_grille.all_param = all_param;
+            }
+            else{
+                printf("La partie que vous essayez de charger est vide.\n");
             }
         }
-    }
     else
     {
         printf("Une erreur s'est produite lors de l'ouverture d'un fichier. ");
     }
+
+    return crg_grille;
 }
