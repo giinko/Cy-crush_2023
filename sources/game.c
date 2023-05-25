@@ -611,6 +611,22 @@ void extrairePosition(const char position[], char *lettre, int *chiffres) {
     *chiffres = atoi(position + 1);
 }
 
+int check_entry_good(char car,int num,int n,int m){
+    if (car == 'q'){
+        return 2;
+    }
+    if ((car<65)||(car>=65+m)){ // largueur
+        return 0;
+    }
+    else if(num>n){ // longueur
+        return 0;
+    }
+    else{
+        return 1;
+    }
+
+}
+
 
 // Fonction qui fait tourner le jeu
 
@@ -627,24 +643,51 @@ int game(struct_grille_cc** grille,int n,int m,int score)
         printf("\nIndiquez la position des symboles que vous voulez changer.\n");
         printf("Par exemple : 'A3' ou 'B4'\n\n");
 
-        char reponse[10] ;
+        int pos1_valide = 1;
 
-        printf("Position 1 : ");
-        scanf("%s",reponse); // Check les erreur, si == 2 et tte les infos comme on veut on continue
-        while(getchar()!='\n'); // reset le scanf viens de internet
+        while (pos1_valide) {
+            printf("Position 1 : ");
+            scanf("%1c%2d", &position1.car, &position1.num);
+            while (getchar() != '\n');
 
-        if (reponse[0] == 'q' && reponse[1] == '\0' ){
-            // faire quitter
-        } else {
-            extrairePosition(reponse, &position1.car, &position1.num);
+            if (check_entry_good(position1.car,position1.num,n,m) == 2){
+                printf("Le jeu s'arrette\n"); // app la fonctin charger la grille !!
+                finish = 0;
+                pos1_valide = 0;
+            }
+            else if (check_entry_good(position1.car,position1.num,n,m)==1){
+                pos1_valide = 0;
+                finish = 1;
+            }
+            else{
+                printf("Veuillez entrer des parametres valides ! merci de recommencé !\n");
+            }
+
         }
-
         pos1.y = position1.num - 1 ;
         pos1.x = position1.car - 65 ;
 
-        printf("Position 2 : ");
-        scanf("%1c%2d",&position2.car,&position2.num);
-        while(getchar()!='\n');
+        int pos2_valide = 1;
+
+        while (pos2_valide && finish == 1) {
+            printf("Position 2 : ");
+            scanf("%1c%2d", &position2.car, &position2.num);
+            while (getchar() != '\n');
+
+            if (check_entry_good(position2.car,position2.num,n,m) == 2){
+                printf("Le jeu s'arrette\n"); // app la fonctin charger la grille !!
+                finish = 0;
+                pos2_valide = 0;
+            }
+            else if (check_entry_good(position2.car,position2.num,n,m)==1){
+                pos2_valide = 0;
+                finish = 1;
+            }
+            else{
+                printf("Veuillez entrer des parametres valides ! merci de recommencé !\n");
+            }
+
+        }
         pos2.y = position2.num - 1 ;
         pos2.x = position2.car - 65 ;
 
@@ -669,5 +712,6 @@ int game(struct_grille_cc** grille,int n,int m,int score)
         }
 
     }
+    printf("fin de fonction\n");
     return score;
 }
