@@ -259,6 +259,7 @@ param_struct parametres(param_struct all_param1) {
     // Déclaration de la variable fin2, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
     int fin2 = 1;
     int a = 0;
+    int changement = 0 ;
 
     // tant que fin2 = 0 : (si fin2 = 1 alors c'est la fin de la boucle).
     while (fin2) {
@@ -286,15 +287,18 @@ param_struct parametres(param_struct all_param1) {
         if(all_param1.symbole != all_param10.symbole){
             printf("Changement du nombre de symbole correctement enresgitre.\n");
         }
-        if(all_param1.gravite == all_param10.gravite){
-            if (all_param1.largeur == all_param10.largeur){
-                if (all_param1.longueur == all_param10.longueur){
-                    if (all_param1.symbole == all_param10.symbole){
-                        printf("Aucun changement enresgitre.\n");
+        if (changement == 1){
+            if(all_param1.gravite == all_param10.gravite){
+                if (all_param1.largeur == all_param10.largeur){
+                    if (all_param1.longueur == all_param10.longueur){
+                        if (all_param1.symbole == all_param10.symbole){
+                            printf("Aucun changement enresgitre.\n");
+                        }
                     }
                 }
             }
         }
+        changement = 0 ;
         if(a == 1){
             printf("Choix invalide, veuillez recommencer.\n");
         }
@@ -333,16 +337,19 @@ param_struct parametres(param_struct all_param1) {
             // Entre dans le menu changement de la taille de la grille
             case '1':
                 all_param10 = changement_taillegrille(all_param1);
+                changement = 1 ;
                 break;
 
             // Entre dans le menu changement de sens de gravité.
             case '2':
                 all_param10 = changement_gravite(all_param1);
+                changement = 1 ;
                 break;
 
             // Entre dans le menu changement du nombre des caracteres (4 par defaut)
             case '3':
                 all_param10 = changement_caractere(all_param1);
+                changement = 1 ;
                 break;
 
             // Fais quitter l'utilisateur si il fait 4
@@ -358,7 +365,7 @@ param_struct parametres(param_struct all_param1) {
     }
     return all_param1;
 }
-struc_charge_grille chargement_partie1(param_struct all_param01)
+struc_charge_grille chargement_partie1(struc_charge_grille total01)
 {
 
     // Déclaration de la variable fin, pour mettre fin à la boucle : 0 = ça tourne, 1 = stop.
@@ -405,8 +412,8 @@ struc_charge_grille chargement_partie1(param_struct all_param01)
             // Charger la partie 1
             case '1':
 
-                param_struct all_param = lire_parametre();
-                struct_grille_cc** grille = creation_full_grille(all_param);
+                total01 = lire_parametre();
+                struct_grille_cc** grille = creation_full_grille(total01.all_param);
                 struc_charge_grille crg_gr = charge_grille(1,grille);
                 // On va return crg_gr !!!!!!!!!!!!! je vais dodo on verra demain pour p2 et p3 suffit de modifier le 1 au dessu.
 
@@ -424,7 +431,7 @@ struc_charge_grille chargement_partie1(param_struct all_param01)
         }
     }
 }
-param_struct chargement_partie2(param_struct all_param02)
+struc_charge_grille chargement_partie2(struc_charge_grille total02)
 {
 
     // Déclaration de la variable fin3, pour mettre fin à la boucle : 0 = ça tourne, 1 = stop.
@@ -473,7 +480,7 @@ param_struct chargement_partie2(param_struct all_param02)
                 printf("=========DEV LE CHARGEMENT DE LA PARTIE=========");
                 //Faire charger la partie 2
 
-                return all_param02;
+                return total02;
 
                 // Faire quitter
             case '2':
@@ -487,7 +494,7 @@ param_struct chargement_partie2(param_struct all_param02)
         }
     }
 }
-param_struct chargement_partie3(param_struct all_param03)
+struc_charge_grille chargement_partie3(struc_charge_grille total03)
 {
 
     // Déclaration de la variable fin3, pour mettre fin à la boucle : 0 = ça tourne, 1 = stop.
@@ -536,7 +543,7 @@ param_struct chargement_partie3(param_struct all_param03)
                 printf("=========DEV LE CHARGEMENT DE LA PARTIE=========");
                 //Faire charger la partie 3
 
-                return all_param03;
+                return total03;
 
                 // Faire quitter
             case '2':
@@ -549,11 +556,11 @@ param_struct chargement_partie3(param_struct all_param03)
                 break;
         }
     }
-}/*
+}
 struc_charge_grille charger_grille(struc_charge_grille total0){
 
     struc_charge_grille total00 ;
-    total00.all_param = total0.all_param
+    total00.all_param = total0.all_param;
 // Déclaration de la variable fin, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
     int fin = 1;
     int i = 0 ;
@@ -568,10 +575,10 @@ struc_charge_grille charger_grille(struc_charge_grille total0){
         printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
         if (changement == 1) {
-            if (all_param00.gravite == all_param0.gravite) {
-                if (all_param00.largeur == all_param0.largeur) {
-                    if (all_param00.longueur == all_param0.longueur) {
-                        if (all_param00.symbole == all_param0.symbole) {
+            if (total00.all_param.gravite == total0.all_param.gravite) {
+                if (total00.all_param.largeur == total0.all_param.largeur) {
+                    if (total00.all_param.longueur == total0.all_param.longueur) {
+                        if (total00.all_param.symbole == total0.all_param.symbole) {
                             printf("Aucun changement enresgitre.\n");
                         }
                     }
@@ -615,19 +622,19 @@ struc_charge_grille charger_grille(struc_charge_grille total0){
 
             // Charger la premiere partie
             case '1':
-                all_param0 = chargement_partie1(all_param0);
+                total0 = chargement_partie1(total0);
                 changement = 1 ;
                 break;
 
                 // Charger la deuxieme partie
             case '2':
-                all_param0 = chargement_partie2(all_param0);
+                total0 = chargement_partie2(total0);
                 changement = 1 ;
                 break;
 
                 // Charger la troisième partie
             case '3':
-                all_param0 = chargement_partie3(all_param0);
+                total0 = chargement_partie3(total0);
                 changement = 1 ;
                 break;
 
@@ -642,8 +649,8 @@ struc_charge_grille charger_grille(struc_charge_grille total0){
                 break;
         }
     }
-    return all_param0 ;
-} */
+    return total0 ;
+}
 int menu(struc_charge_grille total) {
 
 // Déclaration de la variable fin, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
