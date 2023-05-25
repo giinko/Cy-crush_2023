@@ -23,6 +23,8 @@ typedef struct{
 typedef struct{
     param_struct all_param;
     struct_grille_cc** grille;
+    int score ;
+    int content ;
 }struc_charge_grille;
 
 void ecrir_parametre(param_struct all_param);
