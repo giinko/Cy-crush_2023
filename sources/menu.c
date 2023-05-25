@@ -358,14 +358,14 @@ param_struct parametres(param_struct all_param1) {
     }
     return all_param1;
 }
-param_struct chargement_partie1(param_struct all_param01)
+struc_charge_grille chargement_partie1(param_struct all_param01)
 {
 
-    // Déclaration de la variable fin3, pour mettre fin à la boucle : 0 = ça tourne, 1 = stop.
+    // Déclaration de la variable fin, pour mettre fin à la boucle : 0 = ça tourne, 1 = stop.
     int fin = 1;
     int c = 0;
 
-    // tant que fin3 = 0 : (si fin3 = 1 alors c'est la fin de la boucle).
+    // tant que fin = 0 : (si fin = 1 alors c'est la fin de la boucle).
     while (fin) {
 
         // CY CRUSH
@@ -405,9 +405,12 @@ param_struct chargement_partie1(param_struct all_param01)
             // Charger la partie 1
             case '1':
 
-                //Faire charger la partie 1
+                param_struct all_param = lire_parametre();
+                struct_grille_cc** grille = creation_full_grille(all_param);
+                struc_charge_grille crg_gr = charge_grille(1,grille);
+                // On va return crg_gr !!!!!!!!!!!!! je vais dodo on verra demain pour p2 et p3 suffit de modifier le 1 au dessu.
 
-                return all_param01;
+                return crg_gr;
 
                 // Faire quitter
             case '2':
@@ -546,10 +549,11 @@ param_struct chargement_partie3(param_struct all_param03)
                 break;
         }
     }
-}
-param_struct charger_grille(param_struct all_param0){
+}/*
+struc_charge_grille charger_grille(struc_charge_grille total0){
 
-    param_struct all_param00 = all_param0 ;
+    struc_charge_grille total00 ;
+    total00.all_param = total0.all_param
 // Déclaration de la variable fin, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
     int fin = 1;
     int i = 0 ;
@@ -599,7 +603,7 @@ param_struct charger_grille(param_struct all_param0){
         printf("---> ");
         f = getchar();
 
-        /* suppression des caracteres dans stdin */
+        // suppression des caracteres dans stdin
         if (f != '\n' && f != EOF) {
             int d;
             while ((d = getchar()) != '\n' && d != EOF);
@@ -639,14 +643,14 @@ param_struct charger_grille(param_struct all_param0){
         }
     }
     return all_param0 ;
-}
-int menu(param_struct all_param) {
+} */
+int menu(struc_charge_grille total) {
 
 // Déclaration de la variable fin, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
     int fin = 1;
     int i = 0 ;
 
-    param_struct all_param2;
+    struc_charge_grille total2;
 
 // tant que fin = 1 : (si fin = 0 alors c'est la fin de la boucle).
     while (fin) {
@@ -690,20 +694,20 @@ int menu(param_struct all_param) {
 
             // Lance le jeu à l'aide du return 1.
             case '1':
-                if (all_param.symbole == 4){
+                if (total.all_param.symbole == 4){
                     printf("Chargement de votre grille... Veuillez patienter\n\n");
                 }
                 return 1;
 
                 //
             case '2':
-                all_param2 = parametres(all_param);
-                all_param = all_param2;
+                total2.all_param = parametres(total.all_param);
+                total.all_param = total2.all_param;
                 break;
 
                 //
             case '3':
-                all_param2 = charger_grille(all_param);
+                total2 = charger_grille(total);
                 break;
 
                 // Fais quitter l'utilisateur (fin de la boucle activé)

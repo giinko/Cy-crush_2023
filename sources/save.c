@@ -22,17 +22,17 @@ void ecrir_parametre(param_struct all_param)
 
 }
 
-param_struct lire_parametre()
+struc_charge_grille lire_parametre()
 {
-    param_struct all_param;
+    struc_charge_grille all_param;
     FILE *fichier = fopen("..\\save\\parametre.txt", "r");
 
     if (fichier != NULL)
     {
-        fscanf(fichier,"longueur_grille : %d\n",&all_param.longueur);
-        fscanf(fichier,"largeur_grille : %d\n",&all_param.largeur);
-        fscanf(fichier,"nbr_symbole : %d\n",&all_param.symbole);
-        fscanf(fichier,"Direction_gravite : %d\n",&all_param.gravite);
+        fscanf(fichier,"longueur_grille : %d\n",&all_param.all_param.longueur);
+        fscanf(fichier,"largeur_grille : %d\n",&all_param.all_param.largeur);
+        fscanf(fichier,"nbr_symbole : %d\n",&all_param.all_param.symbole);
+        fscanf(fichier,"Direction_gravite : %d\n",&all_param.all_param.gravite);
 
         fclose(fichier);
     }
