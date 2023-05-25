@@ -6,7 +6,7 @@
 param_struct changement_taillegrille(param_struct all_param11) {
     int fin3 = 1;
     int b = 0 ;
-
+    param_struct init = all_param11 ;
     // tant que fin3 = 0 : (si fin3 = 1 alors c'est la fin de la boucle).
     while (fin3) {
 
@@ -31,7 +31,35 @@ param_struct changement_taillegrille(param_struct all_param11) {
         printf("Actuellement, la taille de la grille est : \n\n");
         printf("Longueur : %d\n", all_param11.longueur);
         printf("Largeur : %d\n\n", all_param11.largeur);
-        printf("Voulez-vous toujours changer la taille ?\n\n");
+        printf("\nVeuillez entrer la nouvelle taille souhaitee.");
+        printf("(Merci de saisir des nombres compris entre 5 et 25)\n\n");
+
+// Enregistrer la nouvelle taille en longueur
+        printf("Nouvelle taille en longueur : ");
+        scanf("%d", &all_param11.longueur);
+
+// Vérification de la validité des nouvelles valeurs
+        while ((all_param11.longueur < 5) || (all_param11.longueur > 25)) {
+            printf("\nLongueur invalide. Merci de choisir un nombre entre 5 et 25.\n\n");
+            printf("Nouvelle taille en longueur : ");
+            scanf("%d", &all_param11.longueur);
+        }
+// Enregistrer la nouvelle taille en largeur
+        printf("Nouvelle taille en largeur : ");
+        scanf("%d", &all_param11.largeur);
+
+// Vérification de la validité des nouvelles valeurs
+        while ((all_param11.largeur < 5) || (all_param11.largeur > 25)) {
+            printf("\nLargeur invalide. Merci de choisir un nombre entre 5 et 25.\n\n");
+            printf("Nouvelle taille en largeur : ");
+            scanf("%d", &all_param11.largeur);
+        }
+        //récupère le dernier caractère pour éviter la regénération du menu.
+        char stop = getchar();
+
+        // sauvegarde les paramètres dans le dossier paramètre
+        ecrir_parametre(all_param11);
+        printf("\n\nSouhaitez-vous enregistrer vos modifications ?\n\n");
         printf("[1] - Oui \n"
                "[2] - Non, quitter \n\n");
         printf("---> ");
@@ -49,42 +77,11 @@ param_struct changement_taillegrille(param_struct all_param11) {
 
             // Vers le bas
             case '1':
-                printf("\nTres bien, veuillez entrer la nouvelle taille souhaitee.");
-
 // indication des limites de la grille
-                printf("(Merci de saisir des nombres compris entre 5 et 25)\n\n");
-
-// Enregistrer la nouvelle taille en longueur
-                printf("Nouvelle taille en longueur : ");
-                scanf("%d", &all_param11.longueur);
-
-// Vérification de la validité des nouvelles valeurs
-                while ((all_param11.longueur < 5) || (all_param11.longueur > 25)) {
-                    printf("\nLongueur invalide. Merci de choisir un nombre entre 5 et 25.\n\n");
-                    printf("Nouvelle taille en longueur : ");
-                    scanf("%d", &all_param11.longueur);
-                }
-// Enregistrer la nouvelle taille en largeur
-                printf("Nouvelle taille en largeur : ");
-                scanf("%d", &all_param11.largeur);
-
-// Vérification de la validité des nouvelles valeurs
-                while ((all_param11.largeur < 5) || (all_param11.largeur > 25)) {
-                    printf("\nLargeur invalide. Merci de choisir un nombre entre 5 et 25.\n\n");
-                    printf("Nouvelle taille en largeur : ");
-                    scanf("%d", &all_param11.largeur);
-                }
-                //récupère le dernier caractère pour éviter la regénération du menu.
-                char stop = getchar();
-
-                // sauvegarde les paramètres dans le dossier paramètre
-                ecrir_parametre(all_param11);
-
                 return all_param11;
-
                 // Vers la droite
             case '2':
-                return all_param11;
+                return init;
 
                 // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3)
             default:
