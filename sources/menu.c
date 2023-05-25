@@ -404,7 +404,7 @@ param_struct chargement_partie1(param_struct all_param01)
 
             // Charger la partie 1
             case '1':
-                printf("=========DEV LE CHARGEMENT DE LA PARTIE=========");
+
                 //Faire charger la partie 1
 
                 return all_param01;

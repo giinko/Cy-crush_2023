@@ -1,6 +1,8 @@
 #include <windows.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <ctype.h>
+#include <stdbool.h>
 
 #include "..\header\game.h"
 
@@ -583,14 +585,33 @@ score_grille grille_reac_chaine(struct_grille_cc** grille,int n,int m)
     return struct_grille_score;
 }
 
-int verifierStop(char reponse[]) {
 
-        if (strcmp(reponse, "stop") == 0) {
-            return 1;  // Le tableau correspond à "stop"
-        } else {
-            return 0;  // Le tableau est différent de "stop"
-        }
+
+void extrairePosition(const char position[], char *lettre, int *chiffres) {
+    if (!isalpha(position[0])) {
+        printf("Erreur : La position ne commence pas par une lettre.\n");
+        *lettre = '\0';
+        *chiffres = -1;
+        return;
+    }
+
+    *lettre = toupper(position[0]);
+
+    int i = 1;
+    while (isdigit(position[i])) {
+        i++;
+    }
+
+    if (position[i] != '\0' || i > 3) {
+        printf("Erreur : La position contient des caractères non valides après les chiffres.\n");
+        *chiffres = -1;
+        return;
+    }
+
+    *chiffres = atoi(position + 1);
 }
+
+
 // Fonction qui fait tourner le jeu
 
 int game(struct_grille_cc** grille,int n,int m,int score)
@@ -600,23 +621,32 @@ int game(struct_grille_cc** grille,int n,int m,int score)
 
         position pos1;
         position pos2;
+        struct_grille_cc position1 ;
+        struct_grille_cc position2 ;
 
-        printf("Indiquez la position des symboles que vous voulez changer.\n");
-        printf("Par exemple : A3 ou B4\n");
+        printf("\nIndiquez la position des symboles que vous voulez changer.\n");
+        printf("Par exemple : 'A3' ou 'B4'\n\n");
 
-        char pos_car;
-        int pos_num;
+        char reponse[10] ;
+
         printf("Position 1 : ");
-        scanf("%1c%2d",&pos_car,&pos_num); // Check les erreur, si == 2 et tte les infos comme on veut on continue
+        scanf("%s",reponse); // Check les erreur, si == 2 et tte les infos comme on veut on continue
         while(getchar()!='\n'); // reset le scanf viens de internet
-        pos1.y = pos_num-1;
-        pos1.x = pos_car-65;
+
+        if (reponse[0] == 'q' && reponse[1] == '\0' ){
+            // faire quitter
+        } else {
+            extrairePosition(reponse, &position1.car, &position1.num);
+        }
+
+        pos1.y = position1.num - 1 ;
+        pos1.x = position1.car - 65 ;
 
         printf("Position 2 : ");
-        scanf("%1c%2d",&pos_car,&pos_num);
+        scanf("%1c%2d",&position2.car,&position2.num);
         while(getchar()!='\n');
-        pos2.y = pos_num-1;
-        pos2.x = pos_car-65;
+        pos2.y = position2.num - 1 ;
+        pos2.x = position2.car - 65 ;
 
         // On déplace le coup.
         struct_grille_cc** grille2 = deplacement_grille(grille, pos1,pos2);
