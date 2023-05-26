@@ -14,4 +14,4 @@ struct_grille_cc** remplir_grille(struct_grille_cc** grille, param_struct all_pa
 struct_grille_cc** start_grille(struct_grille_cc** grille, param_struct all_param);
 struct_grille_cc** deplacement_grille(struct_grille_cc** grille,position pos1,position pos2);
 score_grille grille_reac_chaine(struct_grille_cc** grille,int n,int m);
-int game(struct_grille_cc** grille,int n,int m,int score);
+score_grille game(struct_grille_cc** grille,int n,int m,int score);

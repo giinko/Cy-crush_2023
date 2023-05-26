@@ -616,7 +616,7 @@ int check_entry_good(char car,int num,int n,int m){
 
 // Fonction qui fait tourner le jeu
 
-int game(struct_grille_cc** grille,int n,int m,int score)
+score_grille game(struct_grille_cc** grille,int n,int m,int score)
 {
     int finish = 1;
     while(finish!=0) {
@@ -691,11 +691,15 @@ int game(struct_grille_cc** grille,int n,int m,int score)
 
             if (struct_grille_score.points == 0) {
                 finish = 0;
-            } else {
+            }
+            else {
                 score += struct_grille_score.points;
             }
         }
     }
     printf("fin de fonction\n");
-    return score;
+    score_grille grille_fin_return;
+    grille_fin_return.grille = grille;
+    grille_fin_return.points = score;
+    return grille_fin_return;
 }
