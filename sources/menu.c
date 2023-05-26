@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <time.h>
+#include <unistd.h>
 
 #include "..\header\menu.h"
 
@@ -822,7 +825,7 @@ int menu(struc_charge_grille total) {
 // Déclaration de la variable fin, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
     int fin = 1;
     int i = 0 ;
-
+    struc_charge_grille a = lire_parametre();
     struc_charge_grille total2;
 
 // tant que fin = 1 : (si fin = 0 alors c'est la fin de la boucle).
@@ -869,8 +872,26 @@ int menu(struc_charge_grille total) {
             case '1':
                 if (total.all_param.symbole == 4){
                     printf("Chargement de votre grille... Veuillez patienter\n\n");
+                    sleep(2); // chutt c'est un secret, on fais genre il reflechis
                 }
-                return 1;
+                srand(time( NULL ));
+                color(15, 0);
+
+                //re check les param
+                a = lire_parametre();
+                // creation grille
+                struct_grille_cc **grille = creation_full_grille(a.all_param);
+
+                // Initialisation de la grille
+                struct_grille_cc **grille3 = start_grille(grille, a.all_param);
+                printf("\n\n\n");
+                affichage(a.all_param.largeur, a.all_param.longueur, grille3);
+                printf("\n");
+                // Jeu
+                int final_score;
+                final_score = game(grille3, a.all_param.largeur, a.all_param.longueur, 0);
+                menu_pause(a);
+                break ;
 
                 //
             case '2':

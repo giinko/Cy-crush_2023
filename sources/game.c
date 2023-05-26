@@ -597,31 +597,6 @@ score_grille grille_reac_chaine(struct_grille_cc** grille,int n,int m)
 }
 
 
-
-void extrairePosition(const char position[], char *lettre, int *chiffres) {
-    if (!isalpha(position[0])) {
-        printf("Erreur : La position ne commence pas par une lettre.\n");
-        *lettre = '\0';
-        *chiffres = -1;
-        return;
-    }
-
-    *lettre = toupper(position[0]);
-
-    int i = 1;
-    while (isdigit(position[i])) {
-        i++;
-    }
-
-    if (position[i] != '\0' || i > 3) {
-        printf("Erreur : La position contient des caractères non valides après les chiffres.\n");
-        *chiffres = -1;
-        return;
-    }
-
-    *chiffres = atoi(position + 1);
-}
-
 int check_entry_good(char car,int num,int n,int m){
     if (car == 'q'){
         return 2;
@@ -662,7 +637,8 @@ int game(struct_grille_cc** grille,int n,int m,int score)
             while (getchar() != '\n');
 
             if (check_entry_good(position1.car,position1.num,n,m) == 2){
-                printf("Le jeu s'arrette\n"); // app la fonctin charger la grille !!
+
+                printf("Stop\n"); // app la fonctin charger la grille !!
                 finish = 0;
                 pos1_valide = 0;
             }
@@ -671,7 +647,7 @@ int game(struct_grille_cc** grille,int n,int m,int score)
                 finish = 1;
             }
             else{
-                printf("Veuillez entrer des parametres valides ! merci de recommencé !\n");
+                printf("Veuillez entrer des parametres valides ! merci de recommencer !\n");
             }
 
         }
