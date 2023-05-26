@@ -45,6 +45,7 @@ struc_charge_grille lire_parametre()
 
 void save_grille(struc_charge_grille party, int partie,int score)
 {
+
     FILE *fichier;
     if (partie==1)
     {
@@ -77,13 +78,13 @@ void save_grille(struc_charge_grille party, int partie,int score)
 
 
         for (int i = 0; i < (party.all_param).largeur; i++) {
-            printf("on est la c bon signe1\n");
             for (int j = 0; j < (party.all_param).longueur; j++) {
-                printf("on est la c bon signe\n");
                 fprintf(fichier, "%c:%d\n", party.grille[i][j].car, party.grille[i][j].num);
 
             }
         }
+
+        fclose(fichier);
     }
     else
     {
@@ -132,6 +133,7 @@ struc_charge_grille charge_grille(int partie,struct_grille_cc **grille)
                     }
                 }
 
+                fclose(fichier);
                 crg_grille.grille = grille;
                 crg_grille.all_param = all_param;
                 crg_grille.content = 1 ;

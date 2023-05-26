@@ -627,9 +627,10 @@ score_grille game(struct_grille_cc** grille,int n,int m,int score)
         struct_grille_cc position2;
 
         printf("\nIndiquez la position des symboles que vous voulez changer.\n");
-        printf("Par exemple : 'A3' ou 'B4'\n\n");
+        printf("Par exemple : 'A3' ou 'B4' (ou 'q'x pour quitter)\n\n");
 
         int pos1_valide = 1;
+        int trop = 0 ;
 
         while (pos1_valide) {
             printf("Position 1 : ");
@@ -645,7 +646,18 @@ score_grille game(struct_grille_cc** grille,int n,int m,int score)
                 pos1_valide = 0;
                 finish = 1;
             } else {
-                printf("Veuillez entrer des parametres valides ! merci de recommencer !\n");
+                if (trop > 2){
+                    printf("Vous faites trop d'erreurs, merci de vous assurer des choses suivantes : \n\n");
+                    printf("- Les lettres doivent etre en majuscule \n");
+                    printf("- Entrez une seule position a la fois (Exemple : 'A3' ou 'B5') \n");
+                    printf("- Verifier si la position est comprise dans la grille \n\n");
+                    trop = 0 ;
+
+                }else {
+                    printf("Position inexistante, veuillez recommencer.\n");
+                    trop += 1 ;
+                }
+
             }
 
         }
@@ -667,7 +679,17 @@ score_grille game(struct_grille_cc** grille,int n,int m,int score)
                 pos2_valide = 0;
                 finish = 1;
             } else {
-                printf("Veuillez entrer des parametres valides ! merci de recommencé !\n");
+                if (trop > 2){
+                    printf("Vous faites trop d'erreurs, merci de vous assurer des choses suivantes : \n\n");
+                    printf("- Les lettres doivent etre en majuscule \n");
+                    printf("- Entrez une seule position a la fois (Exemple : 'A3' ou 'B5')\n");
+                    printf("- Verifier si la position est comprise dans la grille \n\n");
+                    trop = 0 ;
+
+                }else {
+                    printf("Position inexistante, veuillez recommencer.\n");
+                    trop += 1 ;
+                }
             }
 
         }
