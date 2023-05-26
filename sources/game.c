@@ -130,8 +130,8 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m)
                         all_pos[count_pos] = pos;
                         count_pos+=1;
                     }
+                    count_score += 3+(count_x-3)*1.5;
                 }
-                count_score += count_x; // a modifier
                 supp_x = 0;
                 count_x = 1;
             }
@@ -147,8 +147,9 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m)
                 all_pos[count_pos] = pos;
                 count_pos+=1;
             }
+            count_score += 3+(count_x-3)*1.5;
         }
-        count_score += count_x;
+
         supp_x = 0;
         count_x = 1;
     }
@@ -177,8 +178,9 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m)
                         all_pos[count_pos] = pos;
                         count_pos+=1;
                     }
+                    count_score += 3+(supp_y-3)*1.5;
                 }
-                count_score += supp_y;
+
                 supp_y = 0;
                 count_y = 1;
             }
@@ -193,7 +195,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m)
                 count_pos+=1;
             }
         }
-        count_score += supp_y;
+        count_score += 3+(supp_y-3)*1.5;
         supp_y = 0;
         count_y = 1;
     }
@@ -241,6 +243,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m)
                                 all_pos[count_pos] = pos1;
                                 count_pos ++;
                             }
+                            count_score += 3+(count_car-3)*1.5;
                         }
                         count_car=1;
                         tab_count=0;
@@ -257,6 +260,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m)
                         all_pos[count_pos] = pos1;
                         count_pos ++;
                     }
+                    count_score += 3+(count_car-3)*1.5;
                 }
             }
         }
@@ -300,6 +304,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m)
                                 all_pos[count_pos] = pos1;
                                 count_pos ++;
                             }
+                            count_score += 3+(count_car-3)*1.5;
                         }
                         count_car=1;
                         tab_count=0;
@@ -316,6 +321,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m)
                         all_pos[count_pos] = pos1;
                         count_pos ++;
                     }
+                    count_score += 3+(count_car-3)*1.5;
                 }
             }
         }
@@ -355,6 +361,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m)
                             all_pos[count_pos] = pos1;
                             count_pos++;
                         }
+                        count_score += 3+(count_car-3)*1.5;
                     }
                     bool_diag = False;
                     count_car = 1;
@@ -365,13 +372,16 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m)
                 car1 = car2;
                 k++;
             }
+
             if (bool_diag) {
                 for (int z = 0; z < count_car; ++z) {
                     position pos1 = tab[z];
                     all_pos[count_pos] = pos1;
                     count_pos++;
                 }
+                count_score += 3+(count_car-3)*1.5;
             }
+
 
             // Vers le haut ========================================
             car1 = grille[i][0].car;
@@ -401,6 +411,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m)
                             all_pos[count_pos] = pos1;
                             count_pos++;
                         }
+                        count_score += 3+(count_car-3)*1.5;
                     }
                     bool_diag = False;
                     count_car = 1;
@@ -411,14 +422,14 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m)
                 car1 = car2;
                 k++;
             }
+
             if (bool_diag) {
                 for (int z = 0; z < count_car; ++z) {
                     position pos1 = tab[z];
                     all_pos[count_pos] = pos1;
                     count_pos++;
                 }
-
-
+                count_score += 3+(count_car-3)*1.5;
             }
         }
     }
