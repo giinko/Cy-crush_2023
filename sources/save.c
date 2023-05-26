@@ -48,32 +48,40 @@ void save_grille(struc_charge_grille party, int partie,int score)
     FILE *fichier;
     if (partie==1)
     {
+        printf(" fichier 1\n");
         fichier = fopen("..\\save\\partie_1.txt", "w+");
     }
     else if (partie==2)
     {
+        printf(" fichier 2\n");
         fichier = fopen("..\\save\\partie_2.txt", "w+");
     }
     else if(partie==3)
     {
+        printf(" fichier 3\n");
         fichier = fopen("..\\save\\partie_3.txt", "w+");
     }
     else{
         printf("frro y'a que 3 parties c'est tt 1, 2 ou 3\n");
     }
 
-    if (fichier != NULL) {
 
+    if (fichier != NULL) {
+        printf("%d,%d,%d\n",((party.grille)[0][0]).num, ((party.grille)[1][1]).num, party.all_param.symbole);
         fprintf(fichier, "game : 1\n");
         fprintf(fichier, "score : %d\n", score);
-        fprintf(fichier, "longueur_grille : %d\n", party.all_param.longueur);
-        fprintf(fichier, "largeur_grille : %d\n", party.all_param.largeur);
-        fprintf(fichier, "symbole : %d\n", party.all_param.symbole);
-        fprintf(fichier, "gravite : %d\n", party.all_param.gravite);
+        fprintf(fichier, "longueur_grille : %d\n", (party.all_param).longueur);
+        fprintf(fichier, "largeur_grille : %d\n", (party.all_param).largeur);
+        fprintf(fichier, "symbole : %d\n", (party.all_param).symbole);
+        fprintf(fichier, "gravite : %d\n", (party.all_param).gravite);
 
-        for (int i = 0; i < party.all_param.largeur; ++i) {
-            for (int j = 0; j < party.all_param.longueur; ++j) {
+
+        for (int i = 0; i < (party.all_param).largeur; i++) {
+            printf("on est la c bon signe1\n");
+            for (int j = 0; j < (party.all_param).longueur; j++) {
+                printf("on est la c bon signe\n");
                 fprintf(fichier, "%c:%d\n", party.grille[i][j].car, party.grille[i][j].num);
+
             }
         }
     }

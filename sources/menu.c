@@ -40,27 +40,9 @@ struc_charge_grille sauvegarder(struc_charge_grille partie) {
 
         // Menu des parametres
         printf("Dans quelle partie voulez-vous sauvegarder ? \n\n");
-        printf("[1] - Partie 1 \n"); /*
-        charge_grille(1, partie.grille);
-        if (partie.content == 0){
-            printf("(vide)");
-        }else{
-            printf("(non vide)");
-        } */
-        printf("[2] - Partie 2 \n"); /*
-        charge_grille(2, partie.grille);
-        if (partie.content == 0){
-            printf("(vide)");
-        }else{
-            printf("(non vide)");
-        } */
-        printf("[3] - Partie 3 \n"); /*
-        charge_grille(3, partie.grille);
-        if (partie.content == 0){
-            printf("(vide)");
-        }else{
-            printf("(non vide)");
-        } */
+        printf("[1] - Partie 1 \n");
+        printf("[2] - Partie 2 \n");
+        printf("[3] - Partie 3 \n");
         printf("[4] - Retour  \n\n");
 
         // Enregistrement du choix (dans c2) en caractère.
@@ -879,6 +861,7 @@ int menu(struc_charge_grille total) {
 
                 //re check les param
                 a = lire_parametre();
+
                 // creation grille
                 struct_grille_cc **grille = creation_full_grille(a.all_param);
 
@@ -887,9 +870,13 @@ int menu(struc_charge_grille total) {
                 printf("\n\n\n");
                 affichage(a.all_param.largeur, a.all_param.longueur, grille3);
                 printf("\n");
+
                 // Jeu
-                int final_score;
-                final_score = game(grille3, a.all_param.largeur, a.all_param.longueur, 0);
+                score_grille final_score_grille;
+                final_score_grille = game(grille3, a.all_param.largeur, a.all_param.longueur, 0);
+
+                a.grille = final_score_grille.grille;
+
                 menu_pause(a);
                 break ;
 
