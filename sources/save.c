@@ -43,7 +43,7 @@ struc_charge_grille lire_parametre()
     return all_param;
 }
 
-void save_grille(param_struct all_param,struct_grille_cc **grille, int partie,int score)
+void save_grille(struc_charge_grille party, int partie,int score)
 {
     FILE *fichier;
     if (partie==1)
@@ -66,14 +66,14 @@ void save_grille(param_struct all_param,struct_grille_cc **grille, int partie,in
 
         fprintf(fichier, "game : 1\n");
         fprintf(fichier, "score : %d\n", score);
-        fprintf(fichier, "longueur_grille : %d\n", all_param.longueur);
-        fprintf(fichier, "largeur_grille : %d\n", all_param.largeur);
-        fprintf(fichier, "symbole : %d\n", all_param.symbole);
-        fprintf(fichier, "gravite : %d\n", all_param.gravite);
+        fprintf(fichier, "longueur_grille : %d\n", party.all_param.longueur);
+        fprintf(fichier, "largeur_grille : %d\n", party.all_param.largeur);
+        fprintf(fichier, "symbole : %d\n", party.all_param.symbole);
+        fprintf(fichier, "gravite : %d\n", party.all_param.gravite);
 
-        for (int i = 0; i < all_param.largeur; ++i) {
-            for (int j = 0; j < all_param.longueur; ++j) {
-                fprintf(fichier, "%c:%d\n", grille[i][j].car, grille[i][j].num);
+        for (int i = 0; i < party.all_param.largeur; ++i) {
+            for (int j = 0; j < party.all_param.longueur; ++j) {
+                fprintf(fichier, "%c:%d\n", party.grille[i][j].car, party.grille[i][j].num);
             }
         }
     }

@@ -16,7 +16,7 @@ struc_charge_grille sauvegarder(struc_charge_grille partie) {
     int fin2 = 1;
     int a = 0;
 
-    // tant que fin2 = 0 : (si fin2 = 1 alors c'est la fin de la boucle).
+    // tant que fin2 = 1 : (si fin2 = 0 alors c'est la fin de la boucle).
     while (fin2) {
 
         int c2;
@@ -40,27 +40,27 @@ struc_charge_grille sauvegarder(struc_charge_grille partie) {
 
         // Menu des parametres
         printf("Dans quelle partie voulez-vous sauvegarder ? \n\n");
-        printf("[1] - Partie 1 ");
+        printf("[1] - Partie 1 \n"); /*
         charge_grille(1, partie.grille);
         if (partie.content == 0){
             printf("(vide)");
         }else{
             printf("(non vide)");
-        }
-        printf("[2] - Partie 2 ");
+        } */
+        printf("[2] - Partie 2 \n"); /*
         charge_grille(2, partie.grille);
         if (partie.content == 0){
             printf("(vide)");
         }else{
             printf("(non vide)");
-        }
-        printf("[3] - Partie 3 ");
+        } */
+        printf("[3] - Partie 3 \n"); /*
         charge_grille(3, partie.grille);
         if (partie.content == 0){
             printf("(vide)");
         }else{
             printf("(non vide)");
-        }
+        } */
         printf("[4] - Retour  \n\n");
 
         // Enregistrement du choix (dans c2) en caractère.
@@ -75,19 +75,19 @@ struc_charge_grille sauvegarder(struc_charge_grille partie) {
 
         switch (c2) {
 
-            // Entre dans le menu changement de la taille de la grille
             case '1':
-                // p1
+                save_grille(partie, 1, partie.score);
+                fin2 = 0;
                 break;
 
-                // Entre dans le menu changement de sens de gravité.
             case '2':
-                // p2
+                save_grille(partie, 2, partie.score);
+                fin2 = 0;
                 break;
 
-                // Entre dans le menu changement du nombre des caracteres (4 par defaut)
             case '3':
-                //p3
+                save_grille(partie, 3, partie.score);
+                fin2 = 0;
                 break;
 
                 // Fais quitter l'utilisateur si il fait 4
@@ -155,7 +155,7 @@ struc_charge_grille menu_pause(struc_charge_grille partie) {
 
             // Entre dans le menu changement de la taille de la grille
             case '1':
-                sauvegarder(partie);
+                partie = sauvegarder(partie);
                 break;
 
                 // Entre dans le menu changement de sens de gravité.
