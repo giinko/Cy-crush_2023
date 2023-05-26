@@ -6,7 +6,7 @@
 
 #include "..\header\game.h"
 
-
+// count_score += 3+(count_car-3)*1.5;
 /* Fonction qui permet de changer la couleur des caractères de la consol */
 
 void color(int t,int f)
