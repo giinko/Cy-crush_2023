@@ -67,7 +67,7 @@ void save_grille(struc_charge_grille party, int partie,int score)
 
 
     if (fichier != NULL) {
-        printf("%d,%d,%d\n",((party.grille)[0][0]).num, ((party.grille)[1][1]).num, party.all_param.symbole);
+        printf("%d,%c,%d\n",((party.grille)[0][0]).num, ((party.grille)[0][0]).car, party.all_param.symbole);
         fprintf(fichier, "game : 1\n");
         fprintf(fichier, "score : %d\n", score);
         fprintf(fichier, "longueur_grille : %d\n", (party.all_param).longueur);
