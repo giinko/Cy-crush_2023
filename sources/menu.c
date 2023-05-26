@@ -868,7 +868,7 @@ int menu(struc_charge_grille total) {
         // Etude du choix de l'utilisateur
         switch (c) {
 
-            // Lance le jeu à l'aide du return 1.
+            // Lance le jeu à l'aide.
             case '1':
                 if (total.all_param.symbole == 4){
                     printf("Chargement de votre grille... Veuillez patienter\n\n");
