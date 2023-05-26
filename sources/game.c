@@ -619,12 +619,12 @@ int check_entry_good(char car,int num,int n,int m){
 int game(struct_grille_cc** grille,int n,int m,int score)
 {
     int finish = 1;
-    while(finish!=0){
+    while(finish!=0) {
 
         position pos1;
         position pos2;
-        struct_grille_cc position1 ;
-        struct_grille_cc position2 ;
+        struct_grille_cc position1;
+        struct_grille_cc position2;
 
         printf("\nIndiquez la position des symboles que vous voulez changer.\n");
         printf("Par exemple : 'A3' ou 'B4'\n\n");
@@ -636,23 +636,21 @@ int game(struct_grille_cc** grille,int n,int m,int score)
             scanf("%1c%2d", &position1.car, &position1.num);
             while (getchar() != '\n');
 
-            if (check_entry_good(position1.car,position1.num,n,m) == 2){
+            if (check_entry_good(position1.car, position1.num, n, m) == 2) {
 
                 printf("Stop\n"); // app la fonctin charger la grille !!
                 finish = 0;
                 pos1_valide = 0;
-            }
-            else if (check_entry_good(position1.car,position1.num,n,m)==1){
+            } else if (check_entry_good(position1.car, position1.num, n, m) == 1) {
                 pos1_valide = 0;
                 finish = 1;
-            }
-            else{
+            } else {
                 printf("Veuillez entrer des parametres valides ! merci de recommencer !\n");
             }
 
         }
-        pos1.y = position1.num - 1 ;
-        pos1.x = position1.car - 65 ;
+        pos1.y = position1.num - 1;
+        pos1.x = position1.car - 65;
 
         int pos2_valide = 1;
 
@@ -661,43 +659,42 @@ int game(struct_grille_cc** grille,int n,int m,int score)
             scanf("%1c%2d", &position2.car, &position2.num);
             while (getchar() != '\n');
 
-            if (check_entry_good(position2.car,position2.num,n,m) == 2){
+            if (check_entry_good(position2.car, position2.num, n, m) == 2) {
                 printf("Le jeu s'arrette\n"); // app la fonctin charger la grille !!
                 finish = 0;
                 pos2_valide = 0;
-            }
-            else if (check_entry_good(position2.car,position2.num,n,m)==1){
+            } else if (check_entry_good(position2.car, position2.num, n, m) == 1) {
                 pos2_valide = 0;
                 finish = 1;
-            }
-            else{
+            } else {
                 printf("Veuillez entrer des parametres valides ! merci de recommencé !\n");
             }
 
         }
-        pos2.y = position2.num - 1 ;
-        pos2.x = position2.car - 65 ;
+        pos2.y = position2.num - 1;
+        pos2.x = position2.car - 65;
 
-        // On déplace le coup.
-        struct_grille_cc** grille2 = deplacement_grille(grille, pos1,pos2);
-        affichage(n,m,grille2);
-        printf("\n");
+        if (finish == 1) {
 
-        score_grille struct_grille_score;
-        struct_grille_score = grille_reac_chaine(grille2,n,m);
+            // On déplace le coup.
+            struct_grille_cc **grille2 = deplacement_grille(grille, pos1, pos2);
+            affichage(n, m, grille2);
+            printf("\n");
 
-        grille = struct_grille_score.grille;
-        printf("\n\n\n\n\n\n\n\n\n\n\n\n");
-        affichage(n,m,grille);
-        printf("\n");
+            score_grille struct_grille_score;
+            struct_grille_score = grille_reac_chaine(grille2, n, m);
 
-        if(struct_grille_score.points == 0){
-            finish = 0;
+            grille = struct_grille_score.grille;
+            printf("\n\n\n\n\n\n\n\n\n\n\n\n");
+            affichage(n, m, grille);
+            printf("\n");
+
+            if (struct_grille_score.points == 0) {
+                finish = 0;
+            } else {
+                score += struct_grille_score.points;
+            }
         }
-        else{
-            score+=struct_grille_score.points;
-        }
-
     }
     printf("fin de fonction\n");
     return score;
