@@ -1,6 +1,8 @@
 #include <windows.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
+#include <string.h>
 #include <ctype.h>
 #include <stdbool.h>
 
@@ -93,9 +95,23 @@ struct_grille_cc** supp_case(position* all_position, struct_grille_cc** grille, 
 }
 
 
+struct_grille_cc** supp_case1(position* all_position, struct_grille_cc** grille, int taille)
+{
+
+    for(int i=0;i<taille;i++){
+        int pos_x = all_position[i].x;
+        int pos_y = all_position[i].y;
+
+        grille[pos_y][pos_x].car = '*';
+        grille[pos_y][pos_x].num = 15;
+    }
+
+    return grille;
+}
+
 // Renvoie uns structure avec la grille supprimer et le score
 
-score_grille glob_supp_score(struct_grille_cc** grille, int n, int m)
+score_grille glob_supp_score(struct_grille_cc** grille, int n, int m,int start)
 {
 
     score_grille score;
@@ -434,9 +450,35 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m)
         }
     }
 
+    if((start==0)&&(count_pos!=0)) {
+        affichage(n, m, grille);
+        sleep(1);
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    }
+
+
+    struct_grille_cc **g_supp = supp_case(all_pos, grille, count_pos);
+    if((start==0)&&(count_pos!=0)) {
+        // def affichage styler ici
+
+
+        affichage(n, m, g_supp);
+        sleep(1);
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
+        g_supp = supp_case1(all_pos, grille, count_pos);
+        affichage(n, m, g_supp);
+        sleep(1);
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
+        g_supp = supp_case(all_pos, grille, count_pos);
+        affichage(n, m, g_supp);
+        sleep(1);
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    }
+
 
     //le tableau est cree avec tt les pos a supp, mnt on les supp
-    struct_grille_cc** g_supp = supp_case(all_pos, grille, count_pos);
     score.grille = g_supp;
     score.points = count_pos; // a modifier
 
@@ -531,7 +573,7 @@ struct_grille_cc** start_grille(struct_grille_cc** grille, param_struct all_para
     int score = 1;
     while (score>0){
 
-        score_grille grille_score = glob_supp_score(grille, all_param.largeur, all_param.longueur);
+        score_grille grille_score = glob_supp_score(grille, all_param.largeur, all_param.longueur,1);
 
         struct_grille_cc** grille1 = grille_gravite(grille_score.grille, all_param.largeur, all_param.longueur);
 
@@ -569,6 +611,8 @@ struct_grille_cc** deplacement_grille(struct_grille_cc** grille,position pos1,po
 }
 
 
+
+
 // Fonction qui gere la reaction en chaine
 
 score_grille grille_reac_chaine(struct_grille_cc** grille,int n,int m)
@@ -581,7 +625,7 @@ score_grille grille_reac_chaine(struct_grille_cc** grille,int n,int m)
     score_grille struct_grille_score;
     while (score>0){
         // supp les choses a supp
-        score_grille grille1 = glob_supp_score(grille, n, m);
+        score_grille grille1 = glob_supp_score(grille, n, m,0);
 
         // Gravité de la grille
         struct_grille_cc** grille2 = grille_gravite(grille1.grille, n, m);
@@ -707,7 +751,7 @@ score_grille game(struct_grille_cc** grille,int n,int m,int score)
             struct_grille_score = grille_reac_chaine(grille2, n, m);
 
             grille = struct_grille_score.grille;
-            printf("\n\n\n\n\n\n\n\n\n\n\n\n");
+            printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             affichage(n, m, grille);
             printf("\n");
 
