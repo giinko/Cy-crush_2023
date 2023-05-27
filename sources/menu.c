@@ -617,15 +617,15 @@ struc_charge_grille chargement_partie1(struc_charge_grille total01)
                 struc_charge_grille total02 = charge_grille(1,total01);
                 printf("\n\nChargement de votre grille en cours");
                 total02.content = 1 ;
-                sleep(2) ;
+                sleep(2) ; /*
 
                 score_grille ss = game(total02.grille,total02.all_param.largeur,total02.all_param.longueur,total02.score);
                 struc_charge_grille bb;
                 bb.all_param = total02.all_param;
                 bb.grille = ss.grille;
                 bb.score = ss.points;
-                menu_pause(bb);
-                return bb;
+                menu_pause(bb); */
+                return total02;
 
                 // Faire quitter
             case '2':
@@ -894,6 +894,7 @@ int menu(struc_charge_grille total) {
     struc_charge_grille tootal = total ;
     total.content = 0 ;
     int deja_charge = 0 ;
+    int j =0 ;
 
 // tant que fin = 1 : (si fin = 0 alors c'est la fin de la boucle).
     while (fin) {
@@ -915,6 +916,8 @@ int menu(struc_charge_grille total) {
                 printf("Impossible, vous avez deja charge une partie. ");
             }
         }
+        printf("content = %d \n", total.content);
+        printf("parametres : symboles %d , long : %d, larg %d, score : %d \n", total.all_param.symbole, total.all_param.longueur, total.all_param.largeur, total.score);
         i = 0;
         printf("\n\n"
                "   ______         ______                __  \n"
@@ -955,7 +958,6 @@ int menu(struc_charge_grille total) {
             // Lance le jeu à l'aide.
             case '1':
                 if (total.content == 0){
-
                     if (total.all_param.symbole == 4){
                         printf("Chargement de votre grille... Veuillez patienter\n\n");
                         sleep(2); // chutt c'est un secret, on fais genre il reflechis
@@ -985,11 +987,25 @@ int menu(struc_charge_grille total) {
                     menu_pause(a);
                 }else if (total.content == 1){
 
-
                     if (total.all_param.symbole == 4){
                         printf("Chargement de votre grille... Veuillez patienter\n\n");
                         sleep(2); // chutt c'est un secret, on fais genre il reflechis
                     }
+                    for (int k = 0; k < total.all_param.largeur; ++k) {
+                        while (j < total.all_param.longueur){
+                            j += 1 ;
+                            printf("\ni = %d ; j = %d \n", k, j);
+                            printf("RESULTAT : %c : %d \n", total.grille[k][j].car, total.grille[k][j].num) ;
+                        }
+                        j = 0 ; /*
+                    for (j = 0; j < total.all_param.longueur; ++j) {
+                        fscanf(fichier, "%c:%d\n", &total.grille[i][j].car, &total.grille[i][j].num);
+                        printf("%c : %d \n", total.grille[i][j].car, total.grille[i][j].num) ; */
+
+                    }
+                    printf("\n\n\n");
+                    affichage(total.all_param.largeur, total.all_param.longueur, total.grille);
+                    printf("\n");
                     score_grille final_score_grille;
                     final_score_grille = game(total.grille, total.all_param.largeur, total.all_param.longueur, total.score);
 
