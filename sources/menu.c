@@ -62,8 +62,14 @@ int verifier_fichier_vide(const char *nom_fichier) {
 struc_charge_grille sauvegarder(struc_charge_grille partie) {
 
     // Déclaration de la variable fin2, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
-    int fin2 = 1;
-    int a = 0;
+    int fin2 = 1 ;
+    int a = 0 ;
+    int fichier1_plein = 0 ;
+    int fichier2_plein = 0 ;
+    int fichier3_plein = 0 ;
+    const char *chemin_fichier1 = "../save/partie_1.txt" ;
+    const char *chemin_fichier2 = "../save/partie_2.txt" ;
+    const char *chemin_fichier3 = "../save/partie_3.txt" ;
 
     // tant que fin2 = 1 : (si fin2 = 0 alors c'est la fin de la boucle).
     while (fin2) {
@@ -89,9 +95,27 @@ struc_charge_grille sauvegarder(struc_charge_grille partie) {
 
         // Menu des parametres
         printf("Dans quelle partie voulez-vous sauvegarder ? \n\n");
-        printf("[1] - Partie 1 \n");
-        printf("[2] - Partie 2 \n");
-        printf("[3] - Partie 3 \n");
+        printf("[1] - Partie 1 ");
+        if (verifier_fichier_vide(chemin_fichier1) == 0){
+            printf("(vide)\n");
+        }else if (verifier_fichier_vide(chemin_fichier1) == 1){
+            printf("(non-vide)\n");
+            fichier1_plein = 1 ;
+        }
+        printf("[2] - Partie 2 ");
+        if (verifier_fichier_vide(chemin_fichier2) == 0){
+            printf("(vide)\n");
+        }else if (verifier_fichier_vide(chemin_fichier2) == 1){
+            printf("(non-vide)\n");
+            fichier2_plein = 1 ;
+        }
+        printf("[3] - Partie 3 ");
+        if (verifier_fichier_vide(chemin_fichier3) == 0){
+            printf("(vide)\n");
+        }else if (verifier_fichier_vide(chemin_fichier3) == 1){
+            printf("(non-vide)\n");
+            fichier3_plein = 1 ;
+        }
         printf("[4] - Quitter sans sauvegarder  \n\n");
 
         // Enregistrement du choix (dans c2) en caractère.
@@ -616,11 +640,11 @@ struc_charge_grille chargement_partie1(struc_charge_grille total01)
                 total01 = lire_parametre();
                 struct_grille_cc** grille = creation_full_grille(total01.all_param);
                 total01.grille = grille;
-                struc_charge_grille total02 = charge_grille(1,total01);
+                struc_charge_grille total001 = charge_grille(1,total01);
                 printf("\n\nChargement de votre grille en cours");
-                total02.content = 1 ;
+                total001.content = 1 ;
                 sleep(2) ;
-                return total02;
+                return total001;
 
                 // Faire quitter
             case '2':
@@ -683,11 +707,11 @@ struc_charge_grille chargement_partie2(struc_charge_grille total02)
                 total02 = lire_parametre();
                 struct_grille_cc** grille = creation_full_grille(total02.all_param);
                 total02.grille = grille;
-                struc_charge_grille total02 = charge_grille(1,total02);
+                struc_charge_grille total002 = charge_grille(2,total02);
                 printf("\n\nChargement de votre grille en cours");
-                total02.content = 1 ;
+                total002.content = 1 ;
                 sleep(2) ;
-                return total02;
+                return total002;
 
                 // Faire quitter
             case '2':
@@ -747,13 +771,14 @@ struc_charge_grille chargement_partie3(struc_charge_grille total03)
 
             // Charger la partie 3
             case '1':
-
                 total03 = lire_parametre();
                 struct_grille_cc** grille = creation_full_grille(total03.all_param);
-                struc_charge_grille crg_gr = charge_grille(3,total03);
-                //Faire charger la partie 3
-                crg_gr.content = 1 ;
-                return crg_gr;
+                total03.grille = grille;
+                struc_charge_grille total003 = charge_grille(3,total03);
+                printf("\n\nChargement de votre grille en cours");
+                total003.content = 1 ;
+                sleep(2) ;
+                return total003;
 
                 // Faire quitter
             case '2':
@@ -766,6 +791,113 @@ struc_charge_grille chargement_partie3(struc_charge_grille total03)
                 break;
         }
     }
+}
+struc_charge_grille vider_partie(struc_charge_grille partie){
+
+    // Déclaration de la variable fin2, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
+    int fin2 = 1 ;
+    int a = 0 ;
+    int fichier1_plein = 0 ;
+    int fichier2_plein = 0 ;
+    int fichier3_plein = 0 ;
+    const char *chemin_fichier1 = "../save/partie_1.txt" ;
+    const char *chemin_fichier2 = "../save/partie_2.txt" ;
+    const char *chemin_fichier3 = "../save/partie_3.txt" ;
+
+    // tant que fin2 = 1 : (si fin2 = 0 alors c'est la fin de la boucle).
+    while (fin2) {
+
+        int c2;
+
+        // CY CRUSH
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
+        if(a == 1){
+            printf("Choix invalide, veuillez recommencer.\n");
+        }
+
+        a = 0;
+
+        printf("\n"
+               "   ______         ______                __  \n"
+               "  / ____/_  __   / ____/______  _______/ /_ \n"
+               " / /   / / / /  / /   / ___/ / / / ___/ __ \\\n"
+               "/ /___/ /_/ /  / /___/ /  / /_/ (__  ) / / /\n"
+               "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
+               "     /____/                                 \n\n\n");
+
+        // Menu des parametres
+        printf("Quelle sauvegarde voulez-vous supprimer ? \n\n");
+
+        if (verifier_fichier_vide(chemin_fichier1) == 1){
+            printf("[1] - Supprimer la partie 1 ");
+            fichier1_plein = 1 ;
+        }
+        if (verifier_fichier_vide(chemin_fichier2) == 1){
+            printf("[2] - Supprimer la partie 2 ");
+            fichier2_plein = 1 ;
+        }
+        if (verifier_fichier_vide(chemin_fichier3) == 1){
+            printf("[3] - Supprimer la partie 3 ");
+            fichier3_plein = 1 ;
+        }
+        printf("[4] - Quitter sans sauvegarder  \n\n");
+
+        // Enregistrement du choix (dans c2) en caractère.
+        printf("---> ");
+        c2 = getchar();
+
+        /* suppression des caracteres dans stdin */
+        if (c2 != '\n' && c2 != EOF) {
+            int d;
+            while ((d = getchar()) != '\n' && d != EOF);
+        }
+
+        switch (c2) {
+
+            case '1':
+
+                if (verifier_fichier_vide(chemin_fichier1) == 1){
+                    // supp les valeurs
+                    printf ("\n\nFichier de la partie 1 supprime avec succes.");
+                    sleep(2);
+                }else if (verifier_fichier_vide(chemin_fichier1) == 0){
+                    a = 1 ;
+                }
+
+            case '2':
+                if (verifier_fichier_vide(chemin_fichier2) == 1){
+                    // supp les valeurs
+                    printf ("\n\nFichier de la partie 2 supprime avec succes.");
+                    sleep(2);
+                }else if (verifier_fichier_vide(chemin_fichier2) == 0){
+                    a = 1 ;
+                }
+
+            case '3':
+                if (verifier_fichier_vide(chemin_fichier3) == 1){
+                    // supp les valeurs
+                    printf ("\n\nFichier de la partie 3 supprime avec succes.");
+                    sleep(2);
+                }else if (verifier_fichier_vide(chemin_fichier3) == 0){
+                    a = 1 ;
+                }
+
+                // Fais quitter l'utilisateur si il fait 4
+            case '4':
+                fin2 = 0;
+                liber_malloc(partie.grille, partie.all_param.largeur,partie.all_param.longueur);
+                break;
+
+                // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3,4)
+            default:
+                a = 1 ;
+                break;
+        }
+    }
+    partie.content = 0 ;
+    return partie;
+
 }
 struc_charge_grille charger_grille(struc_charge_grille total0){
 
@@ -823,7 +955,8 @@ struc_charge_grille charger_grille(struc_charge_grille total0){
         }else if (verifier_fichier_vide(chemin_fichier3) == 1){
             printf("(non-vide)\n");
         }
-        printf("[4] - Quitter\n\n");
+        printf("[4] - Vider une partie\n");
+        printf("[5] - Quitter\n\n");
 
         // Enregistrement du choix (dans c2) en caractère.
         printf("---> ");
@@ -869,8 +1002,13 @@ struc_charge_grille charger_grille(struc_charge_grille total0){
                 }
                 break;
 
-                // Fais quitter l'utilisateur (fin de la boucle activé)
             case '4':
+                fin = 0;
+                break;
+
+                // Fais quitter l'utilisateur (fin de la boucle activé)
+
+            case '5':
                 fin = 0;
                 break;
 
@@ -932,9 +1070,9 @@ int menu(struc_charge_grille total) {
             printf("[2] - Parametres\n");
         }
         if (total.content == 1){
-            printf("[3] - X Charger une grille X\n");
+            printf("[3] - X Voir les sauvegardes X\n");
         }else {
-            printf("[3] - Charger une grille\n");
+            printf("[3] - Voir les sauvegardes\n");
         }
         printf("[4] - Quitter\n\n");
 
