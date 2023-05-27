@@ -611,8 +611,9 @@ struc_charge_grille chargement_partie1(struc_charge_grille total01)
                 struct_grille_cc** grille = creation_full_grille(total01.all_param);
                 struc_charge_grille crg_gr = charge_grille(1,grille);
 
-                printf("\n\n Chargement de votre grille en cours");
-                sleep(2);
+                printf("\n\nChargement de votre grille en cours");
+                crg_gr.content = 1 ;
+                sleep(2) ;
                 /*
                 // On va return crg_gr !!!!!!!!!!!!! je vais dodo on verra demain pour p2 et p3 suffit de modifier le 1 au dessus.
                 score_grille ss;
@@ -625,6 +626,7 @@ struc_charge_grille chargement_partie1(struc_charge_grille total01)
 
                 // Faire quitter
             case '2':
+                o_k_ou_il_quitte.content = 0 ;
                 return o_k_ou_il_quitte ;
 
                 // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2)
@@ -684,12 +686,13 @@ struc_charge_grille chargement_partie2(struc_charge_grille total02)
                 total02 = lire_parametre();
                 struct_grille_cc** grille = creation_full_grille(total02.all_param);
                 struc_charge_grille crg_gr = charge_grille(2,grille);
-                return total02;
+                crg_gr.content = 1 ;
+                return crg_gr;
 
                 // Faire quitter
             case '2':
-                fin = 0;
-                break;
+                total02.content = 0 ;
+                return total02 ;
 
                 // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2)
             default:
@@ -749,13 +752,13 @@ struc_charge_grille chargement_partie3(struc_charge_grille total03)
                 struct_grille_cc** grille = creation_full_grille(total03.all_param);
                 struc_charge_grille crg_gr = charge_grille(3,grille);
                 //Faire charger la partie 3
-
-                return total03;
+                crg_gr.content = 1 ;
+                return crg_gr;
 
                 // Faire quitter
             case '2':
-                fin = 0;
-                break;
+                total03.content = 0 ;
+                return total03 ;
 
                 // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2)
             default:
@@ -769,6 +772,7 @@ struc_charge_grille charger_grille(struc_charge_grille total0){
 
 // Déclaration de la variable fin, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
     int fin = 1;
+    total0.content = 0 ;
     struc_charge_grille verif = total0 ;
     int i = 0 ;
     int fichier_vide ;
@@ -843,11 +847,7 @@ struc_charge_grille charger_grille(struc_charge_grille total0){
                     break ;
                 }else if (verifier_fichier_vide(chemin_fichier1) == 1) {
                     total0 = chargement_partie1(total0);
-                    if (meme_total(total0, verif)) {
-                        break;
-                    } else {
-                        return total0;
-                    }
+                    return total0 ;
                 }
 
                 // Charger la deuxieme partie
@@ -856,7 +856,7 @@ struc_charge_grille charger_grille(struc_charge_grille total0){
                     fichier_vide = 1 ;
                 }else if (verifier_fichier_vide(chemin_fichier2) == 1){
                     total0 = chargement_partie2(total0);
-                    fin = 0 ;
+                    return total0 ;
                 }
                 break;
 
@@ -866,7 +866,7 @@ struc_charge_grille charger_grille(struc_charge_grille total0){
                     fichier_vide = 1 ;
                 }else if (verifier_fichier_vide(chemin_fichier3) == 1){
                     total0 = chargement_partie3(total0);
-                    fin = 0 ;
+                    return total0 ;
                 }
                 break;
 
@@ -890,6 +890,8 @@ int menu(struc_charge_grille total) {
     int i = 0 ;
     struc_charge_grille a = lire_parametre() ;
     struc_charge_grille tootal = total ;
+    total.content = 0 ;
+    int deja_charge = 0 ;
 
 // tant que fin = 1 : (si fin = 0 alors c'est la fin de la boucle).
     while (fin) {
@@ -904,6 +906,13 @@ int menu(struc_charge_grille total) {
         if (i ==1){
             printf("Choix invalide, veuillez recommencer.");
         }
+        if (total.content == 1){
+            if (deja_charge == 0){
+                printf("Une partie a ete chargee.");
+            }else{
+                printf("Impossible, vous avez deja charge une partie. ");
+            }
+        }
         i = 0;
         printf("\n\n"
                "   ______         ______                __  \n"
@@ -914,10 +923,18 @@ int menu(struc_charge_grille total) {
                "     /____/                                  \n\n\n");
 
         // Menu principal
-        printf("[1] - Lancer le jeu\n"
-               "[2] - Parametres\n"
-               "[3] - Charger une grille\n"
-               "[4] - Quitter\n\n");
+        printf("[1] - Lancer le jeu\n");
+        if (total.content == 1){
+            printf("[2] - X Parametres X\n");
+        }else {
+            printf("[2] - Parametres\n");
+        }
+        if (total.content == 1){
+            printf("[3] - X Charger une grille X\n");
+        }else {
+            printf("[3] - Charger une grille\n");
+        }
+        printf("[4] - Quitter\n\n");
 
         // Enregistrement du choix (dans c2) en caractère.
         printf("---> ");
@@ -935,43 +952,68 @@ int menu(struc_charge_grille total) {
 
             // Lance le jeu à l'aide.
             case '1':
-                if (total.all_param.symbole == 4){
-                    printf("Chargement de votre grille... Veuillez patienter\n\n");
-                    sleep(2); // chutt c'est un secret, on fais genre il reflechis
+                if (total.content == 0){
+
+                    if (total.all_param.symbole == 4){
+                        printf("Chargement de votre grille... Veuillez patienter\n\n");
+                        sleep(2); // chutt c'est un secret, on fais genre il reflechis
+                    }
+                    srand(time( NULL ));
+                    color(15, 0);
+
+                    //re check les param
+                    a = lire_parametre();
+
+                    // creation grille
+                    struct_grille_cc **grille = creation_full_grille(a.all_param);
+
+                    // Initialisation de la grille
+                    struct_grille_cc **grille3 = start_grille(grille, a.all_param);
+                    printf("\n\n\n");
+                    affichage(a.all_param.largeur, a.all_param.longueur, grille3);
+                    printf("\n");
+
+                    // Jeu
+                    score_grille final_score_grille;
+                    final_score_grille = game(grille3, a.all_param.largeur, a.all_param.longueur, 0);
+
+                    a.grille = final_score_grille.grille;
+                    a.score = final_score_grille.points;
+
+                    menu_pause(a);
+                }else if (total.content == 1){
+
+
+                    if (total.all_param.symbole == 4){
+                        printf("Chargement de votre grille... Veuillez patienter\n\n");
+                        sleep(2); // chutt c'est un secret, on fais genre il reflechis
+                    }
+                    score_grille final_score_grille;
+                    final_score_grille = game(total.grille, total.all_param.largeur, total.all_param.longueur, total.score);
+
+                    a.grille = final_score_grille.grille;
+                    a.score = final_score_grille.points;
+
+                    menu_pause(a);
                 }
-                srand(time( NULL ));
-                color(15, 0);
-
-                //re check les param
-                a = lire_parametre();
-
-                // creation grille
-                struct_grille_cc **grille = creation_full_grille(a.all_param);
-
-                // Initialisation de la grille
-                struct_grille_cc **grille3 = start_grille(grille, a.all_param);
-                printf("\n\n\n");
-                affichage(a.all_param.largeur, a.all_param.longueur, grille3);
-                printf("\n");
-
-                // Jeu
-                score_grille final_score_grille;
-                final_score_grille = game(grille3, a.all_param.largeur, a.all_param.longueur, 0);
-
-                a.grille = final_score_grille.grille;
-                a.score = final_score_grille.points;
-
-                menu_pause(a);
                 break ;
 
                 //
             case '2':
-                total.all_param = parametres(total.all_param);
+                if (total.content == 0){
+                    total.all_param = parametres(total.all_param);
+                } else if (total.content == 1){
+                    deja_charge = 1 ;
+                }
                 break;
 
                 //
             case '3':
-                total = charger_grille(total);
+                if (total.content == 0){
+                    total = charger_grille(total);
+                } else if (total.content == 1){
+                    deja_charge = 1 ;
+                }
                 break;
 
                 // Fais quitter l'utilisateur (fin de la boucle activé)
