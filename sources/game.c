@@ -648,7 +648,7 @@ int check_entry_good(char car,int num,int n,int m){
     if ((car<65)||(car>=65+m)){ // largueur
         return 0;
     }
-    else if(num>n){ // longueur
+    else if((num>n)||(num<=0)){ // longueur
         return 0;
     }
     else{
