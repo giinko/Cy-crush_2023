@@ -7,7 +7,7 @@
 #include "..\header\menu.h"
 
 
-// Reenvoie 1 si les paramètre son identique pour : struc charge grille
+// Renvoie 1 si les paramètre son identique pour : struc charge grille
 
 int meme_total(struc_charge_grille total1, struc_charge_grille total2){
     if (total1.all_param.largeur == total2.all_param.largeur){
@@ -30,6 +30,7 @@ int meme_total(struc_charge_grille total1, struc_charge_grille total2){
 }
 
 
+
 // Renvoie 2 si les paramètres sont identique pour : struc param_struct
 
 int meme_param(param_struct all_param1, param_struct all_param2)
@@ -48,6 +49,8 @@ int meme_param(param_struct all_param1, param_struct all_param2)
         return 0 ;
     }
 }
+
+
 
 // Vérifie si un fichier est vide ou non
 
@@ -71,6 +74,8 @@ int verifier_fichier_vide(const char *nom_fichier) {
     }
 }
 
+
+
 // Menu de sauvgarde d'une grille
 
 struc_charge_grille sauvegarder(struc_charge_grille partie) {
@@ -78,9 +83,6 @@ struc_charge_grille sauvegarder(struc_charge_grille partie) {
     // Déclaration de la variable fin2, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
     int fin2 = 1 ;
     int a = 0 ;
-    int fichier1_plein = 0 ;
-    int fichier2_plein = 0 ;
-    int fichier3_plein = 0 ;
     const char *chemin_fichier1 = "../save/partie_1.txt" ;
     const char *chemin_fichier2 = "../save/partie_2.txt" ;
     const char *chemin_fichier3 = "../save/partie_3.txt" ;
@@ -107,28 +109,30 @@ struc_charge_grille sauvegarder(struc_charge_grille partie) {
                "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
                "     /____/                                 \n\n\n");
 
-        // Menu des parametres
+        // Menu de sauvegarde
         printf("Dans quelle partie voulez-vous sauvegarder ? \n\n");
         printf("[1] - Partie 1 ");
+        // affiche vide ou non-vide
         if (verifier_fichier_vide(chemin_fichier1) == 0){
             printf("(vide)\n");
         }else if (verifier_fichier_vide(chemin_fichier1) == 1){
             printf("(non-vide)\n");
-            fichier1_plein = 1 ;
         }
+
+        // affiche vide ou non-vide
         printf("[2] - Partie 2 ");
         if (verifier_fichier_vide(chemin_fichier2) == 0){
             printf("(vide)\n");
         }else if (verifier_fichier_vide(chemin_fichier2) == 1){
             printf("(non-vide)\n");
-            fichier2_plein = 1 ;
         }
+
+        // affiche vide ou non-vide
         printf("[3] - Partie 3 ");
         if (verifier_fichier_vide(chemin_fichier3) == 0){
             printf("(vide)\n");
         }else if (verifier_fichier_vide(chemin_fichier3) == 1){
             printf("(non-vide)\n");
-            fichier3_plein = 1 ;
         }
         printf("[4] - Quitter sans sauvegarder  \n\n");
 
@@ -144,50 +148,54 @@ struc_charge_grille sauvegarder(struc_charge_grille partie) {
 
         switch (c2) {
 
-            case '1':
+            case '1': //sauvegarde dans la partie 1
                 save_grille(partie, 1, partie.score);
                 liber_malloc(partie.grille, partie.all_param.largeur,partie.all_param.longueur);
                 printf("\nSauvegarde en cours, veuillez patienter...");
-                sleep(2);
+                sleep(2); // simulation de sauvegarde
                 fin2 = 0;
                 break;
 
-            case '2':
+            case '2': //sauvegarde dans la partie 2
                 save_grille(partie, 2, partie.score);
                 liber_malloc(partie.grille, partie.all_param.largeur,partie.all_param.longueur);
                 printf("\nSauvegarde en cours, veuillez patienter...");
-                sleep(2);
+                sleep(2); // simulation de sauvegarde
                 fin2 = 0;
                 break;
 
-            case '3':
+            case '3': //sauvegarde dans la partie 3
                 save_grille(partie, 3, partie.score);
                 liber_malloc(partie.grille, partie.all_param.largeur,partie.all_param.longueur);
                 printf("\nSauvegarde en cours, veuillez patienter...");
-                sleep(2);
+                sleep(2); // simulation de sauvegarde
                 fin2 = 0;
                 break;
 
             // Fais quitter l'utilisateur si il fait 4
             case '4':
                 fin2 = 0;
+                //liberation de malloc
                 liber_malloc(partie.grille, partie.all_param.largeur,partie.all_param.longueur);
                 break;
 
             // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3,4)
             default:
+                // regénère le menu avec 'choix invalide'
                 a = 1 ;
                 break;
         }
     }
+    // Met la variable content à 0 pour retirer le menu de charger une partie (au cas ou)
     partie.content = 0 ;
     return partie;
 }
 
 
-// Propose a l'utilisateur de sauvegarder une grille
 
-struc_charge_grille menu_pause(struc_charge_grille partie)
+// Menu de fin de partie
+
+struc_charge_grille fin_de_partie(struc_charge_grille partie)
 {
 
     // Déclaration de la variable fin2, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
@@ -216,7 +224,8 @@ struc_charge_grille menu_pause(struc_charge_grille partie)
                "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
                "     /____/                                 \n\n\n");
 
-        // Menu des parametres
+        // Menu de fin de partie
+        printf("Fin de partie. \n");
         printf("Souhaitez-vous sauvegarder votre partie ? \n");
         printf("Score : %d\n\n", partie.score);
         printf("[1] - Oui, je veux sauvegarder ma partie \n");
@@ -243,6 +252,7 @@ struc_charge_grille menu_pause(struc_charge_grille partie)
                 // Retour vers le menu principal
             case '2':
                 fin2 = 0 ;
+                // Liberation de malloc
                 liber_malloc(partie.grille, partie.all_param.largeur,partie.all_param.longueur);
                 break;
 
@@ -252,19 +262,22 @@ struc_charge_grille menu_pause(struc_charge_grille partie)
                 break;
         }
     }
+    // content à 0 au cas ou si il y a le menu de charger une partie dans le menu principal
     partie.content = 0 ;
     return partie;
 }
 
 
+
+// Menu de changement de la taille de la grille
+
 param_struct changement_taillegrille(param_struct all_param11) {
+
     int fin3 = 1;
     int b = 0 ;
-    param_struct init = all_param11 ;
+    param_struct init = all_param11 ; // parametres initiaux enregistrés dans init.
     // tant que fin3 = 0 : (si fin3 = 1 alors c'est la fin de la boucle).
     while (fin3) {
-
-        // Enregistrement du choix dans une variable c3 en caractère.
 
         printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         if(b == 1){
@@ -283,36 +296,62 @@ param_struct changement_taillegrille(param_struct all_param11) {
         // Rappel de la taille de la grille avant de la modifier
         printf("Menu de changement de la taille de la grille. \n");
         printf("Actuellement, la taille de la grille est : \n\n");
+
         printf("Longueur : %d\n", all_param11.longueur);
         printf("Largeur : %d\n\n", all_param11.largeur);
+
         printf("\nVeuillez entrer la nouvelle taille souhaitee.");
         printf("(Merci de saisir des nombres compris entre 5 et 25)\n\n");
 
-// Enregistrer la nouvelle taille en longueur
+          // Enregistrer la nouvelle taille en longueur
+
         printf("Nouvelle taille en longueur : ");
         scanf("%d", &all_param11.longueur);
 
-// Vérification de la validité des nouvelles valeurs
-        while ((all_param11.longueur < 5) || (all_param11.longueur > 25)) {
-            printf("\nLongueur invalide. Merci de choisir un nombre entre 5 et 25.\n\n");
-            printf("Nouvelle taille en longueur : ");
-            scanf("%d", &all_param11.longueur);
-        }
+          // Vérification de la validité des nouvelles valeurs
+          // si symbole sup à 5 alors max 25 et minimum 5
+if (all_param11.symbole >= 5){
+    while ((all_param11.longueur < 5) || (all_param11.longueur > 25)) {
+        printf("\nLongueur invalide. Merci de saisir un nombre entre 5 et 25.\n\n");
+        printf("Nouvelle taille en longueur : ");
+        scanf("%d", &all_param11.longueur);
+    }
+}else { //sinon si symbole = 4 alors max 14 (compris)
+    while ((all_param11.longueur < 5) || (all_param11.longueur > 14)) {
+        printf("\nLongueur invalide. Votre nombre de symbole est trop faible (4). (Maximum autorise : 14/14) \n\n");
+        printf("Nouvelle taille en longueur : ");
+        scanf("%d", &all_param11.longueur);
+    }
+
+    }
 // Enregistrer la nouvelle taille en largeur
         printf("Nouvelle taille en largeur : ");
         scanf("%d", &all_param11.largeur);
 
 // Vérification de la validité des nouvelles valeurs
-        while ((all_param11.largeur < 5) || (all_param11.largeur > 25)) {
-            printf("\nLargeur invalide. Merci de choisir un nombre entre 5 et 25.\n\n");
-            printf("Nouvelle taille en largeur : ");
-            scanf("%d", &all_param11.largeur);
+// symboles sup ou egal a 5 alors maximum de la grille 25
+        if (all_param11.symbole >= 5){
+
+            while ((all_param11.largeur < 5) || (all_param11.largeur > 25)) {
+                printf("\nLargeur invalide. Merci de choisir un nombre entre 5 et 25.\n\n");
+                printf("Nouvelle taille en largeur : ");
+                scanf("%d", &all_param11.largeur);
+            }
+        }else { //symboles = 4 alors maximum 14 (compris)
+            while ((all_param11.largeur < 5) || (all_param11.largeur > 14)) {
+                printf("\nLongueur invalide. Votre nombre de symbole est trop faible (4). (Maximum autorise : 14/14) \n\n");
+                printf("Nouvelle taille en largeur : ");
+                scanf("%d", &all_param11.largeur);
+            }
+
         }
         //récupère le dernier caractère pour éviter la regénération du menu.
         char stop = getchar();
 
-        // sauvegarde les paramètres dans le dossier paramètre
+        // sauvegarde les paramètres dans le dossier paramètres
         ecrir_parametre(all_param11);
+
+        // Derniere confirmation
         printf("\n\nSouhaitez-vous enregistrer vos modifications ?\n\n");
         printf("[1] - Oui \n"
                "[2] - Non, quitter \n\n");
@@ -329,99 +368,25 @@ param_struct changement_taillegrille(param_struct all_param11) {
         // Etude du choix de l'utilisateur
         switch (c6) {
 
-            // Vers le bas
             case '1':
-// indication des limites de la grille
+                // C'est ok et fin de fonction
                 return all_param11;
-                // Vers la droite
             case '2':
+                // Return les parametres initiaux (enregistrée au debut)
                 return init;
 
-                // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3)
+                // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2)
             default:
-                b = 1 ;
+                b = 1 ; //message d'invalidité
                 break;
         }
     }
-}/*
-param_struct changement_gravite(param_struct all_param12)
-{
+}
 
-    // Declaration d'un tableau de caractère qui va traduire la gravité.
-    char sens_gravite[20];
-    // Déclaration de la variable fin3, pour mettre fin à la boucle : 0 = ça tourne, 1 = stop.
-    int fin3 = 0;
-    int c = 0;
 
-    // tant que fin3 = 0 : (si fin3 = 1 alors c'est la fin de la boucle).
-    while (fin3 == 0) {
 
-        // Traduction de la valeur de la gravite (si 1 : vers le bas, sinon si 2 : vers la droite)
-        if (all_param12.gravite == 1) {
-            strcpy(sens_gravite, "vers le bas.");
-        } else if (all_param12.gravite == 2) {
-            strcpy(sens_gravite, "vers la droite.");
-        }
+// Menu de changement du nombre de caracteres
 
-        // CY CRUSH
-        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        if(c == 1){
-            printf("Choix invalide, veuillez recommencer.\n");
-        }
-
-        printf("\n"
-               "   ______         ______                __  \n"
-               "  / ____/_  __   / ____/______  _______/ /_ \n"
-               " / /   / / / /  / /   / ___/ / / / ___/ __ \\\n"
-               "/ /___/ /_/ /  / /___/ /  / /_/ (__  ) / / /\n"
-               "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
-               "     /____/                                 \n\n");
-        printf("Menu de changement de la gravite. \n");
-
-        // Rappel du sens de la gravite
-        printf("Actuellement, le sens de la gravite est %s \n\n", sens_gravite);
-        // Indication des differents choix disponible
-        printf("[1] - Diriger vers le bas \n"
-               "[2] - Diriger vers la droite \n"
-               "[3] - Retourner vers les parametres \n\n");
-
-        // Enregistrement du choix dans une variable c3 en caractère.
-        printf("---> ");
-        int c3 = getchar();
-
-        // suppression des caracteres dans stdin
-        if (c3 != '\n' && c3 != EOF) {
-            int j;
-            while ((j = getchar()) != '\n' && j != EOF);
-        }
-
-        // Etude du choix de l'utilisateur
-        switch (c3) {
-
-            // Vers le bas
-            case '1':
-                all_param12.gravite = 1;
-                fin3 = 1;
-                break;
-
-                // Vers la droite
-            case '2':
-                all_param12.gravite = 2;
-                fin3 = 1;
-                break;
-
-                // Retour vers les parametres
-            case '3':
-                fin3 = 1;
-                break;
-
-                // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3)
-            default:
-                c = 1 ;
-                break;
-        }
-        return all_param12;
-    }*/
 param_struct changement_caractere(param_struct all_param13) {
 
     // Déclaration de la variable fin3, pour mettre fin à la boucle : 0 = ça tourne, 1 = stop.
@@ -446,10 +411,10 @@ param_struct changement_caractere(param_struct all_param13) {
                "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
                "     /____/                                 \n\n");
 
-        // Rappel du sens de la gravite
+        // Rappel du sens du nombre de symboles
         printf("Actuellement, il y a %d de symboles differents \n", all_param13.symbole);
 
-        // Indication des differents choix disponible
+        // Indication des differents choix disponibles
         printf("[4] - Jouer avec 4 symboles differents \n"
                "[5] - Jouer avec 5 symboles differents \n"
                "[6] - Jouer avec 6 symboles differents \n"
@@ -491,15 +456,21 @@ param_struct changement_caractere(param_struct all_param13) {
                 fin3 = 0;
                 break;
 
-                // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3,4)
+                // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 4,5,6,0)
             default:
                 d = 1 ;
                 break;
         }
     }
-    ecrir_parametre(all_param13);
+    ecrir_parametre(all_param13); // ecriture des parametres dans parametres.txt
+    // return les nouveaux parametres (changés ou inchangés)
     return all_param13;
 }
+
+
+
+// Menu de parametres generaux
+
 param_struct parametres(param_struct all_param1) {
 
     param_struct all_param10 = all_param1;
@@ -622,6 +593,9 @@ param_struct parametres(param_struct all_param1) {
     }
     return all_param1;
 }
+
+
+// Menu de confirmation du chargement de la partie 1
 struc_charge_grille chargement_partie1(struc_charge_grille total01)
 {
 
@@ -679,6 +653,8 @@ struc_charge_grille chargement_partie1(struc_charge_grille total01)
         }
     }
 }
+
+// Menu de confirmation du chargement de la partie 2
 struc_charge_grille chargement_partie2(struc_charge_grille total02)
 {
 
@@ -746,6 +722,8 @@ struc_charge_grille chargement_partie2(struc_charge_grille total02)
         }
     }
 }
+
+// Menu de confirmation du chargement de la partie 3
 struc_charge_grille chargement_partie3(struc_charge_grille total03)
 {
 
@@ -813,6 +791,8 @@ struc_charge_grille chargement_partie3(struc_charge_grille total03)
         }
     }
 }
+
+// Foncttion qui vide le fichier de la partie selectionné
 void vider_partie(){
 
     // Déclaration de la variable fin2, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
@@ -926,6 +906,8 @@ void vider_partie(){
     }
 
 }
+
+// Menu de chargement d'une partie (ou de suppression d'un fichier)
 struc_charge_grille charger_grille(struc_charge_grille total0){
 
 
@@ -1048,6 +1030,8 @@ struc_charge_grille charger_grille(struc_charge_grille total0){
     }
     return total0 ;
 }
+
+// Menu principal qui lie toutes les fonctions
 int menu(struc_charge_grille total) {
 
 // Déclaration de la variable fin, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
@@ -1067,21 +1051,19 @@ int menu(struc_charge_grille total) {
         // CY CRUSH
         printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         if((total.all_param.longueur == 8 && total.all_param.largeur == 8) && total.all_param.symbole == 5){
-            printf("Parametres par defaut.");
+            printf("Parametres par defaut.\n");
         }
         if (i ==1){
-            printf("Choix invalide, veuillez recommencer.");
+            printf("Choix invalide, veuillez recommencer.\n");
         }
         if (total.content == 1){
             if (deja_charge == 0){
                 printf("Une partie a ete chargee.");
             }else{
-                printf("Impossible, vous avez deja charge une partie. ");
+                printf("Impossible, vous avez deja charge une partie. (Vous ne pouvez que jouer)");
             }
-        }
-        printf("content = %d \n", total.content);
-        printf("parametres : symboles %d , long : %d, larg %d, score : %d \n", total.all_param.symbole, total.all_param.longueur, total.all_param.largeur, total.score);
-        i = 0;
+            deja_charge = 0 ;
+        } i = 0;
         printf("\n\n"
                "   ______         ______                __  \n"
                "  / ____/_  __   / ____/______  _______/ /_ \n"
@@ -1147,7 +1129,7 @@ int menu(struc_charge_grille total) {
                     a.grille = final_score_grille.grille;
                     a.score = final_score_grille.points;
 
-                    menu_pause(a);
+                    total = fin_de_partie(a);
                 }else if (total.content == 1){
 
                     if (total.all_param.symbole == 4){
@@ -1160,11 +1142,7 @@ int menu(struc_charge_grille total) {
                             printf("\ni = %d ; j = %d \n", k, j);
                             printf("RESULTAT : %c : %d \n", total.grille[k][j].car, total.grille[k][j].num) ;
                         }
-                        j = 0 ; /*
-                    for (j = 0; j < total.all_param.longueur; ++j) {
-                        fscanf(fichier, "%c:%d\n", &total.grille[i][j].car, &total.grille[i][j].num);
-                        printf("%c : %d \n", total.grille[i][j].car, total.grille[i][j].num) ; */
-
+                        j = 0 ;
                     }
                     printf("\n\n\n");
                     affichage(total.all_param.largeur, total.all_param.longueur, total.grille);
@@ -1174,7 +1152,7 @@ int menu(struc_charge_grille total) {
 
                     a.grille = final_score_grille.grille;
                     a.score = final_score_grille.points;
-                    total = menu_pause(a);
+                    total = fin_de_partie(a);
                 }
                 break ;
 

@@ -1,4 +1,3 @@
-#include <windows.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -8,10 +7,24 @@
 
 // Fonction qui permet de changer la couleur des caractères de la consol
 
-void color(int t,int f)
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <unistd.h>
+#endif
+
+#include "../header/game.h"
+
+// Fonction qui permet de changer la couleur des caractères de la console
+
+void color(int t, int f)
 {
-    HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(H,f*16+t);
+#ifdef _WIN32
+    HANDLE H = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(H, f * 16 + t);
+#else
+    printf("\033[%d;%dm", f, t);
+#endif
 }
 
 
@@ -735,7 +748,7 @@ score_grille game(struct_grille_cc** grille,int n,int m,int score)
             } else {
                 if (trop > 2){
                     printf("Vous faites trop d'erreurs, merci de vous assurer des choses suivantes : \n\n");
-                    printf("- Les lettres doivent etre en majuscule \n");
+                    printf("- Les lettres doivent etre en majuscule (sauf pour 'quitter') \n");
                     printf("- Entrez une seule position a la fois (Exemple : 'A3' ou 'B5')\n");
                     printf("- Verifier si la position est comprise dans la grille \n\n");
                     trop = 0 ;
