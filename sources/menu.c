@@ -8,7 +8,6 @@
 
 
 // Renvoie 1 si les paramètre son identique pour : struc charge grille
-
 int meme_total(struc_charge_grille total1, struc_charge_grille total2){
     if (total1.all_param.largeur == total2.all_param.largeur){
         if (total1.all_param.longueur == total2.all_param.longueur){
@@ -29,10 +28,7 @@ int meme_total(struc_charge_grille total1, struc_charge_grille total2){
     }
 }
 
-
-
 // Renvoie 2 si les paramètres sont identique pour : struc param_struct
-
 int meme_param(param_struct all_param1, param_struct all_param2)
 {
     if (all_param1.largeur == all_param2.largeur){
@@ -50,10 +46,7 @@ int meme_param(param_struct all_param1, param_struct all_param2)
     }
 }
 
-
-
 // Vérifie si un fichier est vide ou non
-
 int verifier_fichier_vide(const char *nom_fichier) {
     FILE *fichier = fopen(nom_fichier, "r");
     if (fichier == NULL) {
@@ -74,10 +67,122 @@ int verifier_fichier_vide(const char *nom_fichier) {
     }
 }
 
+// Fonction qui vide le fichier de la partie selectionnée
+void vider_partie(){
 
+    // Déclaration de la variable fin2, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
+    int fin2 = 1 ;
+    int a = 0 ;
+    int fichier1_plein = 0 ;
+    int fichier2_plein = 0 ;
+    int fichier3_plein = 0 ;
+    const char *chemin_fichier1 = "../save/partie_1.txt" ;
+    const char *chemin_fichier2 = "../save/partie_2.txt" ;
+    const char *chemin_fichier3 = "../save/partie_3.txt" ;
+
+    // tant que fin2 = 1 : (si fin2 = 0 alors c'est la fin de la boucle).
+    while (fin2) {
+
+        int c2;
+
+        // CY CRUSH
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
+        if(a == 1){
+            printf("Choix invalide, veuillez recommencer.\n");
+        }
+
+        a = 0;
+
+        printf("\n"
+               "   ______         ______                __  \n"
+               "  / ____/_  __   / ____/______  _______/ /_ \n"
+               " / /   / / / /  / /   / ___/ / / / ___/ __ \\\n"
+               "/ /___/ /_/ /  / /___/ /  / /_/ (__  ) / / /\n"
+               "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
+               "     /____/                                 \n\n\n");
+
+        // Menu des parametres
+        printf("Quelle sauvegarde voulez-vous supprimer ? \n\n");
+
+        if (verifier_fichier_vide(chemin_fichier1) == 1){
+            printf("[1] - Supprimer la partie 1 \n");
+            fichier1_plein = 1 ;
+        }
+        if (verifier_fichier_vide(chemin_fichier2) == 1){
+            printf("[2] - Supprimer la partie 2 \n");
+            fichier2_plein = 1 ;
+        }
+        if (verifier_fichier_vide(chemin_fichier3) == 1){
+            printf("[3] - Supprimer la partie 3 \n");
+            fichier3_plein = 1 ;
+        }
+        printf("[4] - Quitter\n\n");
+
+        // Enregistrement du choix (dans c2) en caractère.
+        printf("---> ");
+        c2 = getchar();
+
+        /* suppression des caracteres dans stdin */
+        if (c2 != '\n' && c2 != EOF) {
+            int d;
+            while ((d = getchar()) != '\n' && d != EOF);
+        }
+
+        switch (c2) {
+
+            case '1':
+                if (fichier1_plein == 1){
+
+                    supp_save(1); // supp les valeurs
+                    printf ("\n\nFichier de la partie 1 supprime avec succes.");
+                    sleep(2);
+                    fin2 = 0;
+                    break;
+                }else if (fichier1_plein == 0){
+                    a = 1 ;
+                    break ;
+                }
+
+            case '2':
+                if (fichier2_plein == 1){
+                    supp_save(2); //supp les valeurs
+                    printf ("\n\nFichier de la partie 2 supprime avec succes.");
+                    sleep(2);
+                    fin2 = 0;
+                    break;
+                }else if (fichier2_plein == 0){
+                    a = 1 ;
+                    break ;
+                }
+
+            case '3':
+                if (fichier3_plein == 1){
+                    supp_save(3); // supp les valeurs
+                    printf ("\n\nFichier de la partie 3 supprime avec succes.");
+                    sleep(2);
+                    fin2 = 0;
+                    break;
+                }else if (fichier3_plein == 0){
+                    a = 1 ;
+                    break ;
+                }
+
+                // Fais quitter l'utilisateur si il fait 4
+            case '4':
+                fin2 = 0;
+                break;
+
+                // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3,4)
+            default:
+                a = 1 ;
+                break;
+        }
+    }
+
+}
 
 // Menu de sauvgarde d'une grille
-
 struc_charge_grille sauvegarder(struc_charge_grille partie) {
 
     // Déclaration de la variable fin2, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
@@ -191,10 +296,7 @@ struc_charge_grille sauvegarder(struc_charge_grille partie) {
     return partie;
 }
 
-
-
 // Menu de fin de partie
-
 struc_charge_grille fin_de_partie(struc_charge_grille partie)
 {
 
@@ -267,10 +369,7 @@ struc_charge_grille fin_de_partie(struc_charge_grille partie)
     return partie;
 }
 
-
-
 // Menu de changement de la taille de la grille
-
 param_struct changement_taillegrille(param_struct all_param11) {
 
     int fin3 = 1;
@@ -346,7 +445,7 @@ if (all_param11.symbole >= 5){
 
         }
         //récupère le dernier caractère pour éviter la regénération du menu.
-        char stop = getchar();
+         char stop = getchar();
 
         // sauvegarde les paramètres dans le dossier paramètres
         ecrir_parametre(all_param11);
@@ -381,12 +480,10 @@ if (all_param11.symbole >= 5){
                 break;
         }
     }
+    return all_param11 ;
 }
 
-
-
 // Menu de changement du nombre de caracteres
-
 param_struct changement_caractere(param_struct all_param13) {
 
     // Déclaration de la variable fin3, pour mettre fin à la boucle : 0 = ça tourne, 1 = stop.
@@ -467,10 +564,7 @@ param_struct changement_caractere(param_struct all_param13) {
     return all_param13;
 }
 
-
-
 // Menu de parametres generaux
-
 param_struct parametres(param_struct all_param1) {
 
     param_struct all_param10 = all_param1;
@@ -594,7 +688,6 @@ param_struct parametres(param_struct all_param1) {
     return all_param1;
 }
 
-
 // Menu de confirmation du chargement de la partie 1
 struc_charge_grille chargement_partie1(struc_charge_grille total01)
 {
@@ -652,6 +745,7 @@ struc_charge_grille chargement_partie1(struc_charge_grille total01)
                 break;
         }
     }
+    return o_k_ou_il_quitte ;
 }
 
 // Menu de confirmation du chargement de la partie 2
@@ -721,6 +815,7 @@ struc_charge_grille chargement_partie2(struc_charge_grille total02)
                 break;
         }
     }
+    return total02 ;
 }
 
 // Menu de confirmation du chargement de la partie 3
@@ -790,121 +885,7 @@ struc_charge_grille chargement_partie3(struc_charge_grille total03)
                 break;
         }
     }
-}
-
-// Foncttion qui vide le fichier de la partie selectionné
-void vider_partie(){
-
-    // Déclaration de la variable fin2, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
-    int fin2 = 1 ;
-    int a = 0 ;
-    int fichier1_plein = 0 ;
-    int fichier2_plein = 0 ;
-    int fichier3_plein = 0 ;
-    const char *chemin_fichier1 = "../save/partie_1.txt" ;
-    const char *chemin_fichier2 = "../save/partie_2.txt" ;
-    const char *chemin_fichier3 = "../save/partie_3.txt" ;
-
-    // tant que fin2 = 1 : (si fin2 = 0 alors c'est la fin de la boucle).
-    while (fin2) {
-
-        int c2;
-
-        // CY CRUSH
-        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-
-        if(a == 1){
-            printf("Choix invalide, veuillez recommencer.\n");
-        }
-
-        a = 0;
-
-        printf("\n"
-               "   ______         ______                __  \n"
-               "  / ____/_  __   / ____/______  _______/ /_ \n"
-               " / /   / / / /  / /   / ___/ / / / ___/ __ \\\n"
-               "/ /___/ /_/ /  / /___/ /  / /_/ (__  ) / / /\n"
-               "\\____/\\__, /   \\____/_/   \\__,_/____/_/ /_/ \n"
-               "     /____/                                 \n\n\n");
-
-        // Menu des parametres
-        printf("Quelle sauvegarde voulez-vous supprimer ? \n\n");
-
-        if (verifier_fichier_vide(chemin_fichier1) == 1){
-            printf("[1] - Supprimer la partie 1 \n");
-            fichier1_plein = 1 ;
-        }
-        if (verifier_fichier_vide(chemin_fichier2) == 1){
-            printf("[2] - Supprimer la partie 2 \n");
-            fichier2_plein = 1 ;
-        }
-        if (verifier_fichier_vide(chemin_fichier3) == 1){
-            printf("[3] - Supprimer la partie 3 \n");
-            fichier3_plein = 1 ;
-        }
-        printf("[4] - Quitter\n\n");
-
-        // Enregistrement du choix (dans c2) en caractère.
-        printf("---> ");
-        c2 = getchar();
-
-        /* suppression des caracteres dans stdin */
-        if (c2 != '\n' && c2 != EOF) {
-            int d;
-            while ((d = getchar()) != '\n' && d != EOF);
-        }
-
-        switch (c2) {
-
-            case '1':
-                if (fichier1_plein == 1){
-
-                    supp_save(1); // supp les valeurs
-                    printf ("\n\nFichier de la partie 1 supprime avec succes.");
-                    sleep(2);
-                    fin2 = 0;
-                    break;
-                }else if (fichier1_plein == 0){
-                    a = 1 ;
-                    break ;
-                }
-
-            case '2':
-                if (fichier2_plein == 1){
-                    supp_save(2); //supp les valeurs
-                    printf ("\n\nFichier de la partie 2 supprime avec succes.");
-                    sleep(2);
-                    fin2 = 0;
-                    break;
-                }else if (fichier2_plein == 0){
-                    a = 1 ;
-                    break ;
-                }
-
-            case '3':
-                if (fichier3_plein == 1){
-                    supp_save(3); // supp les valeurs
-                    printf ("\n\nFichier de la partie 3 supprime avec succes.");
-                    sleep(2);
-                    fin2 = 0;
-                    break;
-                }else if (fichier3_plein == 0){
-                    a = 1 ;
-                    break ;
-                }
-
-                // Fais quitter l'utilisateur si il fait 4
-            case '4':
-                fin2 = 0;
-                break;
-
-                // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3,4)
-            default:
-                a = 1 ;
-                break;
-        }
-    }
-
+    return total03;
 }
 
 // Menu de chargement d'une partie (ou de suppression d'un fichier)
@@ -1038,7 +1019,6 @@ int menu(struc_charge_grille total) {
     int fin = 1;
     int i = 0 ;
     struc_charge_grille a = lire_parametre() ;
-    struc_charge_grille tootal = total ;
     total.content = 0 ;
     int deja_charge = 0 ;
     int j =0 ;
@@ -1185,4 +1165,5 @@ int menu(struc_charge_grille total) {
                 break;
         }
     }
+    return 0 ;
 }
