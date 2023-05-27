@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "..\header\save.h"
 
+// Fonction qui permet d'enregistrer les paramètres choisis par l'utilisateur
+
 void ecrir_parametre(param_struct all_param)
 {
 
@@ -19,8 +21,10 @@ void ecrir_parametre(param_struct all_param)
     {
         printf("Une erreur s'est produite lors de l'ouverture d'un fichier. ");
     }
-
 }
+
+
+// Fonction qui permet de lire les paramètres enregistrer
 
 struc_charge_grille lire_parametre()
 {
@@ -42,6 +46,9 @@ struc_charge_grille lire_parametre()
     }
     return all_param;
 }
+
+
+// Fonction qui permet de sauvgarder une partie dans un des fichier
 
 void save_grille(struc_charge_grille party, int partie,int score)
 {
@@ -68,7 +75,7 @@ void save_grille(struc_charge_grille party, int partie,int score)
 
 
     if (fichier != NULL) {
-        printf("%d,%c,%d\n",((party.grille)[0][0]).num, ((party.grille)[0][0]).car, party.all_param.symbole);
+
         fprintf(fichier, "game : 1\n");
         fprintf(fichier, "score : %d\n", score);
         fprintf(fichier, "longueur_grille : %d\n", (party.all_param).longueur);
@@ -76,14 +83,11 @@ void save_grille(struc_charge_grille party, int partie,int score)
         fprintf(fichier, "symbole : %d\n", (party.all_param).symbole);
         fprintf(fichier, "gravite : %d\n", (party.all_param).gravite);
 
-
         for (int i = 0; i < (party.all_param).largeur; i++) {
             for (int j = 0; j < (party.all_param).longueur; j++) {
                 fprintf(fichier, "%c:%d\n", party.grille[i][j].car, party.grille[i][j].num);
-
             }
         }
-
         fclose(fichier);
     }
     else
@@ -91,6 +95,8 @@ void save_grille(struc_charge_grille party, int partie,int score)
         printf("Une erreur s'est produite lors de l'ouverture d'un fichier. ");
     }
 }
+
+// Fonction qui permet de charger une grille dans les parties enregistrés
 
 struc_charge_grille charge_grille(int partie, struc_charge_grille total)
 {
@@ -132,14 +138,9 @@ struc_charge_grille charge_grille(int partie, struc_charge_grille total)
                         printf("\ni = %d ; j = %d \n", i, j);
                         fscanf(fichier, "%c:%d\n", &total.grille[i][j].car, &total.grille[i][j].num);
                         printf("RESULTAT : %c : %d \n", total.grille[i][j].car, total.grille[i][j].num) ;
-                    } /*
-                    for (j = 0; j < total.all_param.longueur; ++j) {
-                        fscanf(fichier, "%c:%d\n", &total.grille[i][j].car, &total.grille[i][j].num);
-                        printf("%c : %d \n", total.grille[i][j].car, total.grille[i][j].num) ; */
-                    j = 0 ;
+                    }
                 }
 
-                printf("%c:%d | %c:%d \n",total.grille[0][0].car,total.grille[0][0].num,total.grille[0][1].car,total.grille[0][1].num);
                 fclose(fichier);
                 crg_grille.grille = total.grille;
                 crg_grille.all_param = total.all_param;
@@ -158,4 +159,30 @@ struc_charge_grille charge_grille(int partie, struc_charge_grille total)
     }
 
     return crg_grille;
+}
+
+// Fonction qui supp une partie
+
+void supp_save(int partie)
+{
+    FILE *fichier;
+
+    if (partie==1)
+    {
+        printf(" fichier 1\n");
+        fichier = fopen("..\\save\\partie_1.txt", "w+");
+    }
+    else if (partie==2)
+    {
+        printf(" fichier 2\n");
+        fichier = fopen("..\\save\\partie_2.txt", "w+");
+    }
+    else if(partie==3)
+    {
+        printf(" fichier 3\n");
+        fichier = fopen("..\\save\\partie_3.txt", "w+");
+    }
+
+    fclose(fichier);
+
 }

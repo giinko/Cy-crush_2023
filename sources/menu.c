@@ -6,6 +6,9 @@
 
 #include "..\header\menu.h"
 
+
+// Reenvoie 1 si les paramètre son identique pour : struc charge grille
+
 int meme_total(struc_charge_grille total1, struc_charge_grille total2){
     if (total1.all_param.largeur == total2.all_param.largeur){
         if (total1.all_param.longueur == total2.all_param.longueur){
@@ -25,7 +28,12 @@ int meme_total(struc_charge_grille total1, struc_charge_grille total2){
         return 0 ;
     }
 }
-int meme_param(param_struct all_param1, param_struct all_param2){
+
+
+// Renvoie 2 si les paramètres sont identique pour : struc param_struct
+
+int meme_param(param_struct all_param1, param_struct all_param2)
+{
     if (all_param1.largeur == all_param2.largeur){
         if (all_param1.longueur == all_param2.longueur){
             if (all_param1.symbole == all_param2.symbole){
@@ -40,6 +48,9 @@ int meme_param(param_struct all_param1, param_struct all_param2){
         return 0 ;
     }
 }
+
+// Vérifie si un fichier est vide ou non
+
 int verifier_fichier_vide(const char *nom_fichier) {
     FILE *fichier = fopen(nom_fichier, "r");
     if (fichier == NULL) {
@@ -59,6 +70,9 @@ int verifier_fichier_vide(const char *nom_fichier) {
         return 1 ; // n'est pas vide
     }
 }
+
+// Menu de sauvgarde d'une grille
+
 struc_charge_grille sauvegarder(struc_charge_grille partie) {
 
     // Déclaration de la variable fin2, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
@@ -122,7 +136,7 @@ struc_charge_grille sauvegarder(struc_charge_grille partie) {
         printf("---> ");
         c2 = getchar();
 
-        /* suppression des caracteres dans stdin */
+        // suppression des caracteres dans stdin
         if (c2 != '\n' && c2 != EOF) {
             int d;
             while ((d = getchar()) != '\n' && d != EOF);
@@ -154,13 +168,13 @@ struc_charge_grille sauvegarder(struc_charge_grille partie) {
                 fin2 = 0;
                 break;
 
-                // Fais quitter l'utilisateur si il fait 4
+            // Fais quitter l'utilisateur si il fait 4
             case '4':
                 fin2 = 0;
                 liber_malloc(partie.grille, partie.all_param.largeur,partie.all_param.longueur);
                 break;
 
-                // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3,4)
+            // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3,4)
             default:
                 a = 1 ;
                 break;
@@ -169,7 +183,12 @@ struc_charge_grille sauvegarder(struc_charge_grille partie) {
     partie.content = 0 ;
     return partie;
 }
-struc_charge_grille menu_pause(struc_charge_grille partie) {
+
+
+// Propose a l'utilisateur de sauvegarder une grille
+
+struc_charge_grille menu_pause(struc_charge_grille partie)
+{
 
     // Déclaration de la variable fin2, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
     int fin2 = 1;
@@ -236,6 +255,8 @@ struc_charge_grille menu_pause(struc_charge_grille partie) {
     partie.content = 0 ;
     return partie;
 }
+
+
 param_struct changement_taillegrille(param_struct all_param11) {
     int fin3 = 1;
     int b = 0 ;
@@ -792,7 +813,7 @@ struc_charge_grille chargement_partie3(struc_charge_grille total03)
         }
     }
 }
-struc_charge_grille vider_partie(struc_charge_grille partie){
+void vider_partie(){
 
     // Déclaration de la variable fin2, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
     int fin2 = 1 ;
@@ -830,18 +851,18 @@ struc_charge_grille vider_partie(struc_charge_grille partie){
         printf("Quelle sauvegarde voulez-vous supprimer ? \n\n");
 
         if (verifier_fichier_vide(chemin_fichier1) == 1){
-            printf("[1] - Supprimer la partie 1 ");
+            printf("[1] - Supprimer la partie 1 \n");
             fichier1_plein = 1 ;
         }
         if (verifier_fichier_vide(chemin_fichier2) == 1){
-            printf("[2] - Supprimer la partie 2 ");
+            printf("[2] - Supprimer la partie 2 \n");
             fichier2_plein = 1 ;
         }
         if (verifier_fichier_vide(chemin_fichier3) == 1){
-            printf("[3] - Supprimer la partie 3 ");
+            printf("[3] - Supprimer la partie 3 \n");
             fichier3_plein = 1 ;
         }
-        printf("[4] - Quitter sans sauvegarder  \n\n");
+        printf("[4] - Quitter\n\n");
 
         // Enregistrement du choix (dans c2) en caractère.
         printf("---> ");
@@ -856,37 +877,45 @@ struc_charge_grille vider_partie(struc_charge_grille partie){
         switch (c2) {
 
             case '1':
+                if (fichier1_plein == 1){
 
-                if (verifier_fichier_vide(chemin_fichier1) == 1){
-                    // supp les valeurs
+                    supp_save(1); // supp les valeurs
                     printf ("\n\nFichier de la partie 1 supprime avec succes.");
                     sleep(2);
-                }else if (verifier_fichier_vide(chemin_fichier1) == 0){
+                    fin2 = 0;
+                    break;
+                }else if (fichier1_plein == 0){
                     a = 1 ;
+                    break ;
                 }
 
             case '2':
-                if (verifier_fichier_vide(chemin_fichier2) == 1){
-                    // supp les valeurs
+                if (fichier2_plein == 1){
+                    supp_save(2); //supp les valeurs
                     printf ("\n\nFichier de la partie 2 supprime avec succes.");
                     sleep(2);
-                }else if (verifier_fichier_vide(chemin_fichier2) == 0){
+                    fin2 = 0;
+                    break;
+                }else if (fichier2_plein == 0){
                     a = 1 ;
+                    break ;
                 }
 
             case '3':
-                if (verifier_fichier_vide(chemin_fichier3) == 1){
-                    // supp les valeurs
+                if (fichier3_plein == 1){
+                    supp_save(3); // supp les valeurs
                     printf ("\n\nFichier de la partie 3 supprime avec succes.");
                     sleep(2);
-                }else if (verifier_fichier_vide(chemin_fichier3) == 0){
+                    fin2 = 0;
+                    break;
+                }else if (fichier3_plein == 0){
                     a = 1 ;
+                    break ;
                 }
 
                 // Fais quitter l'utilisateur si il fait 4
             case '4':
                 fin2 = 0;
-                liber_malloc(partie.grille, partie.all_param.largeur,partie.all_param.longueur);
                 break;
 
                 // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3,4)
@@ -895,8 +924,6 @@ struc_charge_grille vider_partie(struc_charge_grille partie){
                 break;
         }
     }
-    partie.content = 0 ;
-    return partie;
 
 }
 struc_charge_grille charger_grille(struc_charge_grille total0){
@@ -1003,6 +1030,7 @@ struc_charge_grille charger_grille(struc_charge_grille total0){
                 break;
 
             case '4':
+                vider_partie();
                 fin = 0;
                 break;
 
