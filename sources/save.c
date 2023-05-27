@@ -134,10 +134,11 @@ struc_charge_grille charge_grille(int partie,struct_grille_cc **grille)
                 }
 
                 printf("%c:%d | %c:%d \n",grille[0][0].car,grille[0][0].num,grille[0][1].car,grille[0][1].num);
-                fclose(fichier);
+
                 crg_grille.grille = grille;
                 crg_grille.all_param = all_param;
                 crg_grille.content = 1 ;
+                fclose(fichier);
             }
             else{
                 printf("La partie que vous essayez de charger est vide.\n");
