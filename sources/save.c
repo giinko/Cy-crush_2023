@@ -145,6 +145,7 @@ struc_charge_grille charge_grille(int partie, struc_charge_grille total)
                 crg_grille.grille = total.grille;
                 crg_grille.all_param = total.all_param;
                 crg_grille.content = 1 ;
+                fclose(fichier);
             }
             else{
                 printf("ERREUR : La partie que vous essayez de charger est vide.\n");
