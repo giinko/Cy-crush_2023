@@ -606,13 +606,11 @@ struc_charge_grille chargement_partie1(struc_charge_grille total01)
 
             // Charger la partie 1
             case '1':
-
-                total01 = lire_parametre();
-                struct_grille_cc** grille = creation_full_grille(total01.all_param);
-                struc_charge_grille crg_gr = charge_grille(1,grille);
-
+                total01 = lire_parametre(); /*
+                struct_grille_cc** grille = creation_full_grille(total01.all_param); */
+                total01 = charge_grille(1,total01);
                 printf("\n\nChargement de votre grille en cours");
-                crg_gr.content = 1 ;
+                total01.content = 1 ;
                 sleep(2) ;
                 /*
                 // On va return crg_gr !!!!!!!!!!!!! je vais dodo on verra demain pour p2 et p3 suffit de modifier le 1 au dessus.
@@ -622,7 +620,7 @@ struc_charge_grille chargement_partie1(struc_charge_grille total01)
                 bb.grille = ss.grille;
                 bb.score = ss.points;
                 menu_pause(bb); */
-                return crg_gr;
+                return total01;
 
                 // Faire quitter
             case '2':
@@ -685,7 +683,7 @@ struc_charge_grille chargement_partie2(struc_charge_grille total02)
 
                 total02 = lire_parametre();
                 struct_grille_cc** grille = creation_full_grille(total02.all_param);
-                struc_charge_grille crg_gr = charge_grille(2,grille);
+                struc_charge_grille crg_gr = charge_grille(2,total02);
                 crg_gr.content = 1 ;
                 return crg_gr;
 
@@ -750,7 +748,7 @@ struc_charge_grille chargement_partie3(struc_charge_grille total03)
 
                 total03 = lire_parametre();
                 struct_grille_cc** grille = creation_full_grille(total03.all_param);
-                struc_charge_grille crg_gr = charge_grille(3,grille);
+                struc_charge_grille crg_gr = charge_grille(3,total03);
                 //Faire charger la partie 3
                 crg_gr.content = 1 ;
                 return crg_gr;
@@ -773,7 +771,6 @@ struc_charge_grille charger_grille(struc_charge_grille total0){
 // Déclaration de la variable fin, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
     int fin = 1;
     total0.content = 0 ;
-    struc_charge_grille verif = total0 ;
     int i = 0 ;
     int fichier_vide ;
     const char *chemin_fichier1 = "../save/partie_1.txt";
