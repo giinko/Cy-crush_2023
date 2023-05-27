@@ -117,7 +117,10 @@ void vider_partie(){
             printf("[3] - Supprimer la partie 3 \n");
             fichier3_plein = 1 ;
         }
-        printf("[4] - Quitter\n\n");
+        if (fichier1_plein == 0 && fichier2_plein == 0 && fichier3_plein == 0){
+            printf("Toutes les sauvegardes sont vides.\n");
+        }
+        printf("[0] - Quitter\n\n");
 
         // Enregistrement du choix (dans c2) en caractère.
         printf("---> ");
@@ -169,7 +172,7 @@ void vider_partie(){
                 }
 
                 // Fais quitter l'utilisateur si il fait 4
-            case '4':
+            case '0':
                 fin2 = 0;
                 break;
 
@@ -509,13 +512,20 @@ param_struct changement_caractere(param_struct all_param13) {
                "     /____/                                 \n\n");
 
         // Rappel du sens du nombre de symboles
-        printf("Actuellement, il y a %d de symboles differents \n", all_param13.symbole);
+        printf("Actuellement, vous jouez avec %d symboles differents. \n\n", all_param13.symbole);
 
         // Indication des differents choix disponibles
-        printf("[4] - Jouer avec 4 symboles differents \n"
-               "[5] - Jouer avec 5 symboles differents \n"
-               "[6] - Jouer avec 6 symboles differents \n"
-               "[0] - Retourner vers les parametres \n\n");
+        if (all_param13.symbole != 4){
+            printf("[4] - Jouer avec 4 symboles differents \n");
+        }
+        if (all_param13.symbole != 5){
+            printf("[5] - Jouer avec 5 symboles differents \n");
+        }
+        if (all_param13.symbole != 6){
+            printf("[6] - Jouer avec 6 symboles differents \n");
+        }
+
+        printf("[0] - Retourner vers les parametres \n\n");
 
         // Enregistrement du choix dans une variable c3 en caractère.
         printf("---> ");
@@ -1030,9 +1040,6 @@ int menu(struc_charge_grille total) {
 
         // CY CRUSH
         printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        if((total.all_param.longueur == 8 && total.all_param.largeur == 8) && total.all_param.symbole == 5){
-            printf("Parametres par defaut.\n");
-        }
         if (i ==1){
             printf("Choix invalide, veuillez recommencer.\n");
         }
@@ -1057,7 +1064,12 @@ int menu(struc_charge_grille total) {
         if (total.content == 1){
             printf("[2] - X Parametres X\n");
         }else {
-            printf("[2] - Parametres\n");
+            printf("[2] - Parametres ");
+            if((total.all_param.longueur == 8 && total.all_param.largeur == 8) && total.all_param.symbole == 5){
+                printf("(parametres par defaut)\n");
+            }else {
+                printf("\n");
+            }
         }
         if (total.content == 1){
             printf("[3] - X Voir les sauvegardes X\n");

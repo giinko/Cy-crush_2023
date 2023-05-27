@@ -1,20 +1,25 @@
-#include <windows.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <string.h>
-#include <ctype.h>
-#include <stdbool.h>
 
-#include "..\header\game.h"
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <unistd.h>
+#endif
 
-// count_score += 3+(count_car-3)*1.5;
-/* Fonction qui permet de changer la couleur des caractères de la consol */
+#include "../header/game.h"
 
-void color(int t,int f)
+// Fonction qui permet de changer la couleur des caractères de la console
+
+void color(int t, int f)
 {
-    HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(H,f*16+t);
+#ifdef _WIN32
+    HANDLE H = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(H, f * 16 + t);
+#else
+    printf("\033[%d;%dm", f, t);
+#endif
 }
 
 
