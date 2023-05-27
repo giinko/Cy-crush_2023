@@ -127,23 +127,23 @@ struc_charge_grille charge_grille(int partie, struc_charge_grille total)
                 fscanf(fichier, "gravite : %d\n", &total.all_param.gravite);
                 int j = 0 ;
 
-                for (int i = 0; i < total.all_param.largeur; ++i) {
-                    while (j < total.all_param.longueur){
-                        j += 1 ;
+                for (int i = 0; i < (total.all_param.largeur); ++i) {
+                    for(j = 0 ; j < total.all_param.longueur ; ++j){
                         printf("\ni = %d ; j = %d \n", i, j);
                         fscanf(fichier, "%c:%d\n", &total.grille[i][j].car, &total.grille[i][j].num);
-                        printf("RESULTAT : %c : %d \n", total.grille[i][j].car, j) ;
+                        printf("RESULTAT : %c : %d \n", total.grille[i][j].car, total.grille[i][j].num) ;
                     } /*
                     for (j = 0; j < total.all_param.longueur; ++j) {
                         fscanf(fichier, "%c:%d\n", &total.grille[i][j].car, &total.grille[i][j].num);
                         printf("%c : %d \n", total.grille[i][j].car, total.grille[i][j].num) ; */
-
+                    j = 0 ;
                 }
 
                 printf("%c:%d | %c:%d \n",total.grille[0][0].car,total.grille[0][0].num,total.grille[0][1].car,total.grille[0][1].num);
                 fclose(fichier);
                 crg_grille.grille = total.grille;
                 crg_grille.all_param = total.all_param;
+                crg_grille.score = total.score;
                 crg_grille.content = 1 ;
                 fclose(fichier);
             }
