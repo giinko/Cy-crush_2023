@@ -30,4 +30,4 @@ typedef struct{
 void ecrir_parametre(param_struct all_param);
 struc_charge_grille lire_parametre();
 void save_grille(struc_charge_grille grille, int partie,int score);
-struc_charge_grille charge_grille(int partie,struct_grille_cc **grille);
+struc_charge_grille charge_grille(int partie,struc_charge_grille total);

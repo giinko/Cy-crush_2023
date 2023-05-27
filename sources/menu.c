@@ -108,6 +108,7 @@ struc_charge_grille sauvegarder(struc_charge_grille partie) {
 
             case '1':
                 save_grille(partie, 1, partie.score);
+                liber_malloc(partie.grille, partie.all_param.largeur,partie.all_param.longueur);
                 printf("\nSauvegarde en cours, veuillez patienter...");
                 sleep(2);
                 fin2 = 0;
@@ -115,6 +116,7 @@ struc_charge_grille sauvegarder(struc_charge_grille partie) {
 
             case '2':
                 save_grille(partie, 2, partie.score);
+                liber_malloc(partie.grille, partie.all_param.largeur,partie.all_param.longueur);
                 printf("\nSauvegarde en cours, veuillez patienter...");
                 sleep(2);
                 fin2 = 0;
@@ -122,6 +124,7 @@ struc_charge_grille sauvegarder(struc_charge_grille partie) {
 
             case '3':
                 save_grille(partie, 3, partie.score);
+                liber_malloc(partie.grille, partie.all_param.largeur,partie.all_param.longueur);
                 printf("\nSauvegarde en cours, veuillez patienter...");
                 sleep(2);
                 fin2 = 0;
@@ -130,6 +133,7 @@ struc_charge_grille sauvegarder(struc_charge_grille partie) {
                 // Fais quitter l'utilisateur si il fait 4
             case '4':
                 fin2 = 0;
+                liber_malloc(partie.grille, partie.all_param.largeur,partie.all_param.longueur);
                 break;
 
                 // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2,3,4)
@@ -195,6 +199,7 @@ struc_charge_grille menu_pause(struc_charge_grille partie) {
                 // Retour vers le menu principal
             case '2':
                 fin2 = 0 ;
+                liber_malloc(partie.grille, partie.all_param.largeur,partie.all_param.longueur);
                 break;
 
                 // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2)
@@ -606,23 +611,21 @@ struc_charge_grille chargement_partie1(struc_charge_grille total01)
 
             // Charger la partie 1
             case '1':
-
                 total01 = lire_parametre();
                 struct_grille_cc** grille = creation_full_grille(total01.all_param);
-                struc_charge_grille crg_gr = charge_grille(1,grille);
-
+                total01.grille = grille;
+                struc_charge_grille total02 = charge_grille(1,total01);
                 printf("\n\nChargement de votre grille en cours");
-                crg_gr.content = 1 ;
+                total02.content = 1 ;
                 sleep(2) ;
-                /*
-                // On va return crg_gr !!!!!!!!!!!!! je vais dodo on verra demain pour p2 et p3 suffit de modifier le 1 au dessus.
-                score_grille ss;
-                ss = game(crg_gr.grille,crg_gr.all_param.largeur,crg_gr.all_param.longueur,crg_gr.score);
-                struc_charge_grille bb = lire_parametre();
+
+                score_grille ss = game(total02.grille,total02.all_param.largeur,total02.all_param.longueur,total02.score);
+                struc_charge_grille bb;
+                bb.all_param = total02.all_param;
                 bb.grille = ss.grille;
                 bb.score = ss.points;
-                menu_pause(bb); */
-                return crg_gr;
+                menu_pause(bb);
+                return bb;
 
                 // Faire quitter
             case '2':
@@ -685,7 +688,7 @@ struc_charge_grille chargement_partie2(struc_charge_grille total02)
 
                 total02 = lire_parametre();
                 struct_grille_cc** grille = creation_full_grille(total02.all_param);
-                struc_charge_grille crg_gr = charge_grille(2,grille);
+                struc_charge_grille crg_gr = charge_grille(2,total02);
                 crg_gr.content = 1 ;
                 return crg_gr;
 
@@ -750,7 +753,7 @@ struc_charge_grille chargement_partie3(struc_charge_grille total03)
 
                 total03 = lire_parametre();
                 struct_grille_cc** grille = creation_full_grille(total03.all_param);
-                struc_charge_grille crg_gr = charge_grille(3,grille);
+                struc_charge_grille crg_gr = charge_grille(3,total03);
                 //Faire charger la partie 3
                 crg_gr.content = 1 ;
                 return crg_gr;
@@ -773,7 +776,6 @@ struc_charge_grille charger_grille(struc_charge_grille total0){
 // Déclaration de la variable fin, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
     int fin = 1;
     total0.content = 0 ;
-    struc_charge_grille verif = total0 ;
     int i = 0 ;
     int fichier_vide ;
     const char *chemin_fichier1 = "../save/partie_1.txt";

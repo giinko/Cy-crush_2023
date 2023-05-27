@@ -610,8 +610,13 @@ struct_grille_cc** deplacement_grille(struct_grille_cc** grille,position pos1,po
     return grille;
 }
 
-
-
+void liber_malloc(struct_grille_cc** grille,int n,int m)
+{
+    for (int i = 0; i < 10; i++) {
+        free(grille[i]);
+    }
+    free(grille);
+}
 
 // Fonction qui gere la reaction en chaine
 

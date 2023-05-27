@@ -12,6 +12,7 @@ struct_grille_cc** supp_case1(position* all_position, struct_grille_cc** grille,
 score_grille glob_supp_score(struct_grille_cc** grille, int n, int m,int star);
 struct_grille_cc** grille_gravite(struct_grille_cc** grille, int n, int m);
 struct_grille_cc** remplir_grille(struct_grille_cc** grille, param_struct all_param_);
+void liber_malloc(struct_grille_cc** grille,int n,int m);
 struct_grille_cc** start_grille(struct_grille_cc** grille, param_struct all_param);
 struct_grille_cc** deplacement_grille(struct_grille_cc** grille,position pos1,position pos2);
 score_grille grille_reac_chaine(struct_grille_cc** grille,int n,int m);
