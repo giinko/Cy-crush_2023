@@ -6,7 +6,59 @@
 
 #include "..\header\menu.h"
 
+int meme_total(struc_charge_grille total1, struc_charge_grille total2){
+    if (total1.all_param.largeur == total2.all_param.largeur){
+        if (total1.all_param.longueur == total2.all_param.longueur){
+            if (total1.all_param.symbole == total2.all_param.symbole){
+                if (total1.score == total2.score){
+                    return 1 ;
+                }else{
+                    return 0 ;
+                }
+            }else{
+                return 0 ;
+            }
+        }else{
+            return 0 ;
+        }
+    }else{
+        return 0 ;
+    }
+}
+int meme_param(param_struct all_param1, param_struct all_param2){
+    if (all_param1.largeur == all_param2.largeur){
+        if (all_param1.longueur == all_param2.longueur){
+            if (all_param1.symbole == all_param2.symbole){
+                    return 1 ;
+            }else{
+                return 0 ;
+            }
+        }else{
+            return 0 ;
+        }
+    }else{
+        return 0 ;
+    }
+}
+int verifier_fichier_vide(const char *nom_fichier) {
+    FILE *fichier = fopen(nom_fichier, "r");
+    if (fichier == NULL) {
+        printf("Le fichier %s n'a pas été trouvé.\n", nom_fichier);
+        return -1;
+    }
 
+    // Se déplace à la fin du fichier
+    fseek(fichier, 0, SEEK_END);
+
+    // Récupère la position actuelle dans le fichier
+    long taille = ftell(fichier);
+
+    if (taille == 0) {
+        return 0 ; // fichier vide
+    } else {
+        return 1 ; // n'est pas vide
+    }
+}
 struc_charge_grille sauvegarder(struc_charge_grille partie) {
 
     // Déclaration de la variable fin2, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
@@ -57,21 +109,21 @@ struc_charge_grille sauvegarder(struc_charge_grille partie) {
             case '1':
                 save_grille(partie, 1, partie.score);
                 printf("\nSauvegarde en cours, veuillez patienter...");
-                sleep(3);
+                sleep(2);
                 fin2 = 0;
                 break;
 
             case '2':
                 save_grille(partie, 2, partie.score);
                 printf("\nSauvegarde en cours, veuillez patienter...");
-                sleep(3);
+                sleep(2);
                 fin2 = 0;
                 break;
 
             case '3':
                 save_grille(partie, 3, partie.score);
                 printf("\nSauvegarde en cours, veuillez patienter...");
-                sleep(3);
+                sleep(2);
                 fin2 = 0;
                 break;
 
@@ -117,10 +169,10 @@ struc_charge_grille menu_pause(struc_charge_grille partie) {
                "     /____/                                 \n\n\n");
 
         // Menu des parametres
-        printf("Souhaitez-vous sauvegarder votre partie ?        | Score : %d\n", partie.score);
-        printf("                                                 | \n");
-        printf("[1] - Oui, je veux sauvegarder ma partie         | \n");
-        printf("[2] - Non, retourner vers le menu principal      | \n\n");
+        printf("Souhaitez-vous sauvegarder votre partie ? \n");
+        printf("Score : %d\n\n", partie.score);
+        printf("[1] - Oui, je veux sauvegarder ma partie \n");
+        printf("[2] - Non, retourner vers le menu principal \n\n");
 
         // Enregistrement du choix (dans c2) en caractère.
         printf("---> ");
@@ -239,7 +291,7 @@ param_struct changement_taillegrille(param_struct all_param11) {
                 break;
         }
     }
-}
+}/*
 param_struct changement_gravite(param_struct all_param12)
 {
 
@@ -317,8 +369,7 @@ param_struct changement_gravite(param_struct all_param12)
                 break;
         }
         return all_param12;
-    }
-}
+    }*/
 param_struct changement_caractere(param_struct all_param13) {
 
     // Déclaration de la variable fin3, pour mettre fin à la boucle : 0 = ça tourne, 1 = stop.
@@ -407,6 +458,7 @@ param_struct parametres(param_struct all_param1) {
     int fin2 = 1;
     int a = 0;
     int changement = 0 ;
+    int reinit = 0 ;
 
     // tant que fin2 = 0 : (si fin2 = 1 alors c'est la fin de la boucle).
     while (fin2) {
@@ -445,6 +497,10 @@ param_struct parametres(param_struct all_param1) {
                 }
             }
         }
+        if (reinit == 1){
+            printf("Vos parametres ont ete reinitialises.");
+        }
+        reinit = 0 ;
         changement = 0 ;
         if(a == 1){
             printf("Choix invalide, veuillez recommencer.\n");
@@ -465,8 +521,8 @@ param_struct parametres(param_struct all_param1) {
         printf("Parametres :                               | Parametres actuels :\n");
         printf("                                           | \n");
         printf("[1] - Changer la taille de la grille       | taille de la grille : %d / %d\n", all_param10.longueur, all_param10.largeur);
-        printf("[2] - Changer le sens de gravite           | sens de gravite : %s\n", sensgravite);
-        printf("[3] - Changer le nombre de symboles        | nombre de symboles : %d\n", all_param10.symbole);
+        printf("[2] - Changer le nombre de symboles        | \n");
+        printf("[3] - Reinitialiser les parametres         | nombre de symboles : %d\n", all_param10.symbole);
         printf("[4] - Quitter les parametres               |\n\n");
 
         // Enregistrement du choix (dans c2) en caractère.
@@ -487,16 +543,18 @@ param_struct parametres(param_struct all_param1) {
                 changement = 1 ;
                 break;
 
-            // Entre dans le menu changement de sens de gravité.
+            // Reinitialisation des parametres.
             case '2':
-                all_param10 = changement_gravite(all_param1);
+                all_param10 = changement_caractere(all_param1);
                 changement = 1 ;
                 break;
 
             // Entre dans le menu changement du nombre des caracteres (4 par defaut)
             case '3':
-                all_param10 = changement_caractere(all_param1);
-                changement = 1 ;
+                all_param10.longueur = 8 ;
+                all_param10.largeur = 8 ;
+                all_param10.symbole = 5 ;
+                reinit = 1 ;
                 break;
 
             // Fais quitter l'utilisateur si il fait 4
@@ -516,6 +574,7 @@ struc_charge_grille chargement_partie1(struc_charge_grille total01)
 {
 
     // Déclaration de la variable fin, pour mettre fin à la boucle : 0 = ça tourne, 1 = stop.
+    struc_charge_grille o_k_ou_il_quitte = total01 ;
     int fin = 1;
     int c = 0;
 
@@ -554,19 +613,19 @@ struc_charge_grille chargement_partie1(struc_charge_grille total01)
 
                 printf("\n\n Chargement de votre grille en cours");
                 sleep(2);
-                // On va return crg_gr !!!!!!!!!!!!! je vais dodo on verra demain pour p2 et p3 suffit de modifier le 1 au dessu.
+                /*
+                // On va return crg_gr !!!!!!!!!!!!! je vais dodo on verra demain pour p2 et p3 suffit de modifier le 1 au dessus.
                 score_grille ss;
                 ss = game(crg_gr.grille,crg_gr.all_param.largeur,crg_gr.all_param.longueur,crg_gr.score);
                 struc_charge_grille bb = lire_parametre();
                 bb.grille = ss.grille;
                 bb.score = ss.points;
-                menu_pause(bb);
+                menu_pause(bb); */
                 return crg_gr;
 
                 // Faire quitter
             case '2':
-                fin = 0;
-                break;
+                return o_k_ou_il_quitte ;
 
                 // Si l'utilisateur entre un autre caractère que ceux proposés (autre que : 1,2)
             default:
@@ -710,9 +769,12 @@ struc_charge_grille charger_grille(struc_charge_grille total0){
 
 // Déclaration de la variable fin, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
     int fin = 1;
+    struc_charge_grille verif = total0 ;
     int i = 0 ;
-
-    struc_charge_grille total00 = total0 ;
+    int fichier_vide ;
+    const char *chemin_fichier1 = "../save/partie_1.txt";
+    const char *chemin_fichier2 = "../save/partie_2.txt";
+    const char *chemin_fichier3 = "../save/partie_3.txt";
 
 // tant que fin = 1 : (si fin = 0 alors c'est la fin de la boucle).
     while (fin) {
@@ -721,7 +783,10 @@ struc_charge_grille charger_grille(struc_charge_grille total0){
 
         // CY CRUSH
         printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-
+        if(fichier_vide == 1){
+            printf("\n\nImpossible, le fichier est vide.");
+        }
+        fichier_vide = 0;
         if(i == 1){
             printf("\n\nChoix invalide, veuillez recommencer.");
         }
@@ -737,10 +802,25 @@ struc_charge_grille charger_grille(struc_charge_grille total0){
         // Menu chargement grille
         printf("Menu de chargement d'une grille\n\n");
         printf("Quelle partie souhaitez-vous charger ?\n\n");
-        printf("[1] - Partie 1\n"
-               "[2] - Partie 2\n"
-               "[3] - Partie 3\n"
-               "[4] - Quitter\n\n");
+        printf("[1] - Partie 1 ");
+        if (verifier_fichier_vide(chemin_fichier1) == 0){
+            printf("(vide)\n");
+        }else if (verifier_fichier_vide(chemin_fichier1) == 1){
+            printf("(non-vide)\n");
+        }
+        printf("[2] - Partie 2 ");
+        if (verifier_fichier_vide(chemin_fichier2) == 0){
+            printf("(vide)\n");
+        }else if (verifier_fichier_vide(chemin_fichier2) == 1){
+            printf("(non-vide)\n");
+        }
+        printf("[3] - Partie 3 ");
+        if (verifier_fichier_vide(chemin_fichier3) == 0){
+            printf("(vide)\n");
+        }else if (verifier_fichier_vide(chemin_fichier3) == 1){
+            printf("(non-vide)\n");
+        }
+        printf("[4] - Quitter\n\n");
 
         // Enregistrement du choix (dans c2) en caractère.
         printf("---> ");
@@ -758,20 +838,36 @@ struc_charge_grille charger_grille(struc_charge_grille total0){
 
             // Charger la premiere partie
             case '1':
-                total0 = chargement_partie1(total0);
-                fin = 0 ;
-                break;
+                if (verifier_fichier_vide(chemin_fichier1) == 0){
+                    fichier_vide = 1 ;
+                    break ;
+                }else if (verifier_fichier_vide(chemin_fichier1) == 1) {
+                    total0 = chargement_partie1(total0);
+                    if (meme_total(total0, verif)) {
+                        break;
+                    } else {
+                        return total0;
+                    }
+                }
 
                 // Charger la deuxieme partie
             case '2':
-                total0 = chargement_partie2(total0);
-                fin = 0 ;
+                if (verifier_fichier_vide(chemin_fichier2) == 0){
+                    fichier_vide = 1 ;
+                }else if (verifier_fichier_vide(chemin_fichier2) == 1){
+                    total0 = chargement_partie2(total0);
+                    fin = 0 ;
+                }
                 break;
 
                 // Charger la troisième partie
             case '3':
-                total0 = chargement_partie3(total0);
-                fin = 0 ;
+                if (verifier_fichier_vide(chemin_fichier3) == 0){
+                    fichier_vide = 1 ;
+                }else if (verifier_fichier_vide(chemin_fichier3) == 1){
+                    total0 = chargement_partie3(total0);
+                    fin = 0 ;
+                }
                 break;
 
                 // Fais quitter l'utilisateur (fin de la boucle activé)
@@ -802,6 +898,9 @@ int menu(struc_charge_grille total) {
 
         // CY CRUSH
         printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        if((total.all_param.longueur == 8 && total.all_param.largeur == 8) && total.all_param.symbole == 5){
+            printf("Parametres par defaut.");
+        }
         if (i ==1){
             printf("Choix invalide, veuillez recommencer.");
         }
@@ -860,6 +959,7 @@ int menu(struc_charge_grille total) {
                 final_score_grille = game(grille3, a.all_param.largeur, a.all_param.longueur, 0);
 
                 a.grille = final_score_grille.grille;
+                a.score = final_score_grille.points;
 
                 menu_pause(a);
                 break ;

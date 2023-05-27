@@ -626,6 +626,8 @@ score_grille game(struct_grille_cc** grille,int n,int m,int score)
         struct_grille_cc position1;
         struct_grille_cc position2;
 
+        printf("\nScore actuel : %d \n", score);
+
         printf("\nIndiquez la position des symboles que vous voulez changer.\n");
         printf("Par exemple : 'A3' ou 'B4' (ou 'q'x pour quitter)\n\n");
 
@@ -639,7 +641,6 @@ score_grille game(struct_grille_cc** grille,int n,int m,int score)
 
             if (check_entry_good(position1.car, position1.num, n, m) == 2) {
 
-                printf("Stop\n"); // app la fonctin charger la grille !!
                 finish = 0;
                 pos1_valide = 0;
             } else if (check_entry_good(position1.car, position1.num, n, m) == 1) {
@@ -672,7 +673,6 @@ score_grille game(struct_grille_cc** grille,int n,int m,int score)
             while (getchar() != '\n');
 
             if (check_entry_good(position2.car, position2.num, n, m) == 2) {
-                printf("Le jeu s'arrette\n"); // app la fonctin charger la grille !!
                 finish = 0;
                 pos2_valide = 0;
             } else if (check_entry_good(position2.car, position2.num, n, m) == 1) {
@@ -719,7 +719,6 @@ score_grille game(struct_grille_cc** grille,int n,int m,int score)
             }
         }
     }
-    printf("fin de fonction\n");
     score_grille grille_fin_return;
     grille_fin_return.grille = grille;
     grille_fin_return.points = score;
