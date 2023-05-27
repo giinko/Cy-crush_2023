@@ -650,7 +650,8 @@ score_grille grille_reac_chaine(struct_grille_cc** grille,int n,int m)
 
 // Fonction qui verifie si les entre sont bonne
 
-int check_entry_good(char car,int num,int n,int m){
+int check_entry_good(char car,int num,int n,int m)
+{
     if (car == 'q'){
         return 2;
     }
@@ -665,6 +666,40 @@ int check_entry_good(char car,int num,int n,int m){
     }
 
 }
+
+
+// Fonction qui check le nombre de chaque symbole
+
+int count_symbole(struct_grille_cc** grille ,int n,int m)
+{
+    int count1 = 0; // X
+    int count2 = 0; // O
+    int count3 = 0; // @
+    int count4 = 0; // +
+    int count5 = 0; // Y
+    int count6 = 0; // C
+
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            if (grille[i][j].car == 'X'){count1++;}
+            else if (grille[i][j].car == '0'){count2++;}
+            else if (grille[i][j].car == '@'){count3++;}
+            else if (grille[i][j].car == '+'){count4++;}
+            else if (grille[i][j].car == 'Y'){count5++;}
+            else if (grille[i][j].car == 'C'){count6++;}
+        }
+    }
+
+    if((count1 <= 2)&&(count2 <= 2)&&(count3 <= 2)&&(count4 <= 2)&&(count5 <= 2)&&(count6 <= 2)){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+
+
 
 
 // Fonction qui fait tourner le jeu a partir d'une grille
@@ -765,7 +800,10 @@ score_grille game(struct_grille_cc** grille,int n,int m,int score)
             affichage(n, m, grille);
             printf("\n");
 
-            if (struct_grille_score.points == 0) {
+            if  ((struct_grille_score.points == 0) || (count_symbole(grille,n,m) == 1)) {
+                printf("Vous avez perdu vous aller etre redirigé vers le menu");
+                affichage(n,m,grille);
+                sleep(2);
                 finish = 0;
             }
             else {
