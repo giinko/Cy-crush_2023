@@ -2,14 +2,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <string.h>
-#include <ctype.h>
-#include <stdbool.h>
 
 #include "..\header\game.h"
 
-// count_score += 3+(count_car-3)*1.5;
-/* Fonction qui permet de changer la couleur des caractères de la consol */
+
+// Fonction qui permet de changer la couleur des caractères de la consol
 
 void color(int t,int f)
 {
@@ -78,7 +75,7 @@ void affichage(int n, int m, struct_grille_cc** grille)
 }
 
 
-// Fonction qui reenvoie la grille avec les position supp
+// Fonction qui reenvoie la grille avec les position supprimé
 
 struct_grille_cc** supp_case(position* all_position, struct_grille_cc** grille, int taille)
 {
@@ -95,6 +92,8 @@ struct_grille_cc** supp_case(position* all_position, struct_grille_cc** grille, 
 }
 
 
+// Fonction esthétique qui remplace '.' par '*' pour l'animation
+
 struct_grille_cc** supp_case1(position* all_position, struct_grille_cc** grille, int taille)
 {
 
@@ -109,7 +108,8 @@ struct_grille_cc** supp_case1(position* all_position, struct_grille_cc** grille,
     return grille;
 }
 
-// Renvoie uns structure avec la grille supprimer et le score
+
+// Supprime tous les symboles aligné
 
 score_grille glob_supp_score(struct_grille_cc** grille, int n, int m,int start)
 {
@@ -121,7 +121,8 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m,int start)
     score.points = 0;
 
 
-    // boucle qui check en ligne ! ===================
+    // ================ Boucle qui check en ligne ! ================
+
     int count_x = 1;
     int supp_x = 0;
 
@@ -170,7 +171,9 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m,int start)
         count_x = 1;
     }
 
-    // boucle qui check en colonne ! ===================
+
+    // ================ Boucle qui check en colonne ! ================
+
     int count_y = 1;
     int supp_y = 0;
 
@@ -186,6 +189,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m,int start)
             }
             else{
                 if (supp_y==1){
+
                     // permet d'ajouter les positions a supp dans le tableau
                     for(int z=1;z<=count_y;z++){
                         position pos;
@@ -196,13 +200,15 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m,int start)
                     }
                     count_score += 3+(supp_y-3)*1.5;
                 }
-
                 supp_y = 0;
                 count_y = 1;
             }
             car_y_1 = car_y_2;
         }
+
         if (supp_y==1){
+
+            // Permet d'ajouter les positions a supprimé dans le tableau
             for(int z=1;z<=count_y;z++){
                 position pos;
                 pos.x=i;
@@ -217,13 +223,12 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m,int start)
     }
 
 
-    // Boucle qui supp en diagonale =======================================
+    // ================ Boucle qui supp en diagonale ================
 
-
-    // Pour chaque ligne :
+    // Check chaque ligne
     for(int i=0;i<n;i++) {
 
-        // Colonne 1 ======================================================
+        // ================ Pour la colonne 1 ================
         if (i == 0) {
 
             for (int j = 0; j < m; ++j) {
