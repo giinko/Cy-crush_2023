@@ -143,6 +143,7 @@ struc_charge_grille charge_grille(int partie, struc_charge_grille total)
                 fclose(fichier);
                 crg_grille.grille = total.grille;
                 crg_grille.all_param = total.all_param;
+                crg_grille.score = total.score;
                 crg_grille.content = 1 ;
                 fclose(fichier);
             }
