@@ -619,14 +619,7 @@ struc_charge_grille chargement_partie1(struc_charge_grille total01)
                 struc_charge_grille total02 = charge_grille(1,total01);
                 printf("\n\nChargement de votre grille en cours");
                 total02.content = 1 ;
-                sleep(2) ; /*
-
-                score_grille ss = game(total02.grille,total02.all_param.largeur,total02.all_param.longueur,total02.score);
-                struc_charge_grille bb;
-                bb.all_param = total02.all_param;
-                bb.grille = ss.grille;
-                bb.score = ss.points;
-                menu_pause(bb); */
+                sleep(2) ;
                 return total02;
 
                 // Faire quitter
@@ -687,12 +680,14 @@ struc_charge_grille chargement_partie2(struc_charge_grille total02)
 
             // Charger la partie 2
             case '1':
-
                 total02 = lire_parametre();
                 struct_grille_cc** grille = creation_full_grille(total02.all_param);
-                struc_charge_grille crg_gr = charge_grille(2,total02);
-                crg_gr.content = 1 ;
-                return crg_gr;
+                total02.grille = grille;
+                struc_charge_grille total02 = charge_grille(1,total02);
+                printf("\n\nChargement de votre grille en cours");
+                total02.content = 1 ;
+                sleep(2) ;
+                return total02;
 
                 // Faire quitter
             case '2':
