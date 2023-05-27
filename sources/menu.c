@@ -142,6 +142,7 @@ struc_charge_grille sauvegarder(struc_charge_grille partie) {
                 break;
         }
     }
+    partie.content = 0 ;
     return partie;
 }
 struc_charge_grille menu_pause(struc_charge_grille partie) {
@@ -208,6 +209,7 @@ struc_charge_grille menu_pause(struc_charge_grille partie) {
                 break;
         }
     }
+    partie.content = 0 ;
     return partie;
 }
 param_struct changement_taillegrille(param_struct all_param11) {
@@ -1011,8 +1013,7 @@ int menu(struc_charge_grille total) {
 
                     a.grille = final_score_grille.grille;
                     a.score = final_score_grille.points;
-
-                    menu_pause(a);
+                    total = menu_pause(a);
                 }
                 break ;
 
