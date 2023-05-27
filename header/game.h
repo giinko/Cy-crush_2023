@@ -16,4 +16,5 @@ void liber_malloc(struct_grille_cc** grille,int n,int m);
 struct_grille_cc** start_grille(struct_grille_cc** grille, param_struct all_param);
 struct_grille_cc** deplacement_grille(struct_grille_cc** grille,position pos1,position pos2);
 score_grille grille_reac_chaine(struct_grille_cc** grille,int n,int m);
+int count_symbole(struct_grille_cc** grille ,int n,int m);
 score_grille game(struct_grille_cc** grille,int n,int m,int score);
