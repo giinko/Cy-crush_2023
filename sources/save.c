@@ -101,15 +101,15 @@ struc_charge_grille charge_grille(int partie,struct_grille_cc **grille)
 
     if (partie==1)
     {
-        fichier = fopen("..\\save\\partie_1.txt", "w+");
+        fichier = fopen("..\\save\\partie_1.txt", "r");
     }
     else if (partie==2)
     {
-        fichier = fopen("..\\save\\partie_2.txt", "w+");
+        fichier = fopen("..\\save\\partie_2.txt", "r");
     }
     else if(partie==3)
     {
-        fichier = fopen("..\\save\\partie_3.txt", "w+");
+        fichier = fopen("..\\save\\partie_3.txt", "r");
     }
     else{
         printf("frro y'a que 3 parties c'est tt 1, 2 ou 3\n");
@@ -133,6 +133,7 @@ struc_charge_grille charge_grille(int partie,struct_grille_cc **grille)
                     }
                 }
 
+                printf("%c:%d | %c:%d \n",grille[0][0].car,grille[0][0].num,grille[0][1].car,grille[0][1].num);
                 fclose(fichier);
                 crg_grille.grille = grille;
                 crg_grille.all_param = all_param;
