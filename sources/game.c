@@ -117,7 +117,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m,int start)
     score_grille score;
     position all_pos[n*m];
     int count_pos=0;
-    int count_score = 0;
+    float count_score = 0;
     score.points = 0;
 
 
@@ -282,7 +282,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m,int start)
         }
 
 
-        // ================ Pour la dernière colonne ================
+        // ================ Pour la dernière ligne ================
 
         else if(i==(n-1)){
             for (int j = 0; j < m; ++j) {
@@ -315,7 +315,6 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m,int start)
                         if(bool_diag){
                             for (int z = 0; z < count_car; ++z) {
                                 position pos1 = tab[z];
-                                //printf("X : %d, Y : %d\n",pos1.x,pos1.y);
                                 all_pos[count_pos] = pos1;
                                 count_pos ++;
                             }
@@ -337,6 +336,12 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m,int start)
                         count_pos ++;
                     }
                     count_score += 3+(count_car-3)*1.5;
+                }
+                if((grille[0][m-1].car)==(grille[1][m-2].car)&&(grille[2][m-3].car)==(grille[1][m-2].car)){
+                    position poss;
+                    poss.x = m-1;poss.y=0;all_pos[count_pos] = poss;count_pos++;
+                    poss.x = m-2;poss.y=1;all_pos[count_pos] = poss;count_pos++;
+                    poss.x = m-3;poss.y=2;all_pos[count_pos] = poss;count_pos++;
                 }
             }
         }
@@ -660,6 +665,34 @@ int check_entry_good(char car,int num,int n,int m){
 
 }
 
+int count_symbole(struct_grille_cc** grille ,int n,int m)
+{
+    int count1 = 0; // X
+    int count2 = 0; // O
+    int count3 = 0; // @
+    int count4 = 0; // +
+    int count5 = 0; // Y
+    int count6 = 0; // C
+
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            if (grille[i][j].car == 'X'){count1++;}
+            else if (grille[i][j].car == '0'){count2++;}
+            else if (grille[i][j].car == '@'){count3++;}
+            else if (grille[i][j].car == '+'){count4++;}
+            else if (grille[i][j].car == 'Y'){count5++;}
+            else if (grille[i][j].car == 'C'){count6++;}
+        }
+    }
+
+    if((count1 <= 2)&&(count2 <= 2)&&(count3 <= 2)&&(count4 <= 2)&&(count5 <= 2)&&(count6 <= 2)){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
 
 // Fonction qui fait tourner le jeu a partir d'une grille
 
@@ -758,7 +791,9 @@ score_grille game(struct_grille_cc** grille,int n,int m,int score)
             affichage(n, m, grille);
             printf("\n");
 
-            if (struct_grille_score.points == 0) {
+            if ((struct_grille_score.points == 0)&&(count_symbole(grille,n,m)==1)) {
+                printf("Le jeu est finis, vous allez etre rediriger au menu\n");
+                printf(" Allez lire les règle pour en savoir plus sur la fin de partie ;)\n");
                 finish = 0;
             }
             else {
