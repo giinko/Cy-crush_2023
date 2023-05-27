@@ -337,7 +337,7 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m,int start)
                     }
                     count_score += 3+(count_car-3)*1.5;
                 }
-                if((grille[0][m-1].car)==(grille[1][m-2].car)&&(grille[2][m-3].car)==(grille[1][m-2].car)){
+                if((grille[0][m-1].car)==(grille[1][m-2].car)&&(grille[2][m-3].car)==(grille[1][m-2].car)&&((grille[1][m-2].car)!='.')){
                     position poss;
                     poss.x = m-1;poss.y=0;all_pos[count_pos] = poss;count_pos++;
                     poss.x = m-2;poss.y=1;all_pos[count_pos] = poss;count_pos++;
@@ -793,7 +793,8 @@ score_grille game(struct_grille_cc** grille,int n,int m,int score)
 
             if ((struct_grille_score.points == 0)&&(count_symbole(grille,n,m)==1)) {
                 printf("Le jeu est finis, vous allez etre rediriger au menu\n");
-                printf(" Allez lire les règle pour en savoir plus sur la fin de partie ;)\n");
+                printf("Allez lire les règle pour en savoir plus sur la fin de partie ;)\n");
+                sleep(2);
                 finish = 0;
             }
             else {
