@@ -31,3 +31,4 @@ void ecrir_parametre(param_struct all_param);
 struc_charge_grille lire_parametre();
 void save_grille(struc_charge_grille grille, int partie,int score);
 struc_charge_grille charge_grille(int partie,struc_charge_grille total);
+void supp_save(int partie);

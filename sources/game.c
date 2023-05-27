@@ -678,7 +678,7 @@ score_grille game(struct_grille_cc** grille,int n,int m,int score)
         printf("\nScore actuel : %d \n", score);
 
         printf("\nIndiquez la position des symboles que vous voulez changer.\n");
-        printf("Par exemple : 'A3' ou 'B4' (ou 'q'x pour quitter)\n\n");
+        printf("Par exemple : 'A3' ou 'B4' (ou 'quitter' pour quitter)\n\n");
 
         int pos1_valide = 1;
         int trop = 0 ;
