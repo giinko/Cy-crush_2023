@@ -40,7 +40,7 @@ pour reprendre votre partie anciennement sauvegardée.
 
 ### **Le JEU :**
 
-Le jeu est un Candy Crush SAGA en C.
+Le jeu est un Candy Crush SAGA en C, à 2 petites différence près, la gravité est vers la droite et vous pouvez déplacer les symboles ou vous voulez.
 
 Une grille se forme, celle ci est construite selon la taille que vous avez décider (ou 8 par 8 si vous jouez avec les parametres par defaut).
 
