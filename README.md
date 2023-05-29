@@ -1,6 +1,8 @@
 # Cy-crush
 
 Bienvenue sur CY CRUSH, un jeu developpé par Maxime, Fares et Sany en MI3.
+Pour lancer le jeu il vous suffit de compiler le fichier "Makefile" dans le dossier sources, puis éxécuter le fichier Cy_crush.
+
 
 ### **Le Menu Principal :**
 
