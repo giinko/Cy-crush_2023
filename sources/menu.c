@@ -1128,14 +1128,6 @@ int menu(struc_charge_grille total) {
                         printf("Chargement de votre grille... Veuillez patienter\n\n");
                         sleep(2); // chutt c'est un secret, on fais genre il reflechis
                     }
-                    for (int k = 0; k < total.all_param.largeur; ++k) {
-                        while (j < total.all_param.longueur){
-                            j += 1 ;
-                            printf("\ni = %d ; j = %d \n", k, j);
-                            printf("RESULTAT : %c : %d \n", total.grille[k][j].car, total.grille[k][j].num) ;
-                        }
-                        j = 0 ;
-                    }
                     printf("\n\n\n");
                     affichage(total.all_param.largeur, total.all_param.longueur, total.grille);
                     printf("\n");
