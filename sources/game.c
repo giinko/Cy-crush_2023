@@ -796,7 +796,7 @@ score_grille game(struct_grille_cc** grille,int n,int m,int score)
             affichage(n, m, grille);
             printf("\n");
 
-            if ((struct_grille_score.points == 0)&&(count_symbole(grille,n,m)==1)) {
+            if ((struct_grille_score.points == 0)||(count_symbole(grille,n,m)==1)) {
                 printf("Le jeu est finis, vous allez etre rediriger au menu\n");
                 printf("Allez lire les règle pour en savoir plus sur la fin de partie ;)\n");
                 sleep(2);
