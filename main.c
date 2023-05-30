@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "..\header\menu.h"
+#include "menu.h"
 
 
 // lance les fonctions Pour lancer le jeu ( le menu )

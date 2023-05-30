@@ -4,7 +4,7 @@
 #include <time.h>
 #include <unistd.h>
 
-#include "..\header\menu.h"
+#include "menu.h"
 
 
 // Renvoie 1 si les paramètre son identique pour : struc charge grille
@@ -76,9 +76,9 @@ void vider_partie(){
     int fichier1_plein = 0 ;
     int fichier2_plein = 0 ;
     int fichier3_plein = 0 ;
-    const char *chemin_fichier1 = "../save/partie_1.txt" ;
-    const char *chemin_fichier2 = "../save/partie_2.txt" ;
-    const char *chemin_fichier3 = "../save/partie_3.txt" ;
+    const char *chemin_fichier1 = "partie_1.txt" ;
+    const char *chemin_fichier2 = "partie_2.txt" ;
+    const char *chemin_fichier3 = "partie_3.txt" ;
 
     // tant que fin2 = 1 : (si fin2 = 0 alors c'est la fin de la boucle).
     while (fin2) {
@@ -191,9 +191,9 @@ struc_charge_grille sauvegarder(struc_charge_grille partie) {
     // Déclaration de la variable fin2, pour mettre fin à la boucle : 1 = ça tourne, 0 = stop.
     int fin2 = 1 ;
     int a = 0 ;
-    const char *chemin_fichier1 = "../save/partie_1.txt" ;
-    const char *chemin_fichier2 = "../save/partie_2.txt" ;
-    const char *chemin_fichier3 = "../save/partie_3.txt" ;
+    const char *chemin_fichier1 = "partie_1.txt" ;
+    const char *chemin_fichier2 = "partie_2.txt" ;
+    const char *chemin_fichier3 = "partie_3.txt" ;
 
     // tant que fin2 = 1 : (si fin2 = 0 alors c'est la fin de la boucle).
     while (fin2) {
@@ -907,9 +907,9 @@ struc_charge_grille charger_grille(struc_charge_grille total0){
     total0.content = 0 ;
     int i = 0 ;
     int fichier_vide ;
-    const char *chemin_fichier1 = "../save/partie_1.txt";
-    const char *chemin_fichier2 = "../save/partie_2.txt";
-    const char *chemin_fichier3 = "../save/partie_3.txt";
+    const char *chemin_fichier1 = "partie_1.txt";
+    const char *chemin_fichier2 = "partie_2.txt";
+    const char *chemin_fichier3 = "partie_3.txt";
 
 // tant que fin = 1 : (si fin = 0 alors c'est la fin de la boucle).
     while (fin) {
@@ -1039,7 +1039,7 @@ int menu(struc_charge_grille total) {
         int c;
 
         // CY CRUSH
-        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         if (i ==1){
             printf("Choix invalide, veuillez recommencer.\n");
         }
@@ -1110,7 +1110,7 @@ int menu(struc_charge_grille total) {
 
                     // Initialisation de la grille
                     struct_grille_cc **grille3 = start_grille(grille, a.all_param);
-                    printf("\n\n\n");
+                    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     affichage(a.all_param.largeur, a.all_param.longueur, grille3);
                     printf("\n");
 
@@ -1128,7 +1128,7 @@ int menu(struc_charge_grille total) {
                         printf("Chargement de votre grille... Veuillez patienter\n\n");
                         sleep(2); // chutt c'est un secret, on fais genre il reflechis
                     }
-                    printf("\n\n\n");
+                    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     affichage(total.all_param.largeur, total.all_param.longueur, total.grille);
                     printf("\n");
                     score_grille final_score_grille;

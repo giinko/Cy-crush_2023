@@ -1,12 +1,12 @@
 #include <stdio.h>
-#include "..\header\save.h"
+#include "save.h"
 
 // Fonction qui permet d'enregistrer les paramètres choisis par l'utilisateur
 
 void ecrir_parametre(param_struct all_param)
 {
 
-    FILE *fichier = fopen("..\\save\\parametre.txt", "w+");
+    FILE *fichier = fopen("parametre.txt", "w+");
     if (fichier != NULL)
     {
 
@@ -29,7 +29,7 @@ void ecrir_parametre(param_struct all_param)
 struc_charge_grille lire_parametre()
 {
     struc_charge_grille all_param;
-    FILE *fichier = fopen("..\\save\\parametre.txt", "r");
+    FILE *fichier = fopen("parametre.txt", "r");
 
     if (fichier != NULL)
     {
@@ -57,17 +57,17 @@ void save_grille(struc_charge_grille party, int partie,int score)
     if (partie==1)
     {
         printf(" fichier 1\n");
-        fichier = fopen("..\\save\\partie_1.txt", "w+");
+        fichier = fopen("partie_1.txt", "w+");
     }
     else if (partie==2)
     {
         printf(" fichier 2\n");
-        fichier = fopen("..\\save\\partie_2.txt", "w+");
+        fichier = fopen("partie_2.txt", "w+");
     }
     else if(partie==3)
     {
         printf(" fichier 3\n");
-        fichier = fopen("..\\save\\partie_3.txt", "w+");
+        fichier = fopen("partie_3.txt", "w+");
     }
     else{
         printf("frro y'a que 3 parties c'est tt 1, 2 ou 3\n");
@@ -106,15 +106,15 @@ struc_charge_grille charge_grille(int partie, struc_charge_grille total)
 
     if (partie==1)
     {
-        fichier = fopen("..\\save\\partie_1.txt", "r");
+        fichier = fopen("partie_1.txt", "r");
     }
     else if (partie==2)
     {
-        fichier = fopen("..\\save\\partie_2.txt", "r");
+        fichier = fopen("partie_2.txt", "r");
     }
     else if(partie==3)
     {
-        fichier = fopen("..\\save\\partie_3.txt", "r");
+        fichier = fopen("partie_3.txt", "r");
     }
     else{
         printf("frro y'a que 3 parties c'est tt 1, 2 ou 3\n");
@@ -167,17 +167,17 @@ void supp_save(int partie)
     if (partie==1)
     {
         printf(" fichier 1\n");
-        fichier = fopen("..\\save\\partie_1.txt", "w+");
+        fichier = fopen("partie_1.txt", "w+");
     }
     else if (partie==2)
     {
         printf(" fichier 2\n");
-        fichier = fopen("..\\save\\partie_2.txt", "w+");
+        fichier = fopen("partie_2.txt", "w+");
     }
     else if(partie==3)
     {
         printf(" fichier 3\n");
-        fichier = fopen("..\\save\\partie_3.txt", "w+");
+        fichier = fopen("partie_3.txt", "w+");
     }
 
     fclose(fichier);

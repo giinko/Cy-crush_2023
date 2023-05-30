@@ -8,7 +8,7 @@
 #include <unistd.h>
 #endif
 
-#include "../header/game.h"
+#include "game.h"
 
 // Fonction qui permet de changer la couleur des caractères de la console
 

@@ -2,4 +2,3 @@
 cmake-build-debug
 *.o
 *.exe
-./sources/main.o
