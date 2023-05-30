@@ -464,7 +464,8 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m,int start)
     if((start==0)&&(count_pos!=0)) {
         affichage(n, m, grille);
         sleep(1);
-        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+               "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
 
 
@@ -475,17 +476,20 @@ score_grille glob_supp_score(struct_grille_cc** grille, int n, int m,int start)
 
         affichage(n, m, g_supp);
         sleep(1);
-        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+               "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
         g_supp = supp_case1(all_pos, grille, count_pos);
         affichage(n, m, g_supp);
         sleep(1);
-        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+               "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
         g_supp = supp_case(all_pos, grille, count_pos);
         affichage(n, m, g_supp);
         sleep(1);
-        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+               "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
 
 
@@ -786,13 +790,15 @@ score_grille game(struct_grille_cc** grille,int n,int m,int score)
             // On déplace le coup.
             struct_grille_cc **grille2 = deplacement_grille(grille, pos1, pos2);
             affichage(n, m, grille2);
-            printf("\n");
+            printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+                   "\n\n\n\n\n\n\n\n\n\n\n\n");
 
             score_grille struct_grille_score;
             struct_grille_score = grille_reac_chaine(grille2, n, m);
 
             grille = struct_grille_score.grille;
-            printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+                   "\n\n\n\n\n\n\n\n\n\n\n\n");
             affichage(n, m, grille);
             printf("\n");
 
